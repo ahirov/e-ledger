@@ -1,1 +1,45 @@
-<p>Initial {{ title }}</p>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p class="text-center fw-bold fs-2">Authentication form</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form>
+                <div class="my-2">
+                    <label for="elEmail" class="form-label"
+                        >Email address</label
+                    >
+                    <input type="text" id="elEmail" class="form-control" />
+                </div>
+                <div class="my-2">
+                    <label for="elPassword" class="form-label">Password</label>
+                    <input
+                        type="password"
+                        id="elPassword"
+                        class="form-control" />
+                </div>
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="openModal(testModal)">
+                    Sign in
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<ng-template #testModal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button
+                type="button"
+                class="btn-close"
+                (click)="modalRef?.hide()"></button>
+        </div>
+        <div class="modal-body"><p>Testing...</p></div>
+    </div>
+</ng-template>
