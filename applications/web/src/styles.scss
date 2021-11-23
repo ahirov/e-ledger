@@ -1,4 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+/* Customized SCSS variables */
+$primary: #228d57;
+$secondary: #5f758b;
+$light: #f1f2f3;
+$dark: #3e3e3c;
 
-/* Importing Bootstrap SCSS file. */
+@font-face {
+    font-family: MainFont;
+    src: url("assets/MainFont.ttf") format("truetype");
+}
+@font-face {
+    font-family: TitleFont;
+    src: url("assets/TitleFont.ttf") format("truetype");
+}
+$font-family-sans-serif: "MainFont";
+
+$enable-shadows: true;
+$input-border-color: $primary;
+$input-focus-box-shadow: none;
+
+$btn-box-shadow: none;
+$btn-focus-box-shadow: none;
+$btn-active-box-shadow: none;
+
+$form-check-input-focus-box-shadow: none;
+
+/* Importing Bootstrap SCSS file */
 @import "~bootstrap/scss/bootstrap";
+
+/* Customized SCSS styles */
+.btn,
+.form-control,
+.form-check-label,
+.input-group-text {
+    @include media-breakpoint-down(sm) {
+        font-size: rfs-value(14px);
+    }
+}

@@ -1,0 +1,51 @@
+<div class="el-auth-backdrop"></div>
+<div class="el-auth-box row">
+    <div
+        class="
+            col-sm-10
+            offset-sm-1
+            col-md-8
+            offset-md-2
+            col-lg-6
+            offset-lg-3
+            col-xl-4
+            offset-xl-4
+            p-4
+            bg-light
+            rounded">
+        <div class="text-center">
+            <p class="el-auth-title d-inline-block align-middle fs-1 m-0">E~Ledger</p>
+            <img class="d-inline-block" src="assets/TitleImage.svg" />
+        </div>
+        <form novalidate autocomplete="off">
+            <div class="input-group my-2">
+                <span class="input-group-text">Username:</span>
+                <input type="text" id="elAuthUsername" class="form-control" />
+            </div>
+            <div class="input-group my-2">
+                <span class="input-group-text">Password:</span>
+                <input type="password" id="elAuthPassword" class="form-control" />
+            </div>
+            <div *ngIf="isAuthSignUp" [@authSignUpState] class="input-group">
+                <span class="input-group-text">Password:</span>
+                <input
+                    type="password"
+                    id="elAuthPasswordConfirm"
+                    class="form-control"
+                    placeholder="confirm the password.." />
+            </div>
+            <div *ngIf="isAuthSignUp" [@authSignUpState] class="el-auth-space"></div>
+            <div class="form-check form-switch">
+                <input
+                    type="checkbox"
+                    id="elAuthSignUp"
+                    class="form-check-input"
+                    (change)="onAuthSignUpChange($event)" />
+                <label class="form-check-label" for="elAuthSignUp">Sign up</label>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary w-50 fw-bold">Continue</button>
+            </div>
+        </form>
+    </div>
+</div>
