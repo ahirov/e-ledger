@@ -42,6 +42,7 @@ export class AuthLoginService {
 
     public processLogout(): void {
         this._storage.clearData(StorageKey.User);
+        this._timer.clearTimer();
         this._router.navigate(["/auth"]);
     }
 }

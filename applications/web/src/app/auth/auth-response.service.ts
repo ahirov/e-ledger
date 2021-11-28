@@ -25,8 +25,8 @@ export class AuthResponseService {
             data.idToken,
             expirationDate,
         );
-        this._storage.saveData(StorageKey.User, user);
         this._timer.setTimer(expirationDate);
+        this._storage.saveData(StorageKey.User, user);
         return new fromActions.LoginEnd({
             user: user,
             redirect: true,
