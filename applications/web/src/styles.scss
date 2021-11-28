@@ -3,6 +3,7 @@ $primary: #228d57;
 $secondary: #5f758b;
 $light: #f1f2f3;
 $dark: #3e3e3c;
+$danger: #cc4836;
 
 @font-face {
     font-family: MainFont;
@@ -34,5 +35,12 @@ $form-check-input-focus-box-shadow: none;
 .input-group-text {
     @include media-breakpoint-down(sm) {
         font-size: rfs-value(14px);
+    }
+}
+
+.el-error {
+    font-size: rfs-value(12px);
+    @include media-breakpoint-down(sm) {
+        font-size: rfs-value(10px);
     }
 }
