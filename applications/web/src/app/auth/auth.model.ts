@@ -31,7 +31,7 @@ export class AuthUser {
         private _tokenExpirationDate: Date,
     ) {}
 
-    public get token(): string {
+    public get token(): string | null {
         if (
             !this._token ||
             !this._tokenExpirationDate ||

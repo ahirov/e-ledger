@@ -1,44 +1,21 @@
-/* Customized SCSS variables */
-$primary: #228d57;
-$secondary: #5f758b;
-$light: #f1f2f3;
-$dark: #3e3e3c;
-$danger: #cc4836;
-
-@font-face {
-    font-family: MainFont;
-    src: url("assets/MainFont.ttf") format("truetype");
-}
-@font-face {
-    font-family: TitleFont;
-    src: url("assets/TitleFont.ttf") format("truetype");
-}
-$font-family-sans-serif: "MainFont";
-
-$enable-shadows: true;
-$input-border-color: $primary;
-$input-focus-box-shadow: none;
-
-$btn-box-shadow: none;
-$btn-focus-box-shadow: none;
-$btn-active-box-shadow: none;
-
-$form-check-input-focus-box-shadow: none;
+/* Importing custom SCSS variables */
+@import "variables.scss";
 
 /* Importing Bootstrap SCSS file */
 @import "~bootstrap/scss/bootstrap";
 
-/* Customized SCSS styles */
+/* Custom SCSS styles */
 .btn,
 .form-control,
 .form-check-label,
 .input-group-text {
     @include media-breakpoint-down(sm) {
-        font-size: rfs-value(14px);
+        font-size: rfs-value(12px);
     }
 }
 
 .el-error {
+    margin: 0;
     font-size: rfs-value(12px);
     @include media-breakpoint-down(sm) {
         font-size: rfs-value(10px);

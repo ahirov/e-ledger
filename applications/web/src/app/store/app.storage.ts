@@ -7,7 +7,8 @@ export enum StorageKey {
 @Injectable({ providedIn: "root" })
 export class AppStorage {
     public loadData(key: StorageKey): any {
-        return JSON.parse(localStorage.getItem(key));
+        const data = localStorage.getItem(key);
+        return data ? JSON.parse(data) : null;
     }
 
     public saveData(key: StorageKey, data: any): void {

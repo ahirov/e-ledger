@@ -2,8 +2,8 @@ import { AuthUser } from "../auth.model";
 import * as fromActions from "./auth.actions";
 
 export interface State {
-    user: AuthUser;
-    error: string;
+    user: AuthUser | null;
+    error: string | null;
 }
 
 const initialState: State = { user: null, error: null };

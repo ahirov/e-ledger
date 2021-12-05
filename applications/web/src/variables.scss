@@ -1,0 +1,28 @@
+/* Custom SCSS variables */
+$primary: #228d57;
+$secondary: #5f758b;
+$light: #f1f2f3;
+$dark: #3e3e3c;
+$danger: #cc4836;
+$success: #85bb65;
+$info: #e8e9c9;
+
+@font-face {
+    font-family: MainFont;
+    src: url("assets/MainFont.ttf") format("truetype");
+}
+@font-face {
+    font-family: TitleFont;
+    src: url("assets/TitleFont.ttf") format("truetype");
+}
+$font-family-sans-serif: "MainFont";
+
+$enable-shadows: true;
+$input-border-color: $primary;
+$input-focus-box-shadow: none;
+
+$btn-box-shadow: none;
+$btn-focus-box-shadow: none;
+$btn-active-box-shadow: none;
+
+$form-check-input-focus-box-shadow: none;

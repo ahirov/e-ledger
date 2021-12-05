@@ -1,36 +1,34 @@
-.el-auth-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(var(--bs-dark-rgb), 0.8);
-    z-index: -1;
-}
+@import "~applications/web/src/shared.scss";
 
 .el-auth-title {
     font-family: TitleFont;
 }
 
 .el-auth-box {
-    margin-top: 25%;
+    margin-top: 20vh;
 }
 
 .el-auth-box input.ng-touched.ng-invalid {
-    border-color: var(--bs-danger);
+    border-color: $danger;
 }
 
 .el-auth-box form > div.input-group > span.input-group-text,
 .el-auth-signup-switch {
     width: 30%;
+    @include media-breakpoint-down(sm) {
+        width: 32%;
+    }
 }
 
 .el-auth-signup-switch {
     margin: 2px 0 10px 0;
 }
 
-.el-error {
-    margin: 0;
+.el-auth-continue-button {
+    width: 30%;
+    @include media-breakpoint-down(sm) {
+        width: 50%;
+    }
 }
 
 .el-auth-space {

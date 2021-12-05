@@ -16,8 +16,8 @@ import * as fromActions from "../auth/store/auth.actions";
     animations: AuthAnimations,
 })
 export class AuthComponent implements OnInit, OnDestroy {
-    private _extraError: { message: string; isExternal: boolean };
-    private _storeSub: Subscription;
+    private _extraError: { message: string; isExternal: boolean } | null = null;
+    private _storeSub: Subscription | null = null;
 
     public isSignUpMode = false;
 
@@ -42,7 +42,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     }
 
     public onAuthSignUpChange(event: Event): void {
-        const target = event?.target as any;
+        const target = event.target as HTMLInputElement | null;
         if (target?.checked) {
             this.isSignUpMode = true;
         } else {

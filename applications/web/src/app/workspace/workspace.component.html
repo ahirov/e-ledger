@@ -1,2 +1,34 @@
-<p>Workspace Component</p>
-<button class="btn btn-primary" (click)="onLogout()">Log out</button>
+<div class="el-workspace-box row">
+    <div class="el-workspace-panel order-lg-last col-lg-6 col-xxl-4 bg-light">
+        <div #elWorkspacePanelTabs class="el-workspace-panel-tabs d-flex">
+            <button class="btn flex-fill" (click)="onTabClick($event)">
+                <img src="../../assets/CashflowButton.svg" />
+            </button>
+            <button class="btn flex-fill" (click)="onTabClick($event)">
+                <img src="../../assets/ListButton.svg" />
+            </button>
+            <button class="btn flex-fill" (click)="onTabClick($event)">
+                <img src="../../assets/ChartButton.svg" />
+            </button>
+            <button class="btn flex-fill" (click)="onTabClick($event)">
+                <img src="../../assets/PrintButton.svg" />
+            </button>
+            <button class="btn flex-fill" (click)="onTabClick($event)">
+                <img src="../../assets/SettingsButton.svg" />
+            </button>
+            <button class="btn flex-fill" (click)="onTabClick($event)">
+                <img src="../../assets/ExitButton.svg" />
+            </button>
+        </div>
+        <div class="el-workspace-panel-area">
+            <p>Test</p>
+        </div>
+    </div>
+    <div
+        class="
+            el-workspace-area
+            order-lg-first
+            col-lg-6 col-xxl-8
+            bg-light
+        "></div>
+</div>

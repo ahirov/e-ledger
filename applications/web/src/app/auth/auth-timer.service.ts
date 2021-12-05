@@ -8,7 +8,7 @@ import * as fromActions from "../auth/store/auth.actions";
 
 @Injectable()
 export class AuthTimerService implements OnDestroy {
-    private _timer: Subscription;
+    private _timer: Subscription | null = null;
 
     constructor(private _store$: Store<fromApp.AppState>) {}
 

@@ -21,8 +21,8 @@ export class AuthGuard implements CanActivate {
     ) {}
 
     public canActivate(
-        route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot,
+        _route: ActivatedRouteSnapshot,
+        _state: RouterStateSnapshot,
     ):
         | boolean
         | UrlTree

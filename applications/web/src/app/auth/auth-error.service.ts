@@ -9,7 +9,7 @@ export class AuthErrorService {
         passwordConfirm: "Password confirm",
     };
 
-    public getMessages(form: NgForm, extraMessage: string): string[] {
+    public getMessages(form: NgForm, extraMessage?: string): string[] {
         const messages: string[] = [];
         Object.keys(form.controls).forEach(control => {
             this.getValidationMessages(control, form.controls[control]).forEach(
@@ -27,7 +27,7 @@ export class AuthErrorService {
         value: AbstractControl,
     ): string[] {
         const messages: string[] = [];
-        if (value.touched && value.invalid) {
+        if (value.touched && value.invalid && value.errors) {
             const fieldName =
                 control in this._controlsScheme
                     ? this._controlsScheme[control]
@@ -42,7 +42,7 @@ export class AuthErrorService {
         return messages;
     }
 
-    private getValidationMessage(error: string, name: string): string {
+    private getValidationMessage(error: string, name: string): string | null {
         switch (error) {
             case "required":
                 return `${name} field is required!`;
