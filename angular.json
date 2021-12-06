@@ -33,6 +33,11 @@
             "styles": [
               "applications/web/src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "applications/web/src"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -101,6 +106,11 @@
             "styles": [
               "applications/web/src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "applications/web/src"
+              ]
+            },
             "scripts": []
           }
         }

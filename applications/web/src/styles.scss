@@ -1,10 +1,15 @@
-/* Importing custom SCSS variables */
-@import "variables.scss";
+@font-face {
+    font-family: MainFont;
+    src: url("assets/MainFont.ttf") format("truetype");
+}
+@font-face {
+    font-family: TitleFont;
+    src: url("assets/TitleFont.ttf") format("truetype");
+}
 
-/* Importing Bootstrap SCSS file */
-@import "~bootstrap/scss/bootstrap";
+@import "toolkit";
+@import "bootstrap/scss/bootstrap";
 
-/* Custom SCSS styles */
 .btn,
 .form-control,
 .form-check-label,

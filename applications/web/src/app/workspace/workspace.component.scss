@@ -1,12 +1,15 @@
-@import "~applications/web/src/shared.scss";
+@import "toolkit";
 
 .el-workspace-box {
-    $border: 1px solid $success;
+    $border: $border-width solid $success;
     > div {
         margin-top: 25vh;
         height: 40vh;
     }
     .el-workspace-panel {
+        @include media-breakpoint-up(lg) {
+            @include border-end-radius($border-radius);
+        }
         @include media-breakpoint-down(lg) {
             margin-top: 0;
             height: 16vh;
@@ -21,8 +24,7 @@
                     background-color: $info;
                 }
                 background-color: $light;
-                border-bottom-left-radius: 0;
-                border-bottom-right-radius: 0;
+                @include border-bottom-radius(0);
                 @include media-breakpoint-down(sm) {
                     padding: 0;
                 }
@@ -42,20 +44,23 @@
                 top: $border;
                 left: $border;
             }
-            border-top-left-radius: 0.25rem;
             margin: 0 calc(var(--#{$variable-prefix}gutter-x) * -0.5);
+            @include media-breakpoint-up(lg) {
+                border-top-left-radius: $border-radius;
+            }
             @include media-breakpoint-down(lg) {
                 height: 50%;
                 border: {
-                    top: $border;
                     bottom: $border;
                     left: 0;
                 }
-                border-top-left-radius: 0;
             }
         }
     }
     .el-workspace-area {
+        @include media-breakpoint-up(lg) {
+            @include border-start-radius($border-radius);
+        }
         @include media-breakpoint-down(lg) {
             margin-top: 0;
             height: 84vh;
