@@ -8,14 +8,11 @@ $info: #e8e9c9;
 
 $font-family-sans-serif: "MainFont";
 
-$enable-shadows: true;
 $input-border-color: $primary;
 $input-focus-box-shadow: none;
 
-$btn-box-shadow: none;
+$btn-focus-width: 0;
 $btn-focus-box-shadow: none;
-$btn-active-box-shadow: none;
-
 $form-check-input-focus-box-shadow: none;
 
 @import "bootstrap/scss/functions";

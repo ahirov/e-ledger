@@ -15,14 +15,14 @@
 .form-check-label,
 .input-group-text {
     @include media-breakpoint-down(sm) {
-        font-size: rfs-value(12px);
+        @include font-size(0.75rem);
     }
 }
 
 .el-error {
     margin: 0;
-    font-size: rfs-value(12px);
+    @include font-size(0.75rem);
     @include media-breakpoint-down(sm) {
-        font-size: rfs-value(10px);
+        @include font-size(0.625rem);
     }
 }

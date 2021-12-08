@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
 export enum StorageKey {
-    User = "USER",
+    User = "user",
 }
 
 @Injectable({ providedIn: "root" })

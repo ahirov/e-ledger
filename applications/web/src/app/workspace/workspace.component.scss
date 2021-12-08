@@ -20,14 +20,12 @@
                 height: 50%;
             }
             .btn {
-                &:hover {
+                &:not(.el-btn-active):hover {
                     background-color: $info;
                 }
+                padding: 0;
                 background-color: $light;
                 @include border-bottom-radius(0);
-                @include media-breakpoint-down(sm) {
-                    padding: 0;
-                }
             }
             .el-btn-active {
                 margin-bottom: -1px;

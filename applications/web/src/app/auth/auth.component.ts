@@ -6,7 +6,7 @@ import { Subscription } from "rxjs";
 
 import { AuthCredentials } from "./auth.model";
 import { AuthErrorService } from "./auth-error.service";
-import { AuthAnimations } from "./auth-animations.const";
+import { AuthAnimations } from "./auth.animations";
 import * as fromApp from "../store/app.state";
 import * as fromActions from "../auth/store/auth.actions";
 
@@ -17,7 +17,7 @@ import * as fromActions from "../auth/store/auth.actions";
 })
 export class AuthComponent implements OnInit, OnDestroy {
     private _extraError: { message: string; isExternal: boolean } | null = null;
-    private _storeSub: Subscription | null = null;
+    private _storeSub!: Subscription;
 
     public isSignUpMode = false;
 
@@ -37,7 +37,6 @@ export class AuthComponent implements OnInit, OnDestroy {
     public ngOnDestroy(): void {
         if (this._storeSub) {
             this._storeSub.unsubscribe();
-            this._storeSub = null;
         }
     }
 
