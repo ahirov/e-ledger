@@ -12,9 +12,9 @@
 @import "ngx-bootstrap/datepicker/bs-datepicker";
 
 body {
-    background-color: rgba($dark, 0.8);
-    @include media-breakpoint-down(sm) {
-        background-color: $light;
+    background-color: $light;
+    @include media-breakpoint-up(lg) {
+        background-color: rgba($dark, 0.8);
     }
 }
 
