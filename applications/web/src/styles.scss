@@ -11,6 +11,13 @@
 @import "bootstrap/scss/bootstrap";
 @import "ngx-bootstrap/datepicker/bs-datepicker";
 
+body {
+    background-color: rgba($dark, 0.8);
+    @include media-breakpoint-down(sm) {
+        background-color: $light;
+    }
+}
+
 p,
 .btn,
 .table,

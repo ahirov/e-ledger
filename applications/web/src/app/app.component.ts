@@ -6,8 +6,7 @@ import * as fromActions from "./auth/store/auth.actions";
 
 @Component({
     selector: "el-root",
-    templateUrl: "./app.component.html",
-    styleUrls: ["./app.component.scss"],
+    template: `<div class="container"><router-outlet></router-outlet></div>`,
 })
 export class AppComponent implements OnInit {
     constructor(private _store$: Store<fromApp.AppState>) {}
