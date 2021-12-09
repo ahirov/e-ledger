@@ -6,14 +6,26 @@ $danger: #cc4836;
 $success: #85bb65;
 $info: #e8e9c9;
 
+$theme-green: $primary;
+
 $font-family-sans-serif: "MainFont";
+$paragraph-margin-bottom: 0;
 
 $input-border-color: $primary;
 $input-focus-box-shadow: none;
 
 $btn-focus-width: 0;
 $btn-focus-box-shadow: none;
+$form-select-focus-box-shadow: none;
 $form-check-input-focus-box-shadow: none;
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1140px,
+);
 
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";

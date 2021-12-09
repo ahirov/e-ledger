@@ -1,0 +1,25 @@
+@import "toolkit";
+
+.el-cashflow-box form > div.input-group > .input-group-text {
+    @include media-breakpoint-only(xs) {
+        width: 30vw;
+    }
+    @include media-breakpoint-up(sm) {
+        width: 28%;
+    }
+    @include media-breakpoint-up(md) {
+        width: 20%;
+    }
+    @include media-breakpoint-up(lg) {
+        width: 25%;
+    }
+    @include media-breakpoint-up(xl) {
+        width: 20%;
+    }
+}
+
+::ng-deep.bs-datepicker {
+    @include media-breakpoint-down(sm) {
+        margin-left: -30vw;
+    }
+}

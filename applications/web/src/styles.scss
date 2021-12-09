@@ -9,8 +9,12 @@
 
 @import "toolkit";
 @import "bootstrap/scss/bootstrap";
+@import "ngx-bootstrap/datepicker/bs-datepicker";
 
+p,
 .btn,
+.table,
+.form-select,
 .form-control,
 .form-check-label,
 .input-group-text {
@@ -20,7 +24,6 @@
 }
 
 .el-error {
-    margin: 0;
     @include font-size(0.75rem);
     @include media-breakpoint-down(sm) {
         @include font-size(0.625rem);

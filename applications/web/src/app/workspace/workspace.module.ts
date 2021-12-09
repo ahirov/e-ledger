@@ -1,6 +1,8 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
+import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
+
 import { WorkspaceComponent } from "./workspace.component";
 import { CashflowComponent } from "./cashflow/cashflow.component";
 import { CashflowPanelComponent } from "./cashflow/cashflow-panel.component";
@@ -34,7 +36,12 @@ import { WorkspaceRoutingModule } from "./workspace-routing.module";
         ExitComponent,
         ExitPanelComponent,
     ],
-    imports: [CommonModule, WorkspaceRoutingModule],
+    imports: [
+        CommonModule,
+        WorkspaceRoutingModule,
+
+        BsDatepickerModule.forRoot(),
+    ],
     providers: [RoutingService],
 })
 export class WorkspaceModule {}
