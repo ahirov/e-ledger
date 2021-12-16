@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from "@angular/animations";
 
-export const AuthAnimations = [
+export const authAnimations = [
     trigger("authSignUpTrigger", [
         transition("void => *", [
             style({

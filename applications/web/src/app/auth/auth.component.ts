@@ -6,14 +6,14 @@ import { Subscription } from "rxjs";
 
 import { AuthCredentials } from "./auth.model";
 import { AuthErrorService } from "./auth-error.service";
-import { AuthAnimations } from "./auth.animations";
+import { authAnimations } from "./auth.animations";
 import * as fromApp from "../store/app.state";
 import * as fromActions from "../auth/store/auth.actions";
 
 @Component({
     templateUrl: "./auth.component.html",
     styleUrls: ["./auth.component.scss"],
-    animations: AuthAnimations,
+    animations: authAnimations,
 })
 export class AuthComponent implements OnInit, OnDestroy {
     private _extraError: { message: string; isExternal: boolean } | null = null;
