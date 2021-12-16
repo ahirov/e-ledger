@@ -1,8 +1,13 @@
 import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 
+import { NgSelectModule } from "@ng-select/ng-select";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
+import { ModalModule } from "ngx-bootstrap/modal";
 
+import { TruncatePipe } from "../shared/pipes/string.pipe";
+import { EnumToPairsPipe } from "../shared/pipes/enum.pipe";
 import { WorkspaceComponent } from "./workspace.component";
 import { CashflowComponent } from "./cashflow/cashflow.component";
 import { CashflowPanelComponent } from "./cashflow/cashflow-panel.component";
@@ -18,6 +23,8 @@ import { ExitComponent } from "./exit/exit.component";
 import { ExitPanelComponent } from "./exit/exit-panel.component";
 
 import { RoutingService } from "./workspace-routing.service";
+import { CashflowService } from "./cashflow/cashflow.service";
+import { ModalComponent } from "../shared/modal/modal.component";
 import { WorkspaceRoutingModule } from "./workspace-routing.module";
 
 @NgModule({
@@ -35,13 +42,19 @@ import { WorkspaceRoutingModule } from "./workspace-routing.module";
         AdjustmentPanelComponent,
         ExitComponent,
         ExitPanelComponent,
+        EnumToPairsPipe,
+        TruncatePipe,
     ],
     imports: [
         CommonModule,
+        FormsModule,
+        NgSelectModule,
         WorkspaceRoutingModule,
 
+        ModalModule.forRoot(),
         BsDatepickerModule.forRoot(),
     ],
-    providers: [RoutingService],
+    providers: [RoutingService, CashflowService],
+    entryComponents: [ModalComponent],
 })
 export class WorkspaceModule {}

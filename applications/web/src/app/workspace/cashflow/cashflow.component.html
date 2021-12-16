@@ -1,85 +1,175 @@
 <div class="el-cashflow-box mx-lg-4">
-    <table class="table table-sm my-lg-2">
+    <table
+        *ngIf="modeService.savedMode === mode.Income"
+        class="table table-sm my-lg-2">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Item</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Source</th>
+                <th>Sum, $</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Something...</td>
+            <tr *ngFor="let item of incomes">
+                <td>{{ item.startedAt | date: "mediumDate" }}</td>
+                <td>{{ item.endedAt | date: "mediumDate" }}</td>
+                <td>{{ source[item.source] }}</td>
+                <td>{{ item.sum.toFixed(2) }}</td>
+                <td>
+                    <button
+                        class="btn btn-outline-danger"
+                        (click)="onIncomeDelete(item)">
+                        <img src="../../../assets/DeleteButton.svg" />
+                    </button>
+                </td>
             </tr>
+        </tbody>
+    </table>
+    <table
+        *ngIf="modeService.savedMode === mode.Outcome"
+        class="table table-sm my-lg-2">
+        <thead>
             <tr>
-                <th scope="row">2</th>
-                <td>Something...</td>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Sum, $</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of outcomes">
+                <td>{{ item.processedAt | date: "mediumDate" }}</td>
+                <td>{{ item.description | truncate }}</td>
+                <td>{{ category[item.category] }}</td>
+                <td>{{ item.sum.toFixed(2) }}</td>
+                <td>
+                    <button
+                        class="btn btn-outline-danger"
+                        (click)="onOutcomeDelete(item)">
+                        <img src="../../../assets/DeleteButton.svg" />
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>
     <p class="mb-2 text-end fw-bold">New record:</p>
-    <form novalidate>
+    <form
+        #elCashflowForm="ngForm"
+        autocomplete="off"
+        novalidate
+        (ngSubmit)="onSubmit(elCashflowForm)">
         <div
             *ngIf="modeService.savedMode === mode.Income"
             class="input-group mb-3">
-            <span class="input-group-text">Range start:</span>
+            <span class="input-group-text">From<sup>*</sup>:</span>
             <input
                 type="text"
                 class="form-control"
+                name="startedAt"
+                ngModel
+                required
                 bsDatepicker
-                [bsConfig]="{ isAnimated: true }" />
+                [bsConfig]="{
+                    isAnimated: true,
+                    dateInputFormat: 'DD/MM/YYYY'
+                }" />
         </div>
         <div
             *ngIf="modeService.savedMode === mode.Income"
             class="input-group mb-3">
-            <span class="input-group-text">Range end:</span>
+            <span class="input-group-text">To<sup>*</sup>:</span>
             <input
                 type="text"
                 class="form-control"
+                name="endedAt"
+                ngModel
+                required
                 bsDatepicker
-                [bsConfig]="{ isAnimated: true }" />
+                [bsConfig]="{
+                    isAnimated: true,
+                    dateInputFormat: 'DD/MM/YYYY'
+                }" />
         </div>
         <div
             *ngIf="modeService.savedMode === mode.Outcome"
             class="input-group mb-3">
-            <span class="input-group-text">Date:</span>
+            <span class="input-group-text">Date<sup>*</sup>:</span>
             <input
                 type="text"
                 class="form-control"
+                name="processedAt"
+                ngModel
+                required
                 bsDatepicker
-                [bsConfig]="{ isAnimated: true }" />
+                [bsConfig]="{
+                    isAnimated: true,
+                    dateInputFormat: 'DD/MM/YYYY'
+                }" />
         </div>
         <div
             *ngIf="modeService.savedMode === mode.Income"
             class="input-group mb-3">
-            <label class="input-group-text">Source:</label>
-            <select class="form-select">
-                <option value="1">Salary</option>
-                <option value="2">Deposit</option>
-            </select>
+            <label class="input-group-text">Source<sup>*</sup>:</label>
+            <ng-select
+                class="el-select form-control"
+                name="source"
+                ngModel
+                required>
+                <ng-option
+                    *ngFor="let item of source | enumToPairs"
+                    [value]="item[0]">
+                    {{ item[1] }}
+                </ng-option>
+            </ng-select>
         </div>
         <div
             *ngIf="modeService.savedMode === mode.Outcome"
             class="input-group mb-3">
-            <label class="input-group-text">Category:</label>
-            <select class="form-select">
-                <option value="0" selected>None</option>
-                <option value="1">Food</option>
-                <option value="2">Sport</option>
-            </select>
+            <label class="input-group-text">Category<sup>*</sup>:</label>
+            <ng-select
+                class="el-select form-control"
+                name="category"
+                ngModel
+                required>
+                <ng-option
+                    *ngFor="let item of category | enumToPairs"
+                    [value]="item[0]">
+                    {{ item[1] }}
+                </ng-option>
+            </ng-select>
         </div>
         <div
             *ngIf="modeService.savedMode === mode.Outcome"
             class="input-group mb-3">
             <span class="input-group-text">Description:</span>
-            <input type="text" class="form-control" />
+            <input
+                type="text"
+                class="form-control"
+                name="description"
+                ngModel />
         </div>
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="0.00" />
-            <span class="input-group-text">$</span>
+            <input
+                type="number"
+                class="form-control"
+                placeholder="0.00"
+                name="sum"
+                ngModel
+                required
+                pattern="^[0-9]*\.?[0-9]{0,2}$" />
+            <span class="input-group-text">$<sup>*</sup></span>
         </div>
-        <div class="d-flex justify-content-evenly my-4">
-            <button type="submit" class="btn btn-primary w-25 fw-bold">
+        <div class="el-hint">
+            <p><sup>*</sup>required</p>
+        </div>
+        <div class="d-flex justify-content-evenly mt-2 mb-4">
+            <button
+                [disabled]="!elCashflowForm.valid"
+                type="submit"
+                class="btn btn-primary w-25 fw-bold">
                 Add
             </button>
             <button type="reset" class="btn btn-primary w-25 fw-bold">

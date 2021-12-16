@@ -10,12 +10,17 @@
 @import "toolkit";
 @import "bootstrap/scss/bootstrap";
 @import "ngx-bootstrap/datepicker/bs-datepicker";
+@import "@ng-select/ng-select/scss/default.theme.scss";
 
 body {
     background-color: $light;
     @include media-breakpoint-up(lg) {
         background-color: rgba($dark, 0.8);
     }
+}
+
+input.ng-touched.ng-invalid {
+    border-color: $danger;
 }
 
 p,
@@ -34,5 +39,13 @@ p,
     @include font-size(0.75rem);
     @include media-breakpoint-down(sm) {
         @include font-size(0.625rem);
+    }
+}
+
+.el-select {
+    padding: 0;
+    .ng-select-container {
+        box-shadow: none;
+        border: 0;
     }
 }

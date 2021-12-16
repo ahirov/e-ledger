@@ -1,14 +1,11 @@
 @import "toolkit";
 
 .el-workspace-box {
-    $border: $border-width solid $success;
+    $border: $border-width solid $primary;
     > div {
         @include media-breakpoint-up(lg) {
-            margin-top: 12vh;
-            min-height: 45vh;
-        }
-        @include media-breakpoint-up(xl) {
             margin-top: 20vh;
+            min-height: 45vh;
         }
     }
     .el-workspace-panel {

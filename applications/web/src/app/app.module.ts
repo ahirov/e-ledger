@@ -9,8 +9,8 @@ import { EffectsModule } from "@ngrx/effects";
 import { AppComponent } from "./app.component";
 import { AuthModule } from "./auth/auth.module";
 import { AppRoutingModule } from "./app-routing.module";
-import { AppReducer, AppEffects } from "./store/app.state";
 import { WorkspaceModule } from "./workspace/workspace.module";
+import { appReducer, appEffects } from "./store/app.state";
 
 @NgModule({
     declarations: [AppComponent],
@@ -19,8 +19,8 @@ import { WorkspaceModule } from "./workspace/workspace.module";
         BrowserAnimationsModule,
         HttpClientModule,
 
-        StoreModule.forRoot(AppReducer),
-        EffectsModule.forRoot(AppEffects),
+        StoreModule.forRoot(appReducer),
+        EffectsModule.forRoot(appEffects),
 
         AuthModule,
         WorkspaceModule,

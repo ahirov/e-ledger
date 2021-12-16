@@ -1,6 +1,6 @@
-import { Store } from "@ngrx/store";
 import { NgForm } from "@angular/forms";
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
 
 import { Subscription } from "rxjs";
 

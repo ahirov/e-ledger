@@ -1,0 +1,16 @@
+<div class="modal-body text-center">
+    <p>{{ title }}</p>
+    <p>{{ content }}</p>
+    <button
+        type="button"
+        class="btn btn-outline-primary m-2"
+        (click)="confirm()">
+        Yes
+    </button>
+    <button
+        type="button"
+        class="btn btn-outline-danger m-2"
+        (click)="this.modalRef.hide()">
+        No
+    </button>
+</div>
