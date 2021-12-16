@@ -9,7 +9,6 @@ import { Mode, RoutingService } from "../workspace-routing.service";
 import { CashflowService } from "./cashflow.service";
 import { IIncome, Source } from "../model/income.model";
 import { Category, IOutcome } from "../model/outcome.model";
-import { tempIncomes, tempOutcomes } from "./cashflow.temp";
 
 import * as _ from "lodash";
 import * as fromApp from "../../store/app.state";
@@ -53,14 +52,6 @@ export class CashflowComponent implements OnInit, OnDestroy {
             .subscribe(data => {
                 this.outcomes = _.takeRight(data, 2);
             });
-        /*////////////////// TEMP CODE!!! //////////////////*/
-        this._store$.dispatch(
-            fromIncomeActions.addIncomes({ payload: tempIncomes }),
-        );
-        this._store$.dispatch(
-            fromOutcomeActions.addOutcomes({ payload: tempOutcomes }),
-        );
-        /*//////////////////////////////////////////////////*/
     }
 
     public ngOnDestroy(): void {

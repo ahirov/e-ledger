@@ -2,6 +2,7 @@ import {
     AfterViewInit,
     Component,
     ElementRef,
+    OnInit,
     Renderer2,
     ViewChild,
 } from "@angular/core";
@@ -10,14 +11,17 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 
 import { Mode, RoutingPath, RoutingService } from "./workspace-routing.service";
-import * as fromActions from "../auth/store/auth.actions";
+import { tempIncomes, tempOutcomes } from "./workspace.temp";
 import * as fromApp from "../store/app.state";
+import * as fromAuthActions from "../auth/store/auth.actions";
+import * as fromIncomeActions from "./store/income.actions";
+import * as fromOutcomeActions from "./store/outcome.actions";
 
 @Component({
     templateUrl: "./workspace.component.html",
     styleUrls: ["./workspace.component.scss"],
 })
-export class WorkspaceComponent implements AfterViewInit {
+export class WorkspaceComponent implements OnInit, AfterViewInit {
     @ViewChild("elWorkspacePanelTabs")
     private _tabs!: ElementRef<HTMLElement>;
     private _activeClassName = "el-btn-active";
@@ -32,6 +36,17 @@ export class WorkspaceComponent implements AfterViewInit {
         private _routingService: RoutingService,
         private _store$: Store<fromApp.AppState>,
     ) {}
+
+    public ngOnInit(): void {
+        /*////////////////// TEMP CODE!!! //////////////////*/
+        this._store$.dispatch(
+            fromIncomeActions.addIncomes({ payload: tempIncomes }),
+        );
+        this._store$.dispatch(
+            fromOutcomeActions.addOutcomes({ payload: tempOutcomes }),
+        );
+        /*//////////////////////////////////////////////////*/
+    }
 
     public ngAfterViewInit(): void {
         const buttons = this.getAllButtons();
@@ -51,7 +66,7 @@ export class WorkspaceComponent implements AfterViewInit {
     }
 
     public onLogout(): void {
-        this._store$.dispatch(new fromActions.Logout());
+        this._store$.dispatch(new fromAuthActions.Logout());
     }
 
     private getAllButtons(): NodeListOf<HTMLButtonElement> {

@@ -1,5 +1,5 @@
-import { Income, Source } from "../model/income.model";
-import { Outcome, Category } from "../model/outcome.model";
+import { Income, Source } from "./model/income.model";
+import { Outcome, Category } from "./model/outcome.model";
 
 /*////////////////// TEMP CODE!!! //////////////////*/
 export const tempIncomes = [
