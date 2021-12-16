@@ -18,7 +18,7 @@ import { ExitPanelComponent } from "./exit/exit-panel.component";
 
 const routes: Routes = [
     {
-        path: "workspace",
+        path: "",
         component: WorkspaceComponent,
         canActivate: [AuthGuard],
         children: [

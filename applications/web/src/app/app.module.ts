@@ -9,7 +9,6 @@ import { EffectsModule } from "@ngrx/effects";
 import { AppComponent } from "./app.component";
 import { AuthModule } from "./auth/auth.module";
 import { AppRoutingModule } from "./app-routing.module";
-import { WorkspaceModule } from "./workspace/workspace.module";
 import { appReducer, appEffects } from "./store/app.state";
 
 @NgModule({
@@ -23,7 +22,6 @@ import { appReducer, appEffects } from "./store/app.state";
         EffectsModule.forRoot(appEffects),
 
         AuthModule,
-        WorkspaceModule,
         AppRoutingModule,
     ],
     bootstrap: [AppComponent],
