@@ -21,7 +21,7 @@ export class RoutingService {
     private _savedModePaths: { [path in RoutingPath]: boolean };
     private _savedMode: Mode;
 
-    public get savedMode() {
+    public get savedMode(): Mode {
         return this._savedMode;
     }
 

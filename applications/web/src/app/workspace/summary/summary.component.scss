@@ -1,0 +1,40 @@
+@import "toolkit";
+
+.el-summary-box {
+    > div {
+        min-height: 14.5rem;
+    }
+
+    > form {
+        div.input-group {
+            > .input-group-text {
+                @include media-breakpoint-only(xs) {
+                    width: 25vw;
+                }
+                @include media-breakpoint-only(sm) {
+                    width: 20%;
+                }
+                @include media-breakpoint-up(md) {
+                    width: 28%;
+                }
+            }
+            > label.input-group-text {
+                @include media-breakpoint-only(lg) {
+                    width: 32%;
+                }
+            }
+        }
+        button.btn {
+            width: 44%;
+            @include media-breakpoint-only(lg) {
+                width: 36%;
+            }
+        }
+    }
+}
+
+::ng-deep.bs-datepicker {
+    @include media-breakpoint-down(sm) {
+        margin-left: -25vw;
+    }
+}

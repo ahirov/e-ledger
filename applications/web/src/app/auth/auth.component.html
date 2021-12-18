@@ -18,10 +18,10 @@
             <img class="d-inline-block" src="assets/TitleImage.svg" />
         </div>
         <form
-            #authForm="ngForm"
+            #elAuthForm="ngForm"
             autocomplete="off"
             novalidate
-            (ngSubmit)="onSubmit(authForm)">
+            (ngSubmit)="onSubmit(elAuthForm)">
             <div class="input-group my-2">
                 <span class="input-group-text">Email:</span>
                 <input
@@ -68,7 +68,7 @@
                 </div>
                 <div>
                     <p
-                        *ngFor="let error of getErrorMessages(authForm)"
+                        *ngFor="let error of getErrorMessages(elAuthForm)"
                         [@authErrorTrigger]
                         class="el-error text-danger">
                         {{ error }}
@@ -77,7 +77,7 @@
             </div>
             <div class="text-center">
                 <button
-                    [disabled]="!authForm.valid"
+                    [disabled]="!elAuthForm.valid"
                     type="submit"
                     class="el-auth-continue-button btn btn-primary fw-bold">
                     Continue

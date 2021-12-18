@@ -33,13 +33,26 @@ export const tempIncomes = [
         Source.Deposit,
         638452,
     ),
+    new Income(
+        new Date(1999, 8, 23),
+        new Date(2006, 4, 3),
+        Source.Salary,
+        236.23,
+    ),
+    new Income(
+        new Date(1979, 1, 1),
+        new Date(1985, 1, 1),
+        Source.Deposit,
+        10000000,
+    ),
 ];
 
 export const tempOutcomes = [
-    new Outcome(new Date(2017, 4, 23),  Category.Sport, 12.12),
-    new Outcome(new Date(1959, 8, 20),  Category.Food,  356.12, "potatoes"),
-    new Outcome(new Date(1968, 7, 29),  Category.Food,  789,    "potatoes, tomatoes, fruits"),
-    new Outcome(new Date(2000, 1, 1),   Category.Sport, 126978, "chess"),
+    new Outcome(new Date(2017, 4,  23), Category.Sport, 12.12),
+    new Outcome(new Date(1959, 8,  20), Category.Food,  356.12, "potatoes"),
+    new Outcome(new Date(1968, 7,  29), Category.Food,  789,    "potatoes, tomatoes, fruits"),
+    new Outcome(new Date(2000, 1,  1),  Category.Sport, 126978, "chess"),
     new Outcome(new Date(2004, 10, 25), Category.Sport, 10.1),
+    new Outcome(new Date(1998, 9,  9),  Category.Food,  236.21),
 ];
 /*//////////////////////////////////////////////////*/

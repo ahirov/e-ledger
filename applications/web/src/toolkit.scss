@@ -1,11 +1,11 @@
 $primary: #228d57;
-$secondary: #5f758b;
 $light: #f1f2f3;
 $dark: #3e3e3c;
 $danger: #cc4836;
 $success: #85bb65;
 $info: #e8e9c9;
 $gray-200: #e9ecef;
+$black: #000000;
 
 $font-family-sans-serif: "MainFont";
 $paragraph-margin-bottom: 0;
@@ -15,9 +15,12 @@ $input-focus-box-shadow: none;
 
 $btn-focus-width: 0;
 $btn-focus-box-shadow: none;
+$pagination-focus-box-shadow: none;
 $form-select-focus-box-shadow: none;
 $form-check-input-focus-box-shadow: none;
 $table-border-color: $primary;
+$pagination-active-color: $black;
+$body-color: $dark;
 
 $container-max-widths: (
     sm: 540px,
@@ -34,6 +37,8 @@ $ng-select-box-shadow: none;
 $ng-select-border: $primary;
 $ng-select-marked: $gray-200;
 $ng-select-selected: $primary;
+$ng-select-primary-text: $dark;
+$ng-select-dropdown-option-text: $dark;
 
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";

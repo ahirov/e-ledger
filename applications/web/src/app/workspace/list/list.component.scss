@@ -1,0 +1,10 @@
+@import "toolkit";
+
+.el-list-box > table .btn {
+    padding: 0;
+    display: block;
+    border: 2px solid $dark;
+    img {
+        display: block;
+    }
+}

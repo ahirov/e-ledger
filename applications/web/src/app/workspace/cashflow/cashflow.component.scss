@@ -6,46 +6,30 @@
 }
 
 .el-cashflow-box {
-    table {
-        height: 6.25rem;
-        .btn {
-            padding: 0;
-            display: block;
-            border: 2px solid $dark;
-            img {
-                display: block;
-            }
-        }
+    > div {
+        min-height: 6.25rem;
     }
-
-    form > div.input-group > .input-group-text {
+    > form div.input-group > .input-group-text {
         @include media-breakpoint-only(xs) {
-            width: 30vw;
+            width: 25vw;
         }
-        @include media-breakpoint-up(sm) {
-            width: 28%;
-        }
-        @include media-breakpoint-up(md) {
-            width: 20%;
-        }
-        @include media-breakpoint-up(lg) {
+        @include media-breakpoint-only(sm) {
             width: 25%;
         }
-        @include media-breakpoint-up(xl) {
+        @include media-breakpoint-up(md) {
             width: 20%;
         }
         > sup {
             @include el-required;
         }
     }
-}
-
-.el-hint {
-    @include el-required;
+    .el-hint {
+        @include el-required;
+    }
 }
 
 ::ng-deep.bs-datepicker {
     @include media-breakpoint-down(sm) {
-        margin-left: -30vw;
+        margin-left: -25vw;
     }
 }

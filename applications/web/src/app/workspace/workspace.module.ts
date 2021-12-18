@@ -21,7 +21,9 @@ import { AdjustmentComponent } from "./adjustment/adjustment.component";
 import { AdjustmentPanelComponent } from "./adjustment/adjustment-panel.component";
 import { ExitComponent } from "./exit/exit.component";
 import { ExitPanelComponent } from "./exit/exit-panel.component";
+import { ListComponent } from "./list/list.component";
 
+import { ListService } from "./list/list.service";
 import { RoutingService } from "./workspace-routing.service";
 import { CashflowService } from "./cashflow/cashflow.service";
 import { ModalComponent } from "../shared/modal/modal.component";
@@ -42,6 +44,7 @@ import { WorkspaceRoutingModule } from "./workspace-routing.module";
         AdjustmentPanelComponent,
         ExitComponent,
         ExitPanelComponent,
+        ListComponent,
         EnumToPairsPipe,
         TruncatePipe,
     ],
@@ -54,7 +57,7 @@ import { WorkspaceRoutingModule } from "./workspace-routing.module";
         ModalModule.forRoot(),
         BsDatepickerModule.forRoot(),
     ],
-    providers: [RoutingService, CashflowService],
+    providers: [RoutingService, CashflowService, ListService],
     entryComponents: [ModalComponent],
 })
 export class WorkspaceModule {}
