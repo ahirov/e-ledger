@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
-import { panelTemplate } from "../workspace-panel.template";
 
 @Component({
-    template: panelTemplate,
+    templateUrl: "../workspace-panel.template.html",
 })
 export class CashflowPanelComponent {}
