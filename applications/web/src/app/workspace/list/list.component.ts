@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { Store } from "@ngrx/store";
+import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 
 import { IIncome, Source } from "../model/income.model";
@@ -10,7 +10,6 @@ import { ListService } from "./list.service";
 import * as fromIncomeActions from "../store/income.actions";
 import * as fromOutcomeActions from "../store/outcome.actions";
 import * as fromApp from "../../store/app.state";
-import * as _ from "lodash";
 
 @Component({
     selector: "el-list",
@@ -21,14 +20,24 @@ export class ListComponent implements OnInit, OnDestroy {
     private _incomesSub!: Subscription;
     private _outcomesSub!: Subscription;
 
-    @Input("showItems")
-    public showItems?: number;
-    @Input("mode")
-    public currentMode!: Mode;
+    @Input()
+    public mode!: Mode;
+    @Input()
+    public incomesSelector!: MemoizedSelector<
+        object,
+        IIncome[],
+        DefaultProjectorFn<IIncome[]>
+    >;
+    @Input()
+    public outcomesSelector!: MemoizedSelector<
+        object,
+        IOutcome[],
+        DefaultProjectorFn<IOutcome[]>
+    >;
 
-    public mode = Mode;
-    public source = Source;
-    public category = Category;
+    public MODE = Mode;
+    public SOURCE = Source;
+    public CATEGORY = Category;
 
     public incomes: IIncome[] = [];
     public outcomes: IOutcome[] = [];
@@ -40,18 +49,14 @@ export class ListComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this._incomesSub = this._store$
-            .select(fromApp.appSelectors.income.all)
+            .select(this.incomesSelector)
             .subscribe(data => {
-                this.incomes = this.showItems
-                    ? _.takeRight(data, this.showItems)
-                    : data;
+                this.incomes = data;
             });
         this._outcomesSub = this._store$
-            .select(fromApp.appSelectors.outcome.all)
+            .select(this.outcomesSelector)
             .subscribe(data => {
-                this.outcomes = this.showItems
-                    ? _.takeRight(data, this.showItems)
-                    : data;
+                this.outcomes = data;
             });
     }
 

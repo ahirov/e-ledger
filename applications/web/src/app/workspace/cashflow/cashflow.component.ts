@@ -2,12 +2,14 @@ import { NgForm } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 
+import { DefaultProjectorFn, MemoizedSelector } from "@ngrx/store";
 import { Subscription } from "rxjs";
 
+import { IIncome, Source } from "../model/income.model";
+import { Category, IOutcome } from "../model/outcome.model";
 import { Mode, RoutingService } from "../workspace-routing.service";
 import { CashflowService } from "./cashflow.service";
-import { Source } from "../model/income.model";
-import { Category } from "../model/outcome.model";
+import { appSelectors as selectors } from "../../store/app.state";
 
 @Component({
     templateUrl: "./cashflow.component.html",
@@ -16,9 +18,25 @@ import { Category } from "../model/outcome.model";
 export class CashflowComponent implements OnInit, OnDestroy {
     private _paramsSub!: Subscription;
 
-    public mode = Mode;
-    public source = Source;
-    public category = Category;
+    public MODE = Mode;
+    public SOURCE = Source;
+    public CATEGORY = Category;
+
+    public get incomesSelector(): MemoizedSelector<
+        object,
+        IIncome[],
+        DefaultProjectorFn<IIncome[]>
+    > {
+        return selectors.income.previewItems;
+    }
+
+    public get outcomesSelector(): MemoizedSelector<
+        object,
+        IOutcome[],
+        DefaultProjectorFn<IOutcome[]>
+    > {
+        return selectors.outcome.previewItems;
+    }
 
     constructor(
         private _route: ActivatedRoute,

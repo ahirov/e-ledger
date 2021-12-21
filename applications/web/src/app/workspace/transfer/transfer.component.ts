@@ -11,7 +11,7 @@ import { Mode, RoutingService } from "../workspace-routing.service";
 export class TransferComponent implements OnInit, OnDestroy {
     private _paramsSub!: Subscription;
 
-    public mode = Mode;
+    public MODE = Mode;
 
     constructor(
         private _route: ActivatedRoute,

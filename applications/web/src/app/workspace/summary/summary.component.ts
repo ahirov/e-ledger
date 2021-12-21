@@ -14,9 +14,9 @@ import { Mode, RoutingService } from "../workspace-routing.service";
 export class SummaryComponent implements OnInit, OnDestroy {
     private _paramsSub!: Subscription;
 
-    public mode = Mode;
-    public source = Source;
-    public category = Category;
+    public MODE = Mode;
+    public SOURCE = Source;
+    public CATEGORY = Category;
 
     constructor(
         private _route: ActivatedRoute,

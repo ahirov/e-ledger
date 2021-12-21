@@ -22,6 +22,8 @@ import { AdjustmentPanelComponent } from "./adjustment/adjustment-panel.componen
 import { ExitComponent } from "./exit/exit.component";
 import { ExitPanelComponent } from "./exit/exit-panel.component";
 import { ListComponent } from "./list/list.component";
+import { ListPaginationComponent } from "./list/list-pagination.component";
+import { PaginationComponent } from "./list/pagination/pagination.component";
 
 import { ListService } from "./list/list.service";
 import { RoutingService } from "./workspace-routing.service";
@@ -45,6 +47,8 @@ import { WorkspaceRoutingModule } from "./workspace-routing.module";
         ExitComponent,
         ExitPanelComponent,
         ListComponent,
+        ListPaginationComponent,
+        PaginationComponent,
         EnumToPairsPipe,
         TruncatePipe,
     ],

@@ -11,8 +11,8 @@ import { Mode, RoutingService } from "../workspace-routing.service";
 export class AdjustmentComponent implements OnInit, OnDestroy {
     private _paramsSub!: Subscription;
 
-    public currentMode: Mode | null = null;
-    public mode = Mode;
+    public MODE = Mode;
+    public mode: Mode | null = null;
 
     constructor(
         private _route: ActivatedRoute,
@@ -23,7 +23,7 @@ export class AdjustmentComponent implements OnInit, OnDestroy {
         this._paramsSub = this._route.params.subscribe(params => {
             const mode = this._modeService.getMode(params);
             if (mode) {
-                this.currentMode = mode;
+                this.mode = mode;
             }
         });
     }

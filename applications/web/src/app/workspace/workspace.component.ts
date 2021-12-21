@@ -26,8 +26,8 @@ export class WorkspaceComponent implements OnInit, AfterViewInit {
     private _tabs!: ElementRef<HTMLElement>;
     private _activeClassName = "el-btn-active";
 
-    public routingPath = RoutingPath;
-    public mode = Mode;
+    public MODE = Mode;
+    public ROUTINGPATH = RoutingPath;
 
     constructor(
         private _route: ActivatedRoute,

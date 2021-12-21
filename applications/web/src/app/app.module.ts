@@ -5,11 +5,13 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 import { AppComponent } from "./app.component";
 import { AuthModule } from "./auth/auth.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { appReducer, appEffects } from "./store/app.state";
+import { environment } from "../environments/environment";
 
 @NgModule({
     declarations: [AppComponent],
@@ -20,6 +22,7 @@ import { appReducer, appEffects } from "./store/app.state";
 
         StoreModule.forRoot(appReducer),
         EffectsModule.forRoot(appEffects),
+        StoreDevtoolsModule.instrument({ logOnly: environment.production }),
 
         AuthModule,
         AppRoutingModule,

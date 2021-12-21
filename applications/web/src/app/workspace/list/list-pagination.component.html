@@ -1,0 +1,14 @@
+<el-list
+    [mode]="mode"
+    [incomesSelector]="incomesSelector"
+    [outcomesSelector]="outcomesSelector"></el-list>
+<el-pagination
+    *ngIf="mode === MODE.Income"
+    [selectAction]="incomeAction"
+    [activeItemSelector]="incomePageSelector"
+    [itemsCountSelector]="incomeCountSelector"></el-pagination>
+<el-pagination
+    *ngIf="mode === MODE.Outcome"
+    [selectAction]="outcomeAction"
+    [activeItemSelector]="outcomePageSelector"
+    [itemsCountSelector]="outcomeCountSelector"></el-pagination>

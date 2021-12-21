@@ -7,13 +7,13 @@
         (ngSubmit)="onSubmit(elSummaryForm)">
         <div class="row">
             <div
-                *ngIf="modeService.savedMode === mode.Income"
+                *ngIf="modeService.savedMode === MODE.Income"
                 class="col-md-6 order-md-last">
                 <div class="input-group input-group-sm my-2">
                     <label class="input-group-text">Source:</label>
                     <ng-select class="form-control" name="source" ngModel>
                         <ng-option
-                            *ngFor="let item of source | enumToPairs"
+                            *ngFor="let item of SOURCE | enumToPairs"
                             [value]="item[0]">
                             {{ item[1] }}
                         </ng-option>
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div
-                *ngIf="modeService.savedMode === mode.Income"
+                *ngIf="modeService.savedMode === MODE.Income"
                 class="col-md-6 order-md-first">
                 <div class="input-group input-group-sm my-2">
                     <span class="input-group-text">From:</span>
@@ -38,13 +38,13 @@
                 </div>
             </div>
             <div
-                *ngIf="modeService.savedMode === mode.Outcome"
+                *ngIf="modeService.savedMode === MODE.Outcome"
                 class="col-md-6 order-md-last">
                 <div class="input-group input-group-sm my-2">
                     <label class="input-group-text">Category:</label>
                     <ng-select class="form-control" name="category" ngModel>
                         <ng-option
-                            *ngFor="let item of category | enumToPairs"
+                            *ngFor="let item of CATEGORY | enumToPairs"
                             [value]="item[0]">
                             {{ item[1] }}
                         </ng-option>
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div
-                *ngIf="modeService.savedMode === mode.Outcome"
+                *ngIf="modeService.savedMode === MODE.Outcome"
                 class="col-md-6 order-md-first">
                 <div class="input-group input-group-sm my-2">
                     <span class="input-group-text">Date:</span>
@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="row">
-            <div *ngIf="modeService.savedMode === mode.Income" class="col-md-6">
+            <div *ngIf="modeService.savedMode === MODE.Income" class="col-md-6">
                 <div class="input-group input-group-sm my-2">
                     <span class="input-group-text">To:</span>
                     <input
@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div
-                *ngIf="modeService.savedMode === mode.Outcome"
+                *ngIf="modeService.savedMode === MODE.Outcome"
                 class="col-md-6">
                 <div class="input-group input-group-sm my-2">
                     <span class="input-group-text">Details:</span>
@@ -105,21 +105,6 @@
         </div>
     </form>
     <div>
-        <el-list [mode]="modeService.savedMode" [showItems]="6"></el-list>
+        <el-list-pagination [mode]="modeService.savedMode"></el-list-pagination>
     </div>
-    <nav>
-        <ul class="pagination pagination-sm justify-content-center mt-3 mb-4">
-            <li class="page-item">
-                <a href="#" class="page-link"><span>&laquo;</span></a>
-            </li>
-            <li class="page-item"><a href="#" class="page-link">1</a></li>
-            <li class="page-item active">
-                <a href="#" class="page-link">2</a>
-            </li>
-            <li class="page-item"><a href="#" class="page-link">3</a></li>
-            <li class="page-item">
-                <a href="#" class="page-link"><span>&raquo;</span></a>
-            </li>
-        </ul>
-    </nav>
 </div>
