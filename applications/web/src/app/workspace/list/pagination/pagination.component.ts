@@ -9,6 +9,7 @@ import * as _ from "lodash";
 @Component({
     selector: "el-pagination",
     templateUrl: "./pagination.component.html",
+    styleUrls: ["./pagination.component.scss"],
 })
 export class PaginationComponent implements OnInit, OnDestroy {
     private _activeItemSub!: Subscription;

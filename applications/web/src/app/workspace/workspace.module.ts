@@ -28,6 +28,7 @@ import { PaginationComponent } from "./list/pagination/pagination.component";
 import { ListService } from "./list/list.service";
 import { RoutingService } from "./workspace-routing.service";
 import { CashflowService } from "./cashflow/cashflow.service";
+import { SummaryService } from "./summary/summary.service";
 import { ModalComponent } from "../shared/modal/modal.component";
 import { WorkspaceRoutingModule } from "./workspace-routing.module";
 
@@ -61,7 +62,7 @@ import { WorkspaceRoutingModule } from "./workspace-routing.module";
         ModalModule.forRoot(),
         BsDatepickerModule.forRoot(),
     ],
-    providers: [RoutingService, CashflowService, ListService],
+    providers: [RoutingService, CashflowService, SummaryService, ListService],
     entryComponents: [ModalComponent],
 })
 export class WorkspaceModule {}

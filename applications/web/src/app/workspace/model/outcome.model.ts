@@ -12,20 +12,13 @@ export interface IOutcome {
 }
 
 export class Outcome implements IOutcome {
-    private _processedAt!: Date;
-
     public readonly id: string;
     public readonly createdAt: Date;
+
+    public processedAt: Date;
     public category: Category;
     public sum: number;
     public description: string | null;
-
-    public get processedAt(): Date {
-        return this._processedAt;
-    }
-    public set processedAt(value: Date) {
-        this._processedAt = value.toDate();
-    }
 
     constructor(
         processedAt: Date,
@@ -40,6 +33,20 @@ export class Outcome implements IOutcome {
         this.sum = sum.round2();
         this.description = description ? description : null;
     }
+}
+
+export interface IOutcomeFilter {
+    processedAt: Date | null;
+    category: Category | null;
+    description: string | null;
+}
+
+export class OutcomeFilter implements IOutcomeFilter {
+    constructor(
+        public processedAt: Date | null = null,
+        public category: Category | null = null,
+        public description: string | null = null,
+    ) {}
 }
 
 /*////////////////// TEMP CODE!!! //////////////////*/

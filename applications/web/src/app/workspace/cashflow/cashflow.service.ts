@@ -19,13 +19,23 @@ export class CashflowService {
         const source = parseInt(value.source);
         const sum = parseFloat(value.sum);
 
-        if (startedAt && endedAt && source && sum && startedAt <= endedAt) {
-            this._store$.dispatch(
-                fromIncomeActions.addIncome({
-                    payload: new Income(startedAt, endedAt, source, sum),
-                }),
-            );
-            form.reset();
+        if (startedAt && endedAt && source && sum) {
+            const startedDate = startedAt.toDate();
+            const endedDate = endedAt.toDate();
+
+            if (startedDate <= endedDate) {
+                this._store$.dispatch(
+                    fromIncomeActions.addIncome({
+                        payload: new Income(
+                            startedDate,
+                            endedDate,
+                            source,
+                            sum,
+                        ),
+                    }),
+                );
+                form.reset();
+            }
         }
     }
 
@@ -40,7 +50,7 @@ export class CashflowService {
             this._store$.dispatch(
                 fromOutcomeActions.addOutcome({
                     payload: new Outcome(
-                        processedAt,
+                        processedAt.toDate(),
                         category,
                         sum,
                         description,

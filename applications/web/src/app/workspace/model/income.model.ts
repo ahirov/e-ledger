@@ -12,26 +12,13 @@ export interface IIncome {
 }
 
 export class Income implements IIncome {
-    private _startedAt!: Date;
-    private _endedAt!: Date;
-
     public readonly id: string;
     public readonly createdAt: Date;
+
+    public startedAt: Date;
+    public endedAt: Date;
     public source: Source;
     public sum: number;
-
-    public get startedAt(): Date {
-        return this._startedAt;
-    }
-    public set startedAt(value: Date) {
-        this._startedAt = value.toDate();
-    }
-    public get endedAt(): Date {
-        return this._endedAt;
-    }
-    public set endedAt(value: Date) {
-        this._endedAt = value.toDate();
-    }
 
     constructor(startedAt: Date, endedAt: Date, source: Source, sum: number) {
         this.id = uuid();
@@ -41,6 +28,20 @@ export class Income implements IIncome {
         this.source = source;
         this.sum = sum.round2();
     }
+}
+
+export interface IIncomeFilter {
+    startedAt: Date | null;
+    endedAt: Date | null;
+    source: Source | null;
+}
+
+export class IncomeFilter implements IIncomeFilter {
+    constructor(
+        public startedAt: Date | null = null,
+        public endedAt: Date | null = null,
+        public source: Source | null = null,
+    ) {}
 }
 
 /*////////////////// TEMP CODE!!! //////////////////*/

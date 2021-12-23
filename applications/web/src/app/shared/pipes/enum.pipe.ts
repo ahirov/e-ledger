@@ -5,8 +5,9 @@ import * as _ from "lodash";
     name: "enumToPairs",
 })
 export class EnumToPairsPipe implements PipeTransform {
-    public transform(obj: Object): [string, string][] {
+    public transform(obj: Object): [number, string][] {
         const pairs = _.toPairs(obj);
-        return _.filter(pairs, pair => _.isString(pair[1]));
+        const items = _.filter(pairs, pair => _.isInteger(pair[1]));
+        return _.map(items, pair => [pair[1], pair[0]]);
     }
 }
