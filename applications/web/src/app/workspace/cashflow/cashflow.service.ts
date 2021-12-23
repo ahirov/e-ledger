@@ -44,7 +44,7 @@ export class CashflowService {
         const processedAt = new Date(value.processedAt);
         const category = parseInt(value.category);
         const sum = parseFloat(value.sum);
-        const description = <string>value.description;
+        const description = value.description;
 
         if (processedAt && category && sum) {
             this._store$.dispatch(
@@ -53,7 +53,7 @@ export class CashflowService {
                         processedAt.toDate(),
                         category,
                         sum,
-                        description,
+                        description ? description : null,
                     ),
                 }),
             );

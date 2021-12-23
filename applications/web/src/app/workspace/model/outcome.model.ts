@@ -24,14 +24,14 @@ export class Outcome implements IOutcome {
         processedAt: Date,
         category: Category,
         sum: number,
-        description?: string,
+        description: string | null,
     ) {
         this.id = uuid();
         this.createdAt = new Date();
         this.processedAt = processedAt;
         this.category = category;
         this.sum = sum.round2();
-        this.description = description ? description : null;
+        this.description = description;
     }
 }
 
