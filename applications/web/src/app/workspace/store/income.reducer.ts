@@ -26,9 +26,6 @@ export const incomeReducer = createReducer(
     on(fromActions.addIncome, (state, { payload }): State => {
         return adapter.addOne(payload, state);
     }),
-    on(fromActions.addIncomes, (state, { payload }): State => {
-        return adapter.addMany(payload, state);
-    }),
     on(fromActions.deleteIncome, (state, { payload }): State => {
         return adapter.removeOne(payload, state);
     }),

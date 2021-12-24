@@ -38,7 +38,10 @@ export const appSelectors = {
         pagesCount:   createSelector(selectIncomeState, selectors.pagesCount),
         pageItems:    createSelector(selectIncomeState, selectors.pageItems),
         previewItems: createSelector(selectIncomeState, selectors.previewItems),
-        outputCount:  createSelector(selectIncomeState, selectors.outputCount),
+        outputItemsCount: createSelector(
+            selectIncomeState,
+            selectors.outputItemsCount,
+        ),
         filter: createSelector(
             selectIncomeState,
             (state: fromIncome.State): IIncomeFilter => state.filter,
@@ -49,8 +52,12 @@ export const appSelectors = {
         activePage:   createSelector(selectOutcomeState, selectors.activePage),
         pagesCount:   createSelector(selectOutcomeState, selectors.pagesCount),
         pageItems:    createSelector(selectOutcomeState, selectors.pageItems),
-        previewItems: createSelector(selectOutcomeState, selectors.previewItems),
-        outputCount:  createSelector(selectOutcomeState, selectors.outputCount),
+        previewItems: createSelector(selectOutcomeState, selectors.previewItems,
+        ),
+        outputItemsCount: createSelector(
+            selectOutcomeState,
+            selectors.outputItemsCount,
+        ),
         filter: createSelector(
             selectOutcomeState,
             (state: fromOutcome.State): IOutcomeFilter => state.filter,

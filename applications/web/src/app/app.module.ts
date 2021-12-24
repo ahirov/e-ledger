@@ -12,6 +12,7 @@ import { AuthModule } from "./auth/auth.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { appReducer, appEffects } from "./store/app.state";
 import { environment } from "../environments/environment";
+import { StateService } from "./workspace/store/state.service";
 
 @NgModule({
     declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { environment } from "../environments/environment";
         AuthModule,
         AppRoutingModule,
     ],
+    providers: [StateService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

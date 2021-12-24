@@ -7,11 +7,11 @@ import {
     ViewChild,
 } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-
 import { Store } from "@ngrx/store";
 
 import { Mode, RoutingPath, RoutingService } from "./workspace-routing.service";
-import { tempIncomes, tempOutcomes } from "./workspace.temp";
+import { getIncome, getOutcome } from "./workspace.temp";
+
 import * as fromApp from "../store/app.state";
 import * as fromAuthActions from "../auth/store/auth.actions";
 import * as fromIncomeActions from "./store/income.actions";
@@ -39,12 +39,20 @@ export class WorkspaceComponent implements OnInit, AfterViewInit {
 
     public ngOnInit(): void {
         /*////////////////// TEMP CODE!!! //////////////////*/
-        this._store$.dispatch(
-            fromIncomeActions.addIncomes({ payload: tempIncomes }),
-        );
-        this._store$.dispatch(
-            fromOutcomeActions.addOutcomes({ payload: tempOutcomes }),
-        );
+        let item = 0;
+        const totalItems = 100;
+        const intervalId = setInterval(() => {
+            this._store$.dispatch(
+                fromIncomeActions.addIncome({ payload: getIncome(item) }),
+            );
+            this._store$.dispatch(
+                fromOutcomeActions.addOutcome({ payload: getOutcome(item) }),
+            );
+            item++;
+            if (item == totalItems) {
+                clearInterval(intervalId);
+            }
+        }, 1);
         /*//////////////////////////////////////////////////*/
     }
 

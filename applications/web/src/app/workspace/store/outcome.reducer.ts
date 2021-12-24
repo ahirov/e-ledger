@@ -26,9 +26,6 @@ export const outcomeReducer = createReducer(
     on(fromActions.addOutcome, (state, { payload }): State => {
         return adapter.addOne(payload, state);
     }),
-    on(fromActions.addOutcomes, (state, { payload }): State => {
-        return adapter.addMany(payload, state);
-    }),
     on(fromActions.deleteOutcome, (state, { payload }): State => {
         return adapter.removeOne(payload, state);
     }),

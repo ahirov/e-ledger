@@ -89,4 +89,9 @@ export class SummaryComponent implements OnInit, OnDestroy {
             }
         }
     }
+
+    public onReset(form: NgForm) {
+        form.reset();
+        this.onSubmit(form);
+    }
 }

@@ -22,5 +22,5 @@ export const selectors = {
         );
         return _.map(ids, id => <T>state.entities[id]);
     },
-    outputCount: <T>(state: IState<T>): number => state.outputIds.length,
+    outputItemsCount: <T>(state: IState<T>): number => state.outputIds.length,
 };

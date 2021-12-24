@@ -1,20 +1,18 @@
 import { Injectable } from "@angular/core";
 import { Actions, concatLatestFrom, createEffect, ofType } from "@ngrx/effects";
 import { Action, Store } from "@ngrx/store";
-import { Dictionary } from "@ngrx/entity";
 import { map, switchMap } from "rxjs/operators";
 
-import { IIncome } from "../model/income.model";
+import { StateService } from "./state.service";
 import { UndefinedAction } from "../../store/undefined.action";
-import { environment } from "applications/web/src/environments/environment";
 
 import * as fromActions from "./income.actions";
 import * as fromApp from "../../store/app.state";
-import * as _ from "lodash";
 
 @Injectable()
 export class IncomeEffects {
     constructor(
+        private _stateService: StateService,
         private _actions$: Actions,
         private _store$: Store<fromApp.AppState>,
     ) {}
@@ -22,13 +20,6 @@ export class IncomeEffects {
     addIncome$ = createEffect(() =>
         this._actions$.pipe(
             ofType(fromActions.ADD_INCOME),
-            map((): Action => fromActions.processOutput()),
-        ),
-    );
-
-    addIncomes$ = createEffect(() =>
-        this._actions$.pipe(
-            ofType(fromActions.ADD_INCOMES),
             map((): Action => fromActions.processOutput()),
         ),
     );
@@ -54,25 +45,9 @@ export class IncomeEffects {
                 this._store$.select(fromApp.appSelectors.income.filter),
                 this._store$.select(fromApp.appSelectors.income.items),
             ]),
-            map(([, filter, items]): string[] => {
-                const filteredItems = _.filter<Dictionary<IIncome>>(
-                    items,
-                    (item: IIncome) => {
-                        const isStartedAt =
-                            filter.startedAt === null ||
-                            filter.startedAt <= item.endedAt;
-                        const isEndedAt =
-                            filter.endedAt === null ||
-                            filter.endedAt >= item.startedAt;
-                        const isSource =
-                            filter.source === null ||
-                            filter.source === item.source;
-
-                        return isStartedAt && isEndedAt && isSource;
-                    },
-                );
-                return _.map(filteredItems, (item: IIncome) => item.id);
-            }),
+            map(([, filter, items]): string[] =>
+                this._stateService.getIds(filter, items),
+            ),
             switchMap(ids => [
                 fromActions.setOutput({ payload: ids }),
                 fromActions.processPage(),
@@ -88,8 +63,12 @@ export class IncomeEffects {
                 this._store$.select(fromApp.appSelectors.income.pagesCount),
             ]),
             map(([, activePage, pagesCount]): Action => {
-                return activePage >= pagesCount
-                    ? fromActions.selectPage({ payload: pagesCount - 1 })
+                const page = this._stateService.checkActivePage(
+                    activePage,
+                    pagesCount,
+                );
+                return page
+                    ? fromActions.selectPage({ payload: page.payload })
                     : new UndefinedAction();
             }),
         ),
@@ -99,15 +78,24 @@ export class IncomeEffects {
         this._actions$.pipe(
             ofType(fromActions.SELECT_PAGE),
             concatLatestFrom(() =>
-                this._store$.select(fromApp.appSelectors.income.outputCount),
+                this._store$.select(
+                    fromApp.appSelectors.income.outputItemsCount,
+                ),
             ),
-            map(([action, count]: [{ payload: number }, number]): Action => {
-                const newPage = action.payload;
-                return newPage >= 0 &&
-                    newPage < _.ceil(count / environment.pageItemsCount)
-                    ? fromActions.setPage({ payload: newPage })
-                    : new UndefinedAction();
-            }),
+            map(
+                ([action, outputItemsCount]: [
+                    { payload: number },
+                    number,
+                ]): Action => {
+                    const page = this._stateService.selectActivePage(
+                        action.payload,
+                        outputItemsCount,
+                    );
+                    return page
+                        ? fromActions.setPage({ payload: page.payload })
+                        : new UndefinedAction();
+                },
+            ),
         ),
     );
 }

@@ -16,7 +16,7 @@ export class SummaryService {
         startedAt: Date | null,
         endedAt: Date | null,
         source: Source | null,
-    ) {
+    ): void {
         this._store$.dispatch(
             fromIncomeActions.setFilter({
                 payload: new IncomeFilter(
@@ -32,7 +32,7 @@ export class SummaryService {
         processedAt: Date | null,
         category: Category | null,
         description: string | null,
-    ) {
+    ): void {
         this._store$.dispatch(
             fromOutcomeActions.setFilter({
                 payload: new OutcomeFilter(
