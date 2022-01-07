@@ -4,6 +4,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 
 import { Subscription } from "rxjs";
+import { AppState } from "../../store/app.model";
 import { Source } from "../model/income.model";
 import { Category } from "../model/outcome.model";
 import { SummaryService } from "./summary.service";
@@ -35,7 +36,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
     constructor(
         private _route: ActivatedRoute,
         private _summaryService: SummaryService,
-        private _store$: Store<fromApp.AppState>,
+        private _store$: Store<AppState>,
         public modeService: RoutingService,
     ) {}
 
@@ -44,14 +45,14 @@ export class SummaryComponent implements OnInit, OnDestroy {
             this.modeService.saveMode(params),
         );
         this._incomeFiltersSub = this._store$
-            .select(fromApp.appSelectors.income.filter)
+            .select(fromApp.appSelectors.income.summaryFilter)
             .subscribe(data => {
                 this.startedAt = data.startedAt;
                 this.endedAt = data.endedAt;
                 this.source = data.source;
             });
         this._outcomeFiltersSub = this._store$
-            .select(fromApp.appSelectors.outcome.filter)
+            .select(fromApp.appSelectors.outcome.summaryFilter)
             .subscribe(data => {
                 this.processedAt = data.processedAt;
                 this.category = data.category;

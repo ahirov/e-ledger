@@ -10,6 +10,12 @@ export interface IOutcome extends IEntity {
     sum: number;
 }
 
+export interface IOutcomeFilter extends IEntityFilter {
+    processedAt: Date | null;
+    category: Category | null;
+    description: string | null;
+}
+
 export class Outcome implements IOutcome {
     public readonly id: string;
     public readonly createdAt: Date;
@@ -32,12 +38,6 @@ export class Outcome implements IOutcome {
         this.sum = sum.round2();
         this.description = description;
     }
-}
-
-export interface IOutcomeFilter extends IEntityFilter {
-    processedAt: Date | null;
-    category: Category | null;
-    description: string | null;
 }
 
 export class OutcomeFilter implements IOutcomeFilter {

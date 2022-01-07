@@ -4,10 +4,10 @@ import { Store } from "@ngrx/store";
 
 import { Subscription } from "rxjs";
 
+import { AppState } from "../store/app.model";
 import { AuthCredentials } from "./auth.model";
 import { AuthErrorService } from "./auth-error.service";
 import { authAnimations } from "./auth.animations";
-import * as fromApp from "../store/app.state";
 import * as fromActions from "../auth/store/auth.actions";
 
 @Component({
@@ -22,7 +22,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     public isSignUpMode = false;
 
     constructor(
-        private _store$: Store<fromApp.AppState>,
+        private _store$: Store<AppState>,
         private _errorService: AuthErrorService,
     ) {}
 

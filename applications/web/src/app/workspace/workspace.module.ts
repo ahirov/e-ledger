@@ -13,7 +13,6 @@ import { CashflowComponent } from "./cashflow/cashflow.component";
 import { CashflowPanelComponent } from "./cashflow/cashflow-panel.component";
 import { SummaryComponent } from "./summary/summary.component";
 import { SummaryPanelComponent } from "./summary/summary-panel.component";
-import { ChartComponent } from "./chart/chart.component";
 import { ChartPanelComponent } from "./chart/chart-panel.component";
 import { TransferComponent } from "./transfer/transfer.component";
 import { TransferPanelComponent } from "./transfer/transfer-panel.component";
@@ -31,6 +30,7 @@ import { CashflowService } from "./cashflow/cashflow.service";
 import { SummaryService } from "./summary/summary.service";
 import { ModalComponent } from "../shared/modal/modal.component";
 import { WorkspaceRoutingModule } from "./workspace-routing.module";
+import { ChartModule } from "./chart/chart.module";
 
 @NgModule({
     declarations: [
@@ -39,7 +39,6 @@ import { WorkspaceRoutingModule } from "./workspace-routing.module";
         CashflowPanelComponent,
         SummaryComponent,
         SummaryPanelComponent,
-        ChartComponent,
         ChartPanelComponent,
         TransferComponent,
         TransferPanelComponent,
@@ -56,13 +55,19 @@ import { WorkspaceRoutingModule } from "./workspace-routing.module";
     imports: [
         CommonModule,
         FormsModule,
+        ChartModule,
         NgSelectModule,
         WorkspaceRoutingModule,
 
         ModalModule.forRoot(),
         BsDatepickerModule.forRoot(),
     ],
-    providers: [RoutingService, CashflowService, SummaryService, ListService],
+    providers: [
+        RoutingService,
+        CashflowService,
+        SummaryService,
+        ListService,
+    ],
     entryComponents: [ModalComponent],
 })
 export class WorkspaceModule {}

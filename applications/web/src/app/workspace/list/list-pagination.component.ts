@@ -31,7 +31,7 @@ export class ListPaginationComponent {
         IIncome[],
         DefaultProjectorFn<IIncome[]>
     > {
-        return selectors.income.pageItems;
+        return selectors.income.summaryPageItems;
     }
 
     public get incomePageSelector(): MemoizedSelector<
@@ -39,7 +39,7 @@ export class ListPaginationComponent {
         number,
         DefaultProjectorFn<number>
     > {
-        return selectors.income.activePage;
+        return selectors.income.summaryActivePage;
     }
 
     public get incomeCountSelector(): MemoizedSelector<
@@ -47,7 +47,7 @@ export class ListPaginationComponent {
         number,
         DefaultProjectorFn<number>
     > {
-        return selectors.income.pagesCount;
+        return selectors.income.summaryPagesCount;
     }
 
     public get outcomeAction(): (props: { payload: number }) => {
@@ -61,7 +61,7 @@ export class ListPaginationComponent {
         IOutcome[],
         DefaultProjectorFn<IOutcome[]>
     > {
-        return selectors.outcome.pageItems;
+        return selectors.outcome.summaryPageItems;
     }
 
     public get outcomePageSelector(): MemoizedSelector<
@@ -69,7 +69,7 @@ export class ListPaginationComponent {
         number,
         DefaultProjectorFn<number>
     > {
-        return selectors.outcome.activePage;
+        return selectors.outcome.summaryActivePage;
     }
 
     public get outcomeCountSelector(): MemoizedSelector<
@@ -77,6 +77,6 @@ export class ListPaginationComponent {
         number,
         DefaultProjectorFn<number>
     > {
-        return selectors.outcome.pagesCount;
+        return selectors.outcome.summaryPagesCount;
     }
 }

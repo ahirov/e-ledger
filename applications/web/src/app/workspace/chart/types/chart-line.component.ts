@@ -1,0 +1,109 @@
+import {
+    AfterViewInit,
+    Component,
+    Input,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+} from "@angular/core";
+import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
+
+import { ChartConfiguration, ChartType } from "chart.js";
+import { BaseChartDirective } from "ng2-charts";
+import { Subscription } from "rxjs";
+
+import { ChartService, ScssVariables } from "../chart.service";
+import { AppState } from "../../../store/app.model";
+import { ChartPoint } from "../../model/state.model";
+
+@Component({
+    selector: "el-chart-line",
+    templateUrl: "./chart-line.component.html",
+})
+export class ChartLineComponent implements OnInit, OnDestroy, AfterViewInit {
+    @Input()
+    selector!: MemoizedSelector<
+        AppState,
+        ChartPoint[],
+        DefaultProjectorFn<ChartPoint[]>
+    >;
+    @ViewChild(BaseChartDirective)
+    private _chart!: BaseChartDirective;
+    private _styles!: { [key in ScssVariables]: string | null };
+    private _dataSub!: Subscription;
+
+    public type!: ChartType;
+    public data!: ChartConfiguration["data"];
+    public options!: ChartConfiguration["options"];
+
+    constructor(
+        private _chartService: ChartService,
+        private _store$: Store<AppState>,
+    ) {}
+
+    public ngOnInit(): void {
+        this._styles = this._chartService.styles;
+        this.type = this.getType();
+        this.data = this.getData();
+        this.options = this.getOptions();
+    }
+
+    public ngAfterViewInit(): void {
+        this._dataSub = this._store$.select(this.selector).subscribe(data => {
+            const datasets = this._chart?.data?.datasets;
+            if (datasets && datasets.length) {
+                datasets[0].data = <any>data;
+                this._chart.update();
+            }
+        });
+    }
+
+    public ngOnDestroy(): void {
+        if (this._dataSub) {
+            this._dataSub.unsubscribe();
+        }
+    }
+
+    public getType(): ChartType {
+        return "line";
+    }
+
+    public getOptions(): ChartConfiguration["options"] {
+        const scale = {
+            grid: { color: this._styles.success! },
+            ticks: { color: this._styles.dark! },
+        };
+        return {
+            elements: { line: { tension: 0.5 } },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: { label: ctx => `${ctx.formattedValue}$` },
+                },
+            },
+            layout: { padding: { top: 14 } },
+            scales: { x: scale, y: scale },
+            maintainAspectRatio: false,
+        };
+    }
+
+    public getData(): ChartConfiguration["data"] {
+        const dark = this._styles.dark!;
+        return {
+            datasets: [
+                {
+                    data: [],
+                    fill: "origin",
+                    borderColor: dark,
+                    pointStyle: "triangle",
+                    pointBackgroundColor: this._styles.success!,
+                    pointBorderColor: dark,
+                    pointHoverBackgroundColor: this._styles.light!,
+                    pointHoverBorderColor: dark,
+                    backgroundColor: this._styles.primary!,
+                    parsing: { xAxisKey: "x", yAxisKey: "y" },
+                },
+            ],
+        };
+    }
+}

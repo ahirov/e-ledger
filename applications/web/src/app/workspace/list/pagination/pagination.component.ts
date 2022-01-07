@@ -3,7 +3,7 @@ import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
 import { TypedAction } from "@ngrx/store/src/models";
 import { Subscription } from "rxjs";
 
-import * as fromApp from "../../../store/app.state";
+import { AppState } from "../../../store/app.model";
 import * as _ from "lodash";
 
 @Component({
@@ -41,7 +41,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
         return this._items;
     }
 
-    constructor(private _store$: Store<fromApp.AppState>) {}
+    constructor(private _store$: Store<AppState>) {}
 
     public ngOnInit(): void {
         this._activeItemSub = this._store$

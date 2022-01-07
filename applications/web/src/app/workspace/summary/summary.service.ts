@@ -1,16 +1,16 @@
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 
+import { AppState } from "../../store/app.model";
 import { IncomeFilter, Source } from "../model/income.model";
 import { Category, OutcomeFilter } from "../model/outcome.model";
 
 import * as fromIncomeActions from "../store/income.actions";
 import * as fromOutcomeActions from "../store/outcome.actions";
-import * as fromApp from "../../store/app.state";
 
 @Injectable()
 export class SummaryService {
-    constructor(private _store$: Store<fromApp.AppState>) {}
+    constructor(private _store$: Store<AppState>) {}
 
     public setIncomeFilter(
         startedAt: Date | null,

@@ -9,11 +9,12 @@ import {
 import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 
+import { AppState } from "../store/app.model";
+import { IIncome } from "./model/income.model";
+import { IOutcome } from "./model/outcome.model";
 import { Mode, RoutingPath, RoutingService } from "./workspace-routing.service";
 import { getIncome, getOutcome } from "./workspace.temp";
 
-import * as fromApp from "../store/app.state";
-import * as fromAuthActions from "../auth/store/auth.actions";
 import * as fromIncomeActions from "./store/income.actions";
 import * as fromOutcomeActions from "./store/outcome.actions";
 
@@ -34,23 +35,35 @@ export class WorkspaceComponent implements OnInit, AfterViewInit {
         private _router: Router,
         private _renderer: Renderer2,
         private _routingService: RoutingService,
-        private _store$: Store<fromApp.AppState>,
+        private _store$: Store<AppState>,
     ) {}
 
     public ngOnInit(): void {
         /*////////////////// TEMP CODE!!! //////////////////*/
         let item = 0;
+        let date = Date.now();
         const totalItems = 100;
+        const incomes: IIncome[] = [];
+        const outcomes: IOutcome[] = [];
+
         const intervalId = setInterval(() => {
-            this._store$.dispatch(
-                fromIncomeActions.addIncome({ payload: getIncome(item) }),
-            );
-            this._store$.dispatch(
-                fromOutcomeActions.addOutcome({ payload: getOutcome(item) }),
-            );
+            const income = <any>getIncome(item);
+            income.createdAt = new Date(date);
+            incomes.push(income);
+
+            const outcome = <any>getOutcome(item);
+            outcome.createdAt = new Date(date);
+            outcomes.push(outcome);
+            date++;
             item++;
             if (item == totalItems) {
                 clearInterval(intervalId);
+                this._store$.dispatch(
+                    fromIncomeActions.addIncomes({ payload: incomes }),
+                );
+                this._store$.dispatch(
+                    fromOutcomeActions.addOutcomes({ payload: outcomes }),
+                );
             }
         }, 1);
         /*//////////////////////////////////////////////////*/
@@ -71,10 +84,6 @@ export class WorkspaceComponent implements OnInit, AfterViewInit {
         if (target) {
             this.activateButton(target, path, mode);
         }
-    }
-
-    public onLogout(): void {
-        this._store$.dispatch(new fromAuthActions.Logout());
     }
 
     private getAllButtons(): NodeListOf<HTMLButtonElement> {

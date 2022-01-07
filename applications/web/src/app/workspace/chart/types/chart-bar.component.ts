@@ -1,0 +1,118 @@
+import {
+    AfterViewInit,
+    Component,
+    Input,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+} from "@angular/core";
+import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
+
+import { ChartConfiguration, ChartType, Plugin } from "chart.js";
+import { BaseChartDirective } from "ng2-charts";
+import { Subscription } from "rxjs";
+
+import { ChartService, ScssVariables } from "../chart.service";
+import { AppState } from "../../../store/app.model";
+import { ChartPoint } from "../../model/state.model";
+import DatalabelsPlugin from "chartjs-plugin-datalabels";
+
+@Component({
+    selector: "el-chart-bar",
+    templateUrl: "./chart-bar.component.html",
+})
+export class ChartBarComponent implements OnInit, OnDestroy, AfterViewInit {
+    @Input()
+    selector!: MemoizedSelector<
+        AppState,
+        ChartPoint[],
+        DefaultProjectorFn<ChartPoint[]>
+    >;
+    @ViewChild(BaseChartDirective)
+    private _chart!: BaseChartDirective;
+    private _styles!: { [key in ScssVariables]: string | null };
+    private _dataSub!: Subscription;
+
+    public type!: ChartType;
+    public data!: ChartConfiguration["data"];
+    public options!: ChartConfiguration["options"];
+    public plugins!: Plugin[];
+
+    constructor(
+        private _chartService: ChartService,
+        private _store$: Store<AppState>,
+    ) {}
+
+    public ngOnInit(): void {
+        this._styles = this._chartService.styles;
+        this.type = this.getType();
+        this.data = this.getData();
+        this.options = this.getOptions();
+        this.plugins = this.getPlugins();
+    }
+
+    public ngAfterViewInit(): void {
+        this._dataSub = this._store$.select(this.selector).subscribe(data => {
+            const datasets = this._chart?.data?.datasets;
+            if (datasets && datasets.length) {
+                datasets[0].data = <any>data;
+                this._chart.update();
+            }
+        });
+    }
+
+    public ngOnDestroy(): void {
+        if (this._dataSub) {
+            this._dataSub.unsubscribe();
+        }
+    }
+
+    public getType(): ChartType {
+        return "bar";
+    }
+
+    public getOptions(): ChartConfiguration["options"] {
+        const scale = {
+            grid: { color: this._styles.success! },
+            ticks: { color: this._styles.dark! },
+        };
+        return {
+            plugins: {
+                legend: { display: false },
+                datalabels: {
+                    anchor: "end",
+                    align: "end",
+                    color: this._styles.dark!,
+                    formatter: (value, _ctx) => {
+                        return value && value.y > 0 ? `${value.y}$` : null;
+                    },
+                },
+                tooltip: { enabled: false },
+            },
+            layout: { padding: { top: 14 } },
+            scales: { x: scale, y: scale },
+            maintainAspectRatio: false,
+        };
+    }
+
+    public getData(): ChartConfiguration["data"] {
+        const dark = this._styles.dark!;
+        return {
+            datasets: [
+                {
+                    data: [],
+                    borderWidth: 3,
+                    borderColor: dark,
+                    backgroundColor: this._styles.primary!,
+                    hoverBorderColor: dark,
+                    hoverBackgroundColor: this._styles.success!,
+                    parsing: { xAxisKey: "x", yAxisKey: "y" },
+                },
+            ],
+        };
+    }
+
+    public getPlugins(): Plugin[] {
+        return [DatalabelsPlugin];
+    }
+}

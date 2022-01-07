@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnDestroy } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { TypedAction } from "@ngrx/store/src/models";
 
@@ -6,16 +6,16 @@ import { Subscription } from "rxjs";
 import { take } from "rxjs/operators";
 import { BsModalService, ModalOptions } from "ngx-bootstrap/modal";
 
+import { AppState } from "../../store/app.model";
 import { ModalComponent } from "../../shared/modal/modal.component";
-import * as fromApp from "../../store/app.state";
 
 @Injectable()
-export class ListService {
+export class ListService implements OnDestroy {
     private _modalSub: Subscription | null = null;
 
     constructor(
         private _modalService: BsModalService,
-        private _store$: Store<fromApp.AppState>,
+        private _store$: Store<AppState>,
     ) {}
 
     public ngOnDestroy(): void {

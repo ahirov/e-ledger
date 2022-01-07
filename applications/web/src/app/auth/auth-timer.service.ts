@@ -3,14 +3,14 @@ import { Store } from "@ngrx/store";
 
 import { Subscription, timer } from "rxjs";
 
-import * as fromApp from "../store/app.state";
+import { AppState } from "../store/app.model";
 import * as fromActions from "../auth/store/auth.actions";
 
 @Injectable()
 export class AuthTimerService implements OnDestroy {
     private _timer: Subscription | null = null;
 
-    constructor(private _store$: Store<fromApp.AppState>) {}
+    constructor(private _store$: Store<AppState>) {}
 
     public ngOnDestroy(): void {
         this.clearTimer();

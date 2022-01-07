@@ -2,12 +2,20 @@ import "../../shared/extensions/number.extensions";
 import "../../shared/extensions/date.extensions";
 import { IEntity, IEntityFilter } from "./state.model";
 import { v4 as uuid } from "uuid";
+import { differenceInDays } from "date-fns";
 
 export interface IIncome extends IEntity {
     startedAt: Date;
     endedAt: Date;
     source: Source;
     sum: number;
+    sumPerDay: number;
+}
+
+export interface IIncomeFilter extends IEntityFilter {
+    startedAt: Date | null;
+    endedAt: Date | null;
+    source: Source | null;
 }
 
 export class Income implements IIncome {
@@ -18,6 +26,7 @@ export class Income implements IIncome {
     public endedAt: Date;
     public source: Source;
     public sum: number;
+    public sumPerDay: number;
 
     constructor(startedAt: Date, endedAt: Date, source: Source, sum: number) {
         this.id = uuid();
@@ -26,13 +35,10 @@ export class Income implements IIncome {
         this.endedAt = endedAt;
         this.source = source;
         this.sum = sum.round2();
-    }
-}
 
-export interface IIncomeFilter extends IEntityFilter {
-    startedAt: Date | null;
-    endedAt: Date | null;
-    source: Source | null;
+        const range = differenceInDays(this.endedAt, this.startedAt) + 1;
+        this.sumPerDay = this.sum / range;
+    }
 }
 
 export class IncomeFilter implements IIncomeFilter {

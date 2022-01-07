@@ -1,0 +1,7 @@
+.el-chart-box {
+    ::ng-deep el-chart-line > div,
+    ::ng-deep el-chart-bar > div,
+    ::ng-deep el-chart-pie > div {
+        min-height: 20rem;
+    }
+}

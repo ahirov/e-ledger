@@ -3,6 +3,7 @@ import { Actions, concatLatestFrom, createEffect, ofType } from "@ngrx/effects";
 import { Action, Store } from "@ngrx/store";
 import { map, switchMap } from "rxjs/operators";
 
+import { AppState } from "../../store/app.model";
 import { StateService } from "./state.service";
 import { UndefinedAction } from "../../store/undefined.action";
 
@@ -14,12 +15,19 @@ export class OutcomeEffects {
     constructor(
         private _stateService: StateService,
         private _actions$: Actions,
-        private _store$: Store<fromApp.AppState>,
+        private _store$: Store<AppState>,
     ) {}
 
     addOutcome$ = createEffect(() =>
         this._actions$.pipe(
             ofType(fromActions.ADD_OUTCOME),
+            map((): Action => fromActions.processPage()),
+        ),
+    );
+
+    addOutcomes$ = createEffect(() =>
+        this._actions$.pipe(
+            ofType(fromActions.ADD_OUTCOMES),
             map((): Action => fromActions.processOutput()),
         ),
     );
@@ -27,7 +35,7 @@ export class OutcomeEffects {
     deleteOutcome$ = createEffect(() =>
         this._actions$.pipe(
             ofType(fromActions.DELETE_OUTCOME),
-            map((): Action => fromActions.processOutput()),
+            map((): Action => fromActions.processPage()),
         ),
     );
 
@@ -42,7 +50,7 @@ export class OutcomeEffects {
         this._actions$.pipe(
             ofType(fromActions.PROCESS_OUTPUT),
             concatLatestFrom(() => [
-                this._store$.select(fromApp.appSelectors.outcome.filter),
+                this._store$.select(fromApp.appSelectors.outcome.summaryFilter),
                 this._store$.select(fromApp.appSelectors.outcome.items),
             ]),
             map(([, filter, items]): string[] =>
@@ -59,8 +67,8 @@ export class OutcomeEffects {
         this._actions$.pipe(
             ofType(fromActions.PROCESS_PAGE),
             concatLatestFrom(() => [
-                this._store$.select(fromApp.appSelectors.outcome.activePage),
-                this._store$.select(fromApp.appSelectors.outcome.pagesCount),
+                this._store$.select(fromApp.appSelectors.outcome.summaryActivePage),
+                this._store$.select(fromApp.appSelectors.outcome.summaryPagesCount),
             ]),
             map(([, activePage, pagesCount]): Action => {
                 const page = this._stateService.checkActivePage(
@@ -79,7 +87,7 @@ export class OutcomeEffects {
             ofType(fromActions.SELECT_PAGE),
             concatLatestFrom(() =>
                 this._store$.select(
-                    fromApp.appSelectors.outcome.outputItemsCount,
+                    fromApp.appSelectors.outcome.summaryItemsCount,
                 ),
             ),
             map(
