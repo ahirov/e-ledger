@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 
 @Component({
-    templateUrl: "../workspace-panel.template.html",
+    templateUrl: "./panel.component.html",
 })
 export class ChartPanelComponent {}

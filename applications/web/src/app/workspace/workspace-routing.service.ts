@@ -45,20 +45,20 @@ export class RoutingService {
 
     public saveMode(param: { [key: string]: string }): void {
         const mode = param["mode"];
-        if (mode == Mode.Income) {
+        if (mode === Mode.Income) {
             this._savedMode = Mode.Income;
         }
-        if (mode == Mode.Outcome) {
+        if (mode === Mode.Outcome) {
             this._savedMode = Mode.Outcome;
         }
     }
 
     public getMode(param: { [key: string]: string }): Mode | null {
         const mode = param["mode"];
-        if (mode == Mode.Categories) {
+        if (mode === Mode.Categories) {
             return Mode.Categories;
         }
-        if (mode == Mode.User) {
+        if (mode === Mode.User) {
             return Mode.User;
         }
         return null;

@@ -2,14 +2,14 @@ import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 
-import { AppState } from "../../store/app.model";
-import { IIncome, Source } from "../model/income.model";
-import { IOutcome, Category } from "../model/outcome.model";
-import { Mode } from "../workspace-routing.service";
+import { AppState } from "../../../store/app.model";
+import { IIncome, Source } from "../../model/income.model";
+import { IOutcome, Category } from "../../model/outcome.model";
+import { Mode } from "../../workspace-routing.service";
 import { ListService } from "./list.service";
 
-import * as fromIncomeActions from "../store/income.actions";
-import * as fromOutcomeActions from "../store/outcome.actions";
+import * as fromIncomeActions from "../../store/income.actions";
+import * as fromOutcomeActions from "../../store/outcome.actions";
 
 @Component({
     selector: "el-list",

@@ -56,7 +56,7 @@ export class WorkspaceComponent implements OnInit, AfterViewInit {
             outcomes.push(outcome);
             date++;
             item++;
-            if (item == totalItems) {
+            if (item === totalItems) {
                 clearInterval(intervalId);
                 this._store$.dispatch(
                     fromIncomeActions.addIncomes({ payload: incomes }),

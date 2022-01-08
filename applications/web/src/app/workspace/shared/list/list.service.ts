@@ -6,8 +6,8 @@ import { Subscription } from "rxjs";
 import { take } from "rxjs/operators";
 import { BsModalService, ModalOptions } from "ngx-bootstrap/modal";
 
-import { AppState } from "../../store/app.model";
-import { ModalComponent } from "../../shared/modal/modal.component";
+import { AppState } from "../../../store/app.model";
+import { ModalComponent } from "../../../shared/modal/modal.component";
 
 @Injectable()
 export class ListService implements OnDestroy {

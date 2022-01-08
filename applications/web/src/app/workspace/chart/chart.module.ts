@@ -7,9 +7,9 @@ import { NgChartsModule } from "ng2-charts";
 
 import { ChartService } from "./chart.service";
 import { ChartComponent } from "./chart.component";
-import { ChartLineComponent } from "./types/chart-line.component";
-import { ChartBarComponent } from "./types/chart-bar.component";
-import { ChartPieComponent } from "./types/chart-pie.component";
+import { ChartLineComponent } from "./type/chart-line.component";
+import { ChartBarComponent } from "./type/chart-bar.component";
+import { ChartPieComponent } from "./type/chart-pie.component";
 
 @NgModule({
     declarations: [

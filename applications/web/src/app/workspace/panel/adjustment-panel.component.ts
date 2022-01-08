@@ -6,13 +6,13 @@ import { Component } from "@angular/core";
         <button
             routerLink="../categories"
             routerLinkActive="active"
-            class="btn btn-outline-primary w-50 mx-4 my-3 my-lg-0">
+            class="btn btn-outline-primary w-50 mx-4 my-3 my-lg-0 fw-bold">
             Categories
         </button>
         <button
             routerLink="../user"
             routerLinkActive="active"
-            class="btn btn-outline-primary w-50 mx-4 my-3 my-lg-0">
+            class="btn btn-outline-primary w-50 mx-4 my-3 my-lg-0 fw-bold">
             User
         </button>
     </div>`,

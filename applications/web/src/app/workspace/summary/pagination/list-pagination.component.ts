@@ -2,13 +2,13 @@ import { Component, Input } from "@angular/core";
 import { DefaultProjectorFn, MemoizedSelector } from "@ngrx/store";
 import { TypedAction } from "@ngrx/store/src/models";
 
-import { IIncome } from "../model/income.model";
-import { IOutcome } from "../model/outcome.model";
-import { Mode } from "../workspace-routing.service";
-import { appSelectors as selectors } from "../../store/app.state";
+import { IIncome } from "../../model/income.model";
+import { IOutcome } from "../../model/outcome.model";
+import { Mode } from "../../workspace-routing.service";
+import { appSelectors as selectors } from "../../../store/app.state";
 
-import * as fromIncomeActions from "../store/income.actions";
-import * as fromOutcomeActions from "../store/outcome.actions";
+import * as fromIncomeActions from "../../store/income.actions";
+import * as fromOutcomeActions from "../../store/outcome.actions";
 import * as _ from "lodash";
 
 @Component({
