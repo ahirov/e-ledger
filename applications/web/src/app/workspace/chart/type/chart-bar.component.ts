@@ -23,7 +23,7 @@ import DatalabelsPlugin from "chartjs-plugin-datalabels";
 })
 export class ChartBarComponent implements OnInit, OnDestroy, AfterViewInit {
     @Input()
-    selector!: MemoizedSelector<
+    public selector!: MemoizedSelector<
         AppState,
         ChartPoint[],
         DefaultProjectorFn<ChartPoint[]>

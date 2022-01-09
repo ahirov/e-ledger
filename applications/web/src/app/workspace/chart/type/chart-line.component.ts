@@ -22,7 +22,7 @@ import { ChartPoint } from "../../model/state.model";
 })
 export class ChartLineComponent implements OnInit, OnDestroy, AfterViewInit {
     @Input()
-    selector!: MemoizedSelector<
+    public selector!: MemoizedSelector<
         AppState,
         ChartPoint[],
         DefaultProjectorFn<ChartPoint[]>

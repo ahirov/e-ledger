@@ -24,7 +24,7 @@ import * as _ from "lodash";
 })
 export class ChartPieComponent implements OnInit, OnDestroy, AfterViewInit {
     @Input()
-    selector!: MemoizedSelector<
+    public selector!: MemoizedSelector<
         AppState,
         ChartSection[],
         DefaultProjectorFn<ChartSection[]>
