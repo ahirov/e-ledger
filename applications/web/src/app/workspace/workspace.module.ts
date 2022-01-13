@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
 
 import { CashflowModule } from "./cashflow/cashflow.module";
 import { SummaryModule } from "./summary/summary.module";
@@ -9,6 +11,13 @@ import { AdjustmentModule } from "./adjustment/adjustment.module";
 import { ExitModule } from "./exit/exit.module";
 import { WorkspaceRoutingModule } from "./workspace-routing.module";
 
+import { FeatureKey } from "../shared/store/app.model";
+import { workspaceReducer } from "./data/store/state.reducer";
+import { WorkspaceIncomeEffects } from "./data/store/income.effects";
+import { WorkspaceOutcomeEffects } from "./data/store/outcome.effects";
+
+import { IncomeService } from "./data/store/income.service";
+import { OutcomeService } from "./data/store/outcome.service";
 import { RoutingService } from "./workspace-routing.service";
 import { WorkspaceComponent } from "./workspace.component";
 import { CashflowPanelComponent } from "./panel/cashflow-panel.component";
@@ -37,7 +46,13 @@ import { ExitPanelComponent } from "./panel/exit-panel.component";
         AdjustmentModule,
         ExitModule,
         WorkspaceRoutingModule,
+
+        StoreModule.forFeature(FeatureKey.Data, workspaceReducer),
+        EffectsModule.forFeature([
+            WorkspaceIncomeEffects,
+            WorkspaceOutcomeEffects,
+        ]),
     ],
-    providers: [RoutingService],
+    providers: [RoutingService, IncomeService, OutcomeService],
 })
 export class WorkspaceModule {}

@@ -5,11 +5,11 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { DefaultProjectorFn, MemoizedSelector } from "@ngrx/store";
 import { Subscription } from "rxjs";
 
-import { IIncome, Source } from "../model/income.model";
-import { Category, IOutcome } from "../model/outcome.model";
+import { IIncome, Source } from "../data/model/income.model";
+import { Category, IOutcome } from "../data/model/outcome.model";
 import { Mode, RoutingService } from "../workspace-routing.service";
 import { CashflowService } from "./cashflow.service";
-import { appSelectors as selectors } from "../../store/app.state";
+import { selectors } from "../data/store/state.selectors";
 
 @Component({
     templateUrl: "./cashflow.component.html",

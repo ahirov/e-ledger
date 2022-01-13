@@ -10,12 +10,12 @@ import { Store } from "@ngrx/store";
 
 import { Observable } from "rxjs";
 import { map, take } from "rxjs/operators";
-import { AppState } from "../store/app.model";
+import { selectors } from "./store/auth.selectors";
 
 @Injectable({ providedIn: "root" })
 export class AuthGuard implements CanActivate {
     constructor(
-        private _store$: Store<AppState>,
+        private _store$: Store,
         private _router: Router,
     ) {}
 
@@ -27,10 +27,10 @@ export class AuthGuard implements CanActivate {
         | UrlTree
         | Observable<boolean | UrlTree>
         | Promise<boolean | UrlTree> {
-        return this._store$.select("auth").pipe(
+        return this._store$.select(selectors.user).pipe(
             take(1),
-            map(state => {
-                return state.user ? true : this._router.createUrlTree(["/auth"]);
+            map(user => {
+                return user ? true : this._router.createUrlTree(["/auth"]);
             }),
         );
     }

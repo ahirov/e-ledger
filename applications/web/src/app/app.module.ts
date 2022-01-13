@@ -10,9 +10,7 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { AppComponent } from "./app.component";
 import { AuthModule } from "./auth/auth.module";
 import { AppRoutingModule } from "./app-routing.module";
-import { appReducer, appEffects } from "./store/app.state";
 import { environment } from "../environments/environment";
-import { StateService } from "./workspace/store/state.service";
 
 @NgModule({
     declarations: [AppComponent],
@@ -21,14 +19,13 @@ import { StateService } from "./workspace/store/state.service";
         BrowserAnimationsModule,
         HttpClientModule,
 
-        StoreModule.forRoot(appReducer),
-        EffectsModule.forRoot(appEffects),
+        StoreModule.forRoot({}),
+        EffectsModule.forRoot([]),
         StoreDevtoolsModule.instrument({ logOnly: environment.production }),
 
         AuthModule,
         AppRoutingModule,
     ],
-    providers: [StateService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

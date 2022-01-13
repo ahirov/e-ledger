@@ -2,14 +2,13 @@ import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 
-import { AppState } from "../../../store/app.model";
-import { IIncome, Source } from "../../model/income.model";
-import { IOutcome, Category } from "../../model/outcome.model";
+import { IIncome, Source } from "../../data/model/income.model";
+import { IOutcome, Category } from "../../data/model/outcome.model";
 import { Mode } from "../../workspace-routing.service";
 import { ListService } from "./list.service";
 
-import * as fromIncomeActions from "../../store/income.actions";
-import * as fromOutcomeActions from "../../store/outcome.actions";
+import * as fromIncomeActions from "../../data/store/income.actions";
+import * as fromOutcomeActions from "../../data/store/outcome.actions";
 
 @Component({
     selector: "el-list",
@@ -44,7 +43,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
     constructor(
         private _listService: ListService,
-        private _store$: Store<AppState>,
+        private _store$: Store,
     ) {}
 
     public ngOnInit(): void {

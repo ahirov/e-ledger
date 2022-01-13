@@ -9,14 +9,13 @@ import {
 import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 
-import { AppState } from "../store/app.model";
-import { IIncome } from "./model/income.model";
-import { IOutcome } from "./model/outcome.model";
+import { IIncome } from "./data/model/income.model";
+import { IOutcome } from "./data/model/outcome.model";
 import { Mode, RoutingPath, RoutingService } from "./workspace-routing.service";
 import { getIncome, getOutcome } from "./workspace.temp";
 
-import * as fromIncomeActions from "./store/income.actions";
-import * as fromOutcomeActions from "./store/outcome.actions";
+import * as fromIncomeActions from "./data/store/income.actions";
+import * as fromOutcomeActions from "./data/store/outcome.actions";
 
 @Component({
     templateUrl: "./workspace.component.html",
@@ -35,7 +34,7 @@ export class WorkspaceComponent implements OnInit, AfterViewInit {
         private _router: Router,
         private _renderer: Renderer2,
         private _routingService: RoutingService,
-        private _store$: Store<AppState>,
+        private _store$: Store,
     ) {}
 
     public ngOnInit(): void {

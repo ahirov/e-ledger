@@ -4,13 +4,12 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 
 import { Subscription } from "rxjs";
-import { AppState } from "../../store/app.model";
-import { Source } from "../model/income.model";
-import { Category } from "../model/outcome.model";
+import { Source } from "../data/model/income.model";
+import { Category } from "../data/model/outcome.model";
 import { SummaryService } from "./summary.service";
 import { Mode, RoutingService } from "../workspace-routing.service";
 
-import * as fromApp from "../../store/app.state";
+import { selectors } from "./store/state.selectors";
 
 @Component({
     templateUrl: "./summary.component.html",
@@ -36,7 +35,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
     constructor(
         private _route: ActivatedRoute,
         private _summaryService: SummaryService,
-        private _store$: Store<AppState>,
+        private _store$: Store,
         public modeService: RoutingService,
     ) {}
 
@@ -45,14 +44,14 @@ export class SummaryComponent implements OnInit, OnDestroy {
             this.modeService.saveMode(params),
         );
         this._incomeFiltersSub = this._store$
-            .select(fromApp.appSelectors.income.summaryFilter)
+            .select(selectors.income.filter)
             .subscribe(data => {
                 this.startedAt = data.startedAt;
                 this.endedAt = data.endedAt;
                 this.source = data.source;
             });
         this._outcomeFiltersSub = this._store$
-            .select(fromApp.appSelectors.outcome.summaryFilter)
+            .select(selectors.outcome.filter)
             .subscribe(data => {
                 this.processedAt = data.processedAt;
                 this.category = data.category;

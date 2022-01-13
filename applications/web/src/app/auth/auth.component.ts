@@ -4,10 +4,10 @@ import { Store } from "@ngrx/store";
 
 import { Subscription } from "rxjs";
 
-import { AppState } from "../store/app.model";
 import { AuthCredentials } from "./auth.model";
 import { AuthErrorService } from "./auth-error.service";
 import { authAnimations } from "./auth.animations";
+import { selectors } from "./store/auth.selectors";
 import * as fromActions from "../auth/store/auth.actions";
 
 @Component({
@@ -22,14 +22,14 @@ export class AuthComponent implements OnInit, OnDestroy {
     public isSignUpMode = false;
 
     constructor(
-        private _store$: Store<AppState>,
+        private _store$: Store,
         private _errorService: AuthErrorService,
     ) {}
 
     public ngOnInit(): void {
-        this._storeSub = this._store$.select("auth").subscribe(state => {
-            if (state.error) {
-                this._extraError = { message: state.error, isExternal: true };
+        this._storeSub = this._store$.select(selectors.error).subscribe(error => {
+            if (error) {
+                this._extraError = { message: error, isExternal: true };
             }
         });
     }

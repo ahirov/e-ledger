@@ -1,16 +1,15 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-
 import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 
-import { AppState } from "../../store/app.model";
-import { ChartPoint, ChartSection } from "../model/state.model";
+import { IChartPoint, IChartSection } from "./chart.model";
 import { Mode, RoutingService } from "../workspace-routing.service";
-import { appSelectors as selectors } from "../../store/app.state";
 
-import * as fromIncomeActions from "../store/income.actions";
-import * as fromOutcomeActions from "../store/outcome.actions";
+import { selectors as dataSelectors } from "../data/store/state.selectors";
+import { selectors } from "./store/state.selectors";
+import * as fromIncomeActions from "./store/income.actions";
+import * as fromOutcomeActions from "./store/outcome.actions";
 
 @Component({
     templateUrl: "./chart.component.html",
@@ -27,40 +26,40 @@ export class ChartComponent implements OnInit, OnDestroy {
     public outcomeYears$!: Observable<number[]>;
 
     public get incomeChartPointsSelector(): MemoizedSelector<
-        AppState,
-        ChartPoint[],
-        DefaultProjectorFn<ChartPoint[]>
+        object,
+        IChartPoint[],
+        DefaultProjectorFn<IChartPoint[]>
     > {
-        return selectors.income.chartPoints;
+        return selectors.income.points;
     }
 
     public get incomeChartSectionsSelector(): MemoizedSelector<
-        AppState,
-        ChartSection[],
-        DefaultProjectorFn<ChartSection[]>
+        object,
+        IChartSection[],
+        DefaultProjectorFn<IChartSection[]>
     > {
-        return selectors.income.chartSections;
+        return selectors.income.sections;
     }
 
     public get outcomeChartPointsSelector(): MemoizedSelector<
-        AppState,
-        ChartPoint[],
-        DefaultProjectorFn<ChartPoint[]>
+        object,
+        IChartPoint[],
+        DefaultProjectorFn<IChartPoint[]>
     > {
-        return selectors.outcome.chartPoints;
+        return selectors.outcome.points;
     }
 
     public get outcomeChartSectionsSelector(): MemoizedSelector<
-        AppState,
-        ChartSection[],
-        DefaultProjectorFn<ChartSection[]>
+        object,
+        IChartSection[],
+        DefaultProjectorFn<IChartSection[]>
     > {
-        return selectors.outcome.chartSections;
+        return selectors.outcome.sections;
     }
 
     constructor(
         private _route: ActivatedRoute,
-        private _store$: Store<AppState>,
+        private _store$: Store,
         public modeService: RoutingService,
     ) {}
 
@@ -68,10 +67,10 @@ export class ChartComponent implements OnInit, OnDestroy {
         this._paramsSub = this._route.params.subscribe(params =>
             this.modeService.saveMode(params),
         );
-        this.incomeYear$ = this._store$.select(selectors.income.chartYear);
-        this.incomeYears$ = this._store$.select(selectors.income.chartYears);
-        this.outcomeYear$ = this._store$.select(selectors.outcome.chartYear);
-        this.outcomeYears$ = this._store$.select(selectors.outcome.chartYears);
+        this.incomeYear$ = this._store$.select(selectors.income.year);
+        this.incomeYears$ = this._store$.select(dataSelectors.income.years);
+        this.outcomeYear$ = this._store$.select(selectors.outcome.year);
+        this.outcomeYears$ = this._store$.select(dataSelectors.outcome.years);
         this.chartMode = "period";
     }
 

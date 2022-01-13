@@ -2,15 +2,14 @@ import { Injectable } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Store } from "@ngrx/store";
 
-import { AppState } from "../../store/app.model";
-import { Income } from "../model/income.model";
-import { Outcome } from "../model/outcome.model";
-import * as fromOutcomeActions from "../store/outcome.actions";
-import * as fromIncomeActions from "../store/income.actions";
+import { Income } from "../data/model/income.model";
+import { Outcome } from "../data/model/outcome.model";
+import * as fromOutcomeActions from "../data/store/outcome.actions";
+import * as fromIncomeActions from "../data/store/income.actions";
 
 @Injectable()
 export class CashflowService {
-    constructor(private _store$: Store<AppState>) {}
+    constructor(private _store$: Store) {}
 
     public addIncome(form: NgForm): void {
         const value = form.value;

@@ -5,7 +5,7 @@ import { ObservableInput, of } from "rxjs";
 import { AuthUser } from "./auth.model";
 import { AuthResponse } from "./auth.model";
 import { AuthTimerService } from "./auth-timer.service";
-import { AppStorage, StorageKey } from "../store/app.storage";
+import { AppStorage, StorageKey } from "../shared/store/app.storage";
 import * as fromActions from "./store/auth.actions";
 
 @Injectable()

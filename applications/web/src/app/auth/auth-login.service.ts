@@ -3,8 +3,8 @@ import { Router } from "@angular/router";
 
 import { AuthUser } from "./auth.model";
 import { AuthTimerService } from "./auth-timer.service";
-import { AppStorage, StorageKey } from "../store/app.storage";
-import { UndefinedAction } from "../store/undefined.action";
+import { AppStorage, StorageKey } from "../shared/store/app.storage";
+import { UndefinedAction } from "../shared/store/undefined.action";
 import * as fromActions from "./store/auth.actions";
 
 @Injectable()

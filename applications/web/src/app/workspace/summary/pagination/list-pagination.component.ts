@@ -2,14 +2,13 @@ import { Component, Input } from "@angular/core";
 import { DefaultProjectorFn, MemoizedSelector } from "@ngrx/store";
 import { TypedAction } from "@ngrx/store/src/models";
 
-import { IIncome } from "../../model/income.model";
-import { IOutcome } from "../../model/outcome.model";
+import { IIncome } from "../../data/model/income.model";
+import { IOutcome } from "../../data/model/outcome.model";
 import { Mode } from "../../workspace-routing.service";
-import { appSelectors as selectors } from "../../../store/app.state";
 
-import * as fromIncomeActions from "../../store/income.actions";
-import * as fromOutcomeActions from "../../store/outcome.actions";
-import * as _ from "lodash";
+import { selectors } from "../store/state.selectors";
+import * as fromIncomeActions from "../store/income.actions";
+import * as fromOutcomeActions from "../store/outcome.actions";
 
 @Component({
     selector: "el-list-pagination",
@@ -31,7 +30,7 @@ export class ListPaginationComponent {
         IIncome[],
         DefaultProjectorFn<IIncome[]>
     > {
-        return selectors.income.summaryPageItems;
+        return selectors.income.pageItems;
     }
 
     public get incomePageSelector(): MemoizedSelector<
@@ -39,7 +38,7 @@ export class ListPaginationComponent {
         number,
         DefaultProjectorFn<number>
     > {
-        return selectors.income.summaryActivePage;
+        return selectors.income.page;
     }
 
     public get incomeCountSelector(): MemoizedSelector<
@@ -47,7 +46,7 @@ export class ListPaginationComponent {
         number,
         DefaultProjectorFn<number>
     > {
-        return selectors.income.summaryPagesCount;
+        return selectors.income.pagesCount;
     }
 
     public get outcomeAction(): (props: { payload: number }) => {
@@ -61,7 +60,7 @@ export class ListPaginationComponent {
         IOutcome[],
         DefaultProjectorFn<IOutcome[]>
     > {
-        return selectors.outcome.summaryPageItems;
+        return selectors.outcome.pageItems;
     }
 
     public get outcomePageSelector(): MemoizedSelector<
@@ -69,7 +68,7 @@ export class ListPaginationComponent {
         number,
         DefaultProjectorFn<number>
     > {
-        return selectors.outcome.summaryActivePage;
+        return selectors.outcome.page;
     }
 
     public get outcomeCountSelector(): MemoizedSelector<
@@ -77,6 +76,6 @@ export class ListPaginationComponent {
         number,
         DefaultProjectorFn<number>
     > {
-        return selectors.outcome.summaryPagesCount;
+        return selectors.outcome.pagesCount;
     }
 }

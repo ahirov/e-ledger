@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Dictionary } from "@ngrx/entity";
 
-import { IEntity, IEntityFilter } from "../model/state.model";
+import { IEntity, IEntityFilter } from "../../data/model/state.model";
 import { environment } from "applications/web/src/environments/environment";
-
 import * as _ from "lodash";
 
 @Injectable()

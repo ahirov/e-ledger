@@ -12,8 +12,7 @@ import { ChartConfiguration, ChartType, Plugin } from "chart.js";
 import { BaseChartDirective } from "ng2-charts";
 import { Subscription } from "rxjs";
 
-import { AppState } from "../../../store/app.model";
-import { ChartSection } from "../../model/state.model";
+import { IChartSection } from "../chart.model";
 import { ChartService, ScssVariables } from "../chart.service";
 import DatalabelsPlugin from "chartjs-plugin-datalabels";
 import * as _ from "lodash";
@@ -25,9 +24,9 @@ import * as _ from "lodash";
 export class ChartPieComponent implements OnInit, OnDestroy, AfterViewInit {
     @Input()
     public selector!: MemoizedSelector<
-        AppState,
-        ChartSection[],
-        DefaultProjectorFn<ChartSection[]>
+        object,
+        IChartSection[],
+        DefaultProjectorFn<IChartSection[]>
     >;
     @ViewChild(BaseChartDirective)
     private _chart!: BaseChartDirective;
@@ -41,7 +40,7 @@ export class ChartPieComponent implements OnInit, OnDestroy, AfterViewInit {
 
     constructor(
         private _chartService: ChartService,
-        private _store$: Store<AppState>,
+        private _store$: Store,
     ) {}
 
     public ngOnInit(): void {

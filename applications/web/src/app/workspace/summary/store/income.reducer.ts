@@ -1,0 +1,37 @@
+import { createReducer, on } from "@ngrx/store";
+import { IncomeFilter } from "../model/income.model";
+import { IIncomeState } from "../model/state.model";
+import * as fromActions from "./income.actions";
+import * as _ from "lodash";
+
+const initialState: IIncomeState = {
+    filter: new IncomeFilter(),
+    page: 0,
+    ids: [],
+};
+
+export const incomeReducer = createReducer(
+    initialState,
+    on(fromActions.addIncome, (state, { payload }): IIncomeState => {
+        const ids = [...state.ids];
+        if (state.filter.process(payload)) {
+            ids.unshift(payload.id);
+        }
+        return { ...state, ids: ids };
+    }),
+    on(fromActions.deleteIncome, (state, { payload }): IIncomeState => {
+        return {
+            ...state,
+            ids: _.filter(state.ids, item => item !== payload),
+        };
+    }),
+    on(fromActions.setFilter, (state, { payload }): IIncomeState => {
+        return { ...state, filter: payload };
+    }),
+    on(fromActions.setPage, (state, { payload }): IIncomeState => {
+        return { ...state, page: payload };
+    }),
+    on(fromActions.setOutput, (state, { payload }): IIncomeState => {
+        return { ...state, ids: [...payload] };
+    }),
+);

@@ -1,22 +1,7 @@
-import { EntityState } from "@ngrx/entity";
-
-export interface IState<T, F> extends EntityState<T> {
-    /* TODO!!! */
-    summaryActivePage: number;
-    summaryIds: string[];
-    summaryFilter: F;
-    chartYear: number | null;
-    chartYears: number[];
-}
-
-export interface IEntity {
-    id: string;
-    createdAt: Date;
-}
-
-export interface IEntityFilter {
-    any(): boolean;
-    process(item: IEntity): boolean;
+interface IPartState {
+    year: number | null;
+    points: IChartPoint[];
+    sections: IChartSection[];
 }
 
 export interface IItem<T> {
@@ -32,6 +17,14 @@ export interface IChartPoint {
 export interface IChartSection {
     name: string;
     value: number;
+}
+
+export interface IIncomeState extends IPartState { }
+export interface IOutcomeState extends IPartState { }
+
+export interface IState {
+    income: IIncomeState;
+    outcome: IOutcomeState;
 }
 
 export class Item<T> implements IItem<T> {

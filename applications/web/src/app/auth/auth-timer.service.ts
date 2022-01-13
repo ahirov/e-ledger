@@ -2,15 +2,13 @@ import { Injectable, OnDestroy } from "@angular/core";
 import { Store } from "@ngrx/store";
 
 import { Subscription, timer } from "rxjs";
-
-import { AppState } from "../store/app.model";
 import * as fromActions from "../auth/store/auth.actions";
 
 @Injectable()
 export class AuthTimerService implements OnDestroy {
     private _timer: Subscription | null = null;
 
-    constructor(private _store$: Store<AppState>) {}
+    constructor(private _store$: Store) {}
 
     public ngOnDestroy(): void {
         this.clearTimer();

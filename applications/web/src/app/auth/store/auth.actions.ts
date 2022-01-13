@@ -1,7 +1,7 @@
 import { Action } from "@ngrx/store";
 
 import { AuthUser, AuthCredentials } from "../auth.model";
-import { UndefinedAction } from "../../store/undefined.action";
+import { UndefinedAction } from "../../shared/store/undefined.action";
 
 export const SIGNUP_START = "[Auth] Signup start";
 export const LOGIN_START  = "[Auth] Login start";

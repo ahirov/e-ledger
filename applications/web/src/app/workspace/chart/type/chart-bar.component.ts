@@ -12,9 +12,8 @@ import { ChartConfiguration, ChartType, Plugin } from "chart.js";
 import { BaseChartDirective } from "ng2-charts";
 import { Subscription } from "rxjs";
 
+import { IChartPoint } from "../chart.model";
 import { ChartService, ScssVariables } from "../chart.service";
-import { AppState } from "../../../store/app.model";
-import { ChartPoint } from "../../model/state.model";
 import DatalabelsPlugin from "chartjs-plugin-datalabels";
 
 @Component({
@@ -24,9 +23,9 @@ import DatalabelsPlugin from "chartjs-plugin-datalabels";
 export class ChartBarComponent implements OnInit, OnDestroy, AfterViewInit {
     @Input()
     public selector!: MemoizedSelector<
-        AppState,
-        ChartPoint[],
-        DefaultProjectorFn<ChartPoint[]>
+        object,
+        IChartPoint[],
+        DefaultProjectorFn<IChartPoint[]>
     >;
     @ViewChild(BaseChartDirective)
     private _chart!: BaseChartDirective;
@@ -40,7 +39,7 @@ export class ChartBarComponent implements OnInit, OnDestroy, AfterViewInit {
 
     constructor(
         private _chartService: ChartService,
-        private _store$: Store<AppState>,
+        private _store$: Store,
     ) {}
 
     public ngOnInit(): void {
