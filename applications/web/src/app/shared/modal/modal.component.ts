@@ -16,7 +16,7 @@ export class ModalComponent implements OnInit {
         this.confirmation$ = new Subject();
     }
 
-    public confirm() {
+    public confirm(): void {
         this.confirmation$.next();
     }
 }

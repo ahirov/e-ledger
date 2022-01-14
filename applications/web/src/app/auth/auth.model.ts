@@ -24,13 +24,6 @@ export interface AuthResponse {
 }
 
 export class AuthUser {
-    constructor(
-        public email: string,
-        public id: string,
-        private _token: string,
-        private _tokenExpirationDate: Date,
-    ) {}
-
     public get token(): string | null {
         if (
             !this._token ||
@@ -45,6 +38,13 @@ export class AuthUser {
     public get tokenExpirationDate(): Date {
         return this._tokenExpirationDate;
     }
+
+    constructor(
+        public email: string,
+        public id: string,
+        private _token: string,
+        private _tokenExpirationDate: Date,
+    ) {}
 
     public copy(): AuthUser {
         return new AuthUser(
