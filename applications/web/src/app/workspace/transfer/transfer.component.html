@@ -1,3 +1,99 @@
-<p>transfer works!</p>
-<p *ngIf="modeService.savedMode === MODE.Income">income</p>
-<p *ngIf="modeService.savedMode === MODE.Outcome">outcome</p>
+<div class="el-transfer-box mx-lg-4">
+    <div>
+        <p class="mt-3 text-end fw-bold">Export:</p>
+        <form>
+            <div class="row">
+                <div class="col-md-6 order-md-last">
+                    <div class="input-group input-group-sm my-2">
+                        <label class="input-group-text">Extension:</label>
+                        <ng-select class="form-control" name="extension">
+                            <ng-option
+                                *ngFor="let item of extensions"
+                                [value]="item">
+                                {{ item.toUpperCase() }}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="col-md-6 order-md-first">
+                    <div class="input-group input-group-sm my-2">
+                        <span class="input-group-text">From:</span>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="startedAt"
+                            bsDatepicker
+                            [bsConfig]="{
+                                isAnimated: true,
+                                dateInputFormat: 'DD/MM/YYYY'
+                            }" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group input-group-sm my-2">
+                        <span class="input-group-text">To:</span>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="endedAt"
+                            bsDatepicker
+                            [bsConfig]="{
+                                isAnimated: true,
+                                dateInputFormat: 'DD/MM/YYYY'
+                            }" />
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center">
+                    <button
+                        type="submit"
+                        class="btn btn-sm btn-primary my-2 w-50 fw-bold">
+                        Download
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div>
+        <p class="mt-3 text-end fw-bold">Import:</p>
+        <form>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="my-2">
+                        <input
+                            type="file"
+                            class="form-control form-control-sm"
+                            name="path" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-check form-control-sm my-2 pt-0 pb-0">
+                        <input type="checkbox" class="form-check-input" />
+                        <label class="form-check-label"
+                            >Rewrite data<br /><span
+                                *ngIf="modeService.savedMode === MODE.Income"
+                                class="el-text-small text-danger">
+                                *based on range and source</span
+                            >
+                            <span
+                                *ngIf="modeService.savedMode === MODE.Outcome"
+                                class="el-text-small text-danger">
+                                *based on date and category</span
+                            ></label
+                        >
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center">
+                    <button
+                        type="submit"
+                        class="btn btn-sm btn-primary my-2 w-50 fw-bold">
+                        Upload
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
