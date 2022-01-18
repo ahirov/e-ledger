@@ -40,6 +40,10 @@ $ng-select-selected: $primary;
 $ng-select-primary-text: $dark;
 $ng-select-dropdown-option-text: $dark;
 
+$tooltip-bg: $primary;
+$tooltip-color: $black;
+$tooltip-font-size: 0.75rem;
+
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins";

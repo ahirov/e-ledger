@@ -12,9 +12,10 @@
         novalidate
         (ngSubmit)="onSubmit(elCashflowForm)">
         <div *ngIf="modeService.savedMode === MODE.Income">
-            <div class="input-group mb-3">
+            <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text">From<sup>*</sup>:</span>
                 <input
+                    #elStartedAt="ngModel"
                     type="text"
                     class="form-control"
                     name="startedAt"
@@ -24,11 +25,13 @@
                     [bsConfig]="{
                         isAnimated: true,
                         dateInputFormat: 'DD/MM/YYYY'
-                    }" />
+                    }"
+                    (onHidden)="elStartedAt.control.markAsDirty()" />
             </div>
-            <div class="input-group mb-3">
+            <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text">To<sup>*</sup>:</span>
                 <input
+                    #elEndedAt="ngModel"
                     type="text"
                     class="form-control"
                     name="endedAt"
@@ -38,9 +41,10 @@
                     [bsConfig]="{
                         isAnimated: true,
                         dateInputFormat: 'DD/MM/YYYY'
-                    }" />
+                    }"
+                    (onHidden)="elEndedAt.control.markAsDirty()" />
             </div>
-            <div class="input-group mb-3">
+            <div class="input-group input-group-sm mb-3">
                 <label class="input-group-text">Source<sup>*</sup>:</label>
                 <ng-select class="form-control" name="source" ngModel required>
                     <ng-option
@@ -52,9 +56,10 @@
             </div>
         </div>
         <div *ngIf="modeService.savedMode === MODE.Outcome">
-            <div class="input-group mb-3">
+            <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text">Date<sup>*</sup>:</span>
                 <input
+                    #elProcessedAt="ngModel"
                     type="text"
                     class="form-control"
                     name="processedAt"
@@ -64,9 +69,10 @@
                     [bsConfig]="{
                         isAnimated: true,
                         dateInputFormat: 'DD/MM/YYYY'
-                    }" />
+                    }"
+                    (onHidden)="elProcessedAt.control.markAsDirty()" />
             </div>
-            <div class="input-group mb-3">
+            <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text">Details:</span>
                 <input
                     type="text"
@@ -74,7 +80,7 @@
                     name="description"
                     ngModel />
             </div>
-            <div class="input-group mb-3">
+            <div class="input-group input-group-sm mb-3">
                 <label class="input-group-text">Category<sup>*</sup>:</label>
                 <ng-select
                     class="form-control"
@@ -89,7 +95,7 @@
                 </ng-select>
             </div>
         </div>
-        <div class="input-group">
+        <div class="input-group input-group-sm">
             <input
                 type="number"
                 class="form-control"
@@ -105,12 +111,12 @@
         </div>
         <div class="d-flex justify-content-evenly mt-2 mb-4">
             <button
-                [disabled]="!elCashflowForm.valid"
                 type="submit"
-                class="btn btn-primary w-25 fw-bold">
+                class="btn btn-sm btn-primary w-25 fw-bold"
+                [disabled]="elCashflowForm.invalid">
                 Add
             </button>
-            <button type="reset" class="btn btn-primary w-25 fw-bold">
+            <button type="reset" class="btn btn-sm btn-primary w-25 fw-bold">
                 Clear
             </button>
         </div>

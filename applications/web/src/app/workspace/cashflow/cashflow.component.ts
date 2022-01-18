@@ -1,6 +1,6 @@
 import { NgForm } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 
 import { DefaultProjectorFn, MemoizedSelector } from "@ngrx/store";
 import { Subscription } from "rxjs";
@@ -16,6 +16,8 @@ import { selectors } from "../data/store/state.selectors";
     styleUrls: ["./cashflow.component.scss"],
 })
 export class CashflowComponent implements OnInit, OnDestroy {
+    @ViewChild("elCashflowForm")
+    private _form!: NgForm;
     private _paramsSub!: Subscription;
 
     public MODE = Mode;
@@ -45,9 +47,12 @@ export class CashflowComponent implements OnInit, OnDestroy {
     ) {}
 
     public ngOnInit(): void {
-        this._paramsSub = this._route.params.subscribe(params =>
-            this.modeService.saveMode(params),
-        );
+        this._paramsSub = this._route.params.subscribe(params => {
+            this.modeService.saveMode(params);
+            if (this._form) {
+                this._form.reset();
+            }
+        });
     }
 
     public ngOnDestroy(): void {

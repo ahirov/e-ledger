@@ -1,16 +1,6 @@
 <div class="el-auth-box row">
     <div
-        class="
-            col-sm-10
-            offset-sm-1
-            col-md-8
-            offset-md-2
-            col-lg-6
-            offset-lg-3
-            p-4
-            bg-light
-            rounded
-        ">
+        class="col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 p-4 bg-light rounded">
         <div class="text-center">
             <p class="el-auth-title d-inline-block align-middle fs-1">
                 E~Ledger
@@ -77,9 +67,9 @@
             </div>
             <div class="text-center">
                 <button
-                    [disabled]="!elAuthForm.valid"
                     type="submit"
-                    class="el-auth-continue-button btn btn-primary fw-bold">
+                    class="el-auth-continue-button btn btn-primary fw-bold"
+                    [disabled]="elAuthForm.invalid">
                     Continue
                 </button>
             </div>

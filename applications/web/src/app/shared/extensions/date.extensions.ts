@@ -7,6 +7,7 @@ declare global {
         toDate(): Date;
         toDayShortMonthString(): string;
         toShortMonthString(): string;
+        toFullDateString(): string;
     }
 }
 
@@ -20,4 +21,8 @@ Date.prototype.toDayShortMonthString = function (): string {
 
 Date.prototype.toShortMonthString = function (): string {
     return format(this, "MMM");
+};
+
+Date.prototype.toFullDateString = function (): string {
+    return format(this, "dd/MM/yyyy");
 };

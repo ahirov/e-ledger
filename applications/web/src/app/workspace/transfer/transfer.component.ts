@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { NgForm } from "@angular/forms";
 
 import { Subscription } from "rxjs";
 import { Extension } from "./model/extension.mode";
+import { TransferService } from "./transfer.service";
 import { Mode, RoutingService } from "../workspace-routing.service";
 
 @Component({
@@ -17,6 +19,7 @@ export class TransferComponent implements OnInit, OnDestroy {
 
     constructor(
         private _route: ActivatedRoute,
+        private _transferService: TransferService,
         public modeService: RoutingService,
     ) {}
 
@@ -30,6 +33,18 @@ export class TransferComponent implements OnInit, OnDestroy {
     public ngOnDestroy(): void {
         if (this._paramsSub) {
             this._paramsSub.unsubscribe();
+        }
+    }
+
+    public onExportSubmit(form: NgForm): void {
+        if (form.valid) {
+            this._transferService.download(form, this.modeService.savedMode);
+        }
+    }
+
+    public onImportSubmit(form: NgForm): void {
+        if (form.valid) {
+            this._transferService.upload(form);
         }
     }
 }
