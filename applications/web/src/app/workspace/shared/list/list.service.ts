@@ -6,7 +6,7 @@ import { Subscription } from "rxjs";
 import { take } from "rxjs/operators";
 import { BsModalService, ModalOptions } from "ngx-bootstrap/modal";
 
-import { ModalComponent } from "../../../shared/modal/modal.component";
+import { ModalConfirmComponent } from "../../../shared/modal/modal-confirm.component";
 
 @Injectable()
 export class ListService implements OnDestroy {
@@ -36,7 +36,7 @@ export class ListService implements OnDestroy {
             },
             animated: true,
         };
-        const modalRef = this._modalService.show(ModalComponent, initialState);
+        const modalRef = this._modalService.show(ModalConfirmComponent, initialState);
         if (modalRef.content) {
             this.clearModal();
             this._modalSub = modalRef.content.confirmation$

@@ -18,7 +18,7 @@ export class ExportIncomeService implements IExportService<IIncome> {
                 (item: IIncome): boolean =>
                     filter.from <= item.endedAt && filter.to >= item.startedAt,
             )
-            .orderBy((item: IIncome): Date => item.startedAt, "asc")
+            .orderBy((item: IIncome): Date => item.startedAt, "desc")
             .value();
     }
 

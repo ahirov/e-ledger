@@ -17,8 +17,8 @@
         -45deg,
         #fff,
         #fff 0.5rem,
-        rgba($danger, 0.6) 0.5rem,
-        rgba($danger, 0.6) 1rem
+        rgba($danger, 0.2) 0.5rem,
+        rgba($danger, 0.2) 1rem
     );
 }
 
@@ -29,8 +29,8 @@ body {
     }
 }
 
-input.ng-touched.ng-dirty.ng-invalid[bsDatepicker],
-input.ng-touched.ng-invalid:not([bsDatepicker]) {
+input.ng-touched.ng-dirty.ng-invalid.elDynamicValidation,
+input.ng-touched.ng-invalid:not(.elDynamicValidation) {
     border-color: $danger;
     @include el-required;
 }

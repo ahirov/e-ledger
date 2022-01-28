@@ -1,25 +1,34 @@
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { CommonModule } from "@angular/common";
-
 import { NgSelectModule } from "@ng-select/ng-select";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
-import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
+
+import { SharedModule } from "../../shared/shared.module";
 import { TransferComponent } from "./transfer.component";
-import { TransferService } from "./transfer.service";
+
+import { ExportService } from "./export/export.service";
 import { ExportIncomeService } from "./export/export-income.service";
 import { ExportOutcomeService } from "./export/export-outcome.service";
+import { ImportService } from "./import/import.service";
+import { ImportIncomeService } from "./import/import-income.service";
+import { ImportOutcomeService } from "./import/import-outcome.service";
 
 @NgModule({
     declarations: [TransferComponent],
     imports: [
-        CommonModule,
+        SharedModule,
         FormsModule,
         NgSelectModule,
         TooltipModule.forRoot(),
-        BsDatepickerModule.forRoot(),
     ],
     exports: [TransferComponent],
-    providers: [TransferService, ExportIncomeService, ExportOutcomeService],
+    providers: [
+        ExportService,
+        ExportIncomeService,
+        ExportOutcomeService,
+        ImportService,
+        ImportIncomeService,
+        ImportOutcomeService,
+    ],
 })
 export class TransferModule {}

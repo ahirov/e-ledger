@@ -38,7 +38,10 @@
                 "applications/web/src"
               ]
             },
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+                "xlsx"
+            ]
           },
           "configurations": {
             "production": {

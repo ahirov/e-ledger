@@ -49,7 +49,7 @@ export class CashflowService {
                     processedAt.toDate(),
                     category,
                     sum,
-                    description ? description : null,
+                    description,
                 ),
             }),
         );

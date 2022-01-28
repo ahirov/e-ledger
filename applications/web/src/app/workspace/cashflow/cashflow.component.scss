@@ -2,7 +2,7 @@
 
 .el-cashflow-box {
     > div {
-        min-height: 6.25rem;
+        min-height: 8.3125rem;
     }
     > form div.input-group > .input-group-text {
         @include media-breakpoint-only(xs) {

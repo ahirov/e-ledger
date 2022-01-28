@@ -1,37 +1,28 @@
 import { Injectable } from "@angular/core";
-import { NgForm } from "@angular/forms";
 import { Dictionary } from "@ngrx/entity";
 import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
+import { BsModalService } from "ngx-bootstrap/modal";
 import { map, take, tap } from "rxjs/operators";
 
-import {
-    ExportFilter,
-    IExportFilter,
-    IExportService,
-} from "./model/export.model";
-import { Extension } from "./model/extension.mode";
-import { Mode } from "../workspace-routing.service";
-import { ExportIncomeService } from "./export/export-income.service";
-import { ExportOutcomeService } from "./export/export-outcome.service";
-import { selectors as dataSelectors } from "../data/store/state.selectors";
+import { IExportFilter, IExportService } from "../model/export.model";
+import { ModalComponent } from "../../../shared/modal/modal.component";
+import { Mode } from "../../workspace-routing.service";
+import { ExportIncomeService } from "../export/export-income.service";
+import { ExportOutcomeService } from "../export/export-outcome.service";
+import { selectors as dataSelectors } from "../../data/store/state.selectors";
 import { writeFile, utils } from "xlsx";
 
 @Injectable()
-export class TransferService {
+export class ExportService {
     constructor(
         private _incomeService: ExportIncomeService,
         private _outcomeService: ExportOutcomeService,
+        private _modalService: BsModalService,
         private _store$: Store,
     ) {}
 
-    public download(form: NgForm, mode: Mode): void {
-        const value = form.value;
-        const from = new Date(value.from);
-        const to = new Date(value.to);
-
-        const extension = value.extension as Extension;
-        if (from <= to) {
-            const filter = new ExportFilter(from, to, extension);
+    public download(filter: IExportFilter, mode: Mode): void {
+        if (filter.from <= filter.to) {
             if (mode === Mode.Income) {
                 const incomeSelector = dataSelectors.income.items;
                 this.process(filter, this._incomeService, incomeSelector);
@@ -40,12 +31,9 @@ export class TransferService {
                 const outcomeSelector = dataSelectors.outcome.items;
                 this.process(filter, this._outcomeService, outcomeSelector);
             }
+        } else {
+            throw new Error("Invalid input data!");
         }
-    }
-
-    public upload(form: NgForm): void {
-        const path = form.value.path as string;
-        console.log(path);
     }
 
     private process<T>(
@@ -68,8 +56,19 @@ export class TransferService {
 
                     utils.book_append_sheet(wb, ws, "Data");
                     writeFile(wb, `workbook.${filter.extension}`);
+                    this.printResult(items.length);
                 }),
             )
             .subscribe();
+    }
+
+    private printResult(count: number): void {
+        this._modalService.show(ModalComponent, {
+            initialState: {
+                title: "Export completed.",
+                content: `${count} items were selected.`,
+            },
+            animated: true,
+        });
     }
 }

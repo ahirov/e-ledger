@@ -22,9 +22,15 @@ export class Income implements IIncome {
     public sum: number;
     public sumPerDay: number;
 
-    constructor(startedAt: Date, endedAt: Date, source: Source, sum: number) {
+    constructor(
+        startedAt: Date,
+        endedAt: Date,
+        source: Source,
+        sum: number,
+        now?: number,
+    ) {
         this.id = uuid();
-        this.createdAt = new Date();
+        this.createdAt = now ? new Date(now) : new Date();
         this.startedAt = startedAt;
         this.endedAt = endedAt;
         this.source = source;

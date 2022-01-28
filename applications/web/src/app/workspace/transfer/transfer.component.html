@@ -2,7 +2,7 @@
     >Save data to a file<br />(all fields are required)</ng-template
 >
 <ng-template #importTooltip
-    >Upload data from a file<br />(all fields are required)</ng-template
+    >Upload data from a file<br />(file field is required)</ng-template
 >
 <div class="el-transfer-box mx-lg-4">
     <div>
@@ -40,7 +40,7 @@
                         <input
                             #elFrom="ngModel"
                             type="text"
-                            class="form-control"
+                            class="elDynamicValidation form-control"
                             name="from"
                             ngModel
                             required
@@ -60,7 +60,7 @@
                         <input
                             #elTo="ngModel"
                             type="text"
-                            class="form-control"
+                            class="elDynamicValidation form-control"
                             name="to"
                             ngModel
                             required
@@ -100,17 +100,22 @@
                     <div class="my-2">
                         <input
                             type="file"
-                            class="form-control form-control-sm"
-                            name="path"
+                            class="elDynamicValidation form-control form-control-sm"
+                            name="file"
                             ngModel
-                            required />
+                            required
+                            (change)="onFileChange($event)" />
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-check form-control-sm my-2 pt-0 pb-0">
-                        <input type="checkbox" class="form-check-input" />
+                        <input
+                            type="checkbox"
+                            class="form-check-input"
+                            name="isRewritten"
+                            ngModel />
                         <label class="form-check-label"
                             >Rewrite data<sup class="text-danger">#</sup><br />
                             <span

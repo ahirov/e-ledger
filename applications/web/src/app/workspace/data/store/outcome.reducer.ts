@@ -25,6 +25,9 @@ export const outcomeReducer = createReducer(
     on(fromActions.deleteOutcome, (state, { payload }): IOutcomeState => {
         return adapter.removeOne<IOutcomeState>(payload, state);
     }),
+    on(fromActions.deleteOutcomes, (state, { payload }): IOutcomeState => {
+        return adapter.removeMany<IOutcomeState>(payload, state);
+    }),
     on(fromActions.setYears, (state, { payload }): IOutcomeState => {
         return { ...state, years: [...payload] };
     }),

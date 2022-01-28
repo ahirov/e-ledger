@@ -3,8 +3,6 @@ import { FormsModule } from "@angular/forms";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { NgSelectModule } from "@ng-select/ng-select";
-import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
-import { ModalModule } from "ngx-bootstrap/modal";
 
 import { SharedModule } from "../../shared/shared.module";
 import { WorkspaceSharedModule } from "../shared/workspace-shared.module";
@@ -31,8 +29,6 @@ import { ListPaginationComponent } from "./pagination/list-pagination.component"
         FormsModule,
         NgSelectModule,
         WorkspaceSharedModule,
-        ModalModule.forRoot(),
-        BsDatepickerModule.forRoot(),
 
         StoreModule.forFeature(FeatureKey.Summary, summaryReducer),
         EffectsModule.forFeature([SummaryIncomeEffects, SummaryOutcomeEffects]),

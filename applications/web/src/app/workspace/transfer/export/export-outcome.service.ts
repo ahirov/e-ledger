@@ -19,7 +19,7 @@ export class ExportOutcomeService implements IExportService<IOutcome> {
                     filter.from <= item.processedAt &&
                     filter.to >= item.processedAt,
             )
-            .orderBy((item: IOutcome): Date => item.processedAt, "asc")
+            .orderBy((item: IOutcome): Date => item.processedAt, "desc")
             .value();
     }
 
