@@ -34,7 +34,7 @@ export class ImportOutcomeService implements IImportService<IOutcome> {
                     _(outcomes)
                         .filter(
                             (item: IOutcome): boolean =>
-                                item.processedAt.getTime() === date.getTime() &&
+                                item.date.getTime() === date.getTime() &&
                                 item.category === category,
                         )
                         .map((item: IOutcome): string => item.id)

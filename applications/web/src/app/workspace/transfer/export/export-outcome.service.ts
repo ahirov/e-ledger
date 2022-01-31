@@ -16,10 +16,9 @@ export class ExportOutcomeService implements IExportService<IOutcome> {
         return <IOutcome[]>_(items)
             .filter(
                 (item: IOutcome): boolean =>
-                    filter.from <= item.processedAt &&
-                    filter.to >= item.processedAt,
+                    filter.from <= item.date && filter.to >= item.date,
             )
-            .orderBy((item: IOutcome): Date => item.processedAt, "desc")
+            .orderBy((item: IOutcome): Date => item.date, "desc")
             .value();
     }
 
@@ -27,7 +26,7 @@ export class ExportOutcomeService implements IExportService<IOutcome> {
         const header = ["Date", "Category", "Description", "Sum"];
         const columns = _.map(items, item => {
             return [
-                item.processedAt.toFullDateString(),
+                item.date.toFullDateString(),
                 Category[item.category],
                 item.description,
                 item.sum,

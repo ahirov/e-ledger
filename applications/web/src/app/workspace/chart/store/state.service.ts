@@ -9,17 +9,13 @@ export class StateService {
     public getChart<T, R>(
         year: number | null,
         items: Dictionary<T>,
-        action: (items: T[], startedAt?: Date, endedAt?: Date) => R[],
-        filterAction: (item: T, startedAt: Date, endedAt: Date) => boolean,
+        action: (items: T[], from?: Date, to?: Date) => R[],
+        filterAction: (item: T, from: Date, to: Date) => boolean,
     ): R[] {
         if (year) {
-            const filter = this.getFilter<T>(
-                year,
-                items,
-                filterAction,
-            );
+            const filter = this.getFilter<T>(year, items, filterAction);
             if (filter.items.length) {
-                return action(filter.items, filter.startedAt, filter.endedAt);
+                return action(filter.items, filter.from, filter.to);
             }
         }
         return [];
@@ -28,17 +24,17 @@ export class StateService {
     private getFilter<T>(
         year: number,
         items: Dictionary<T>,
-        filterAction: (item: T, startedAt: Date, endedAt: Date) => boolean,
-    ): { items: T[]; startedAt: Date; endedAt: Date } {
-        const startedAt = startOfYear(new Date(year, 0));
-        const endedAt = endOfYear(new Date(year, 11));
+        filterAction: (item: T, from: Date, to: Date) => boolean,
+    ): { items: T[]; from: Date; to: Date } {
+        const from = startOfYear(new Date(year, 0));
+        const to = endOfYear(new Date(year, 11));
 
         return {
             items: <T[]>_.filter(items, (item: T): boolean => {
-                return filterAction(item, startedAt, endedAt);
+                return filterAction(item, from, to);
             }),
-            startedAt,
-            endedAt,
+            from,
+            to,
         };
     }
 }

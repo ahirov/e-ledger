@@ -24,11 +24,11 @@ export class SummaryComponent implements OnInit, OnDestroy {
     public SOURCE = Source;
     public CATEGORY = Category;
 
-    public startedAt: Date | null = null;
-    public endedAt: Date | null = null;
+    public from: Date | null = null;
+    public to: Date | null = null;
     public source: Source | null = null;
 
-    public processedAt: Date | null = null;
+    public date: Date | null = null;
     public category: Category | null = null;
     public description: string | null = null;
 
@@ -46,14 +46,14 @@ export class SummaryComponent implements OnInit, OnDestroy {
         this._incomeFiltersSub = this._store$
             .select(selectors.income.filter)
             .subscribe(data => {
-                this.startedAt = data.startedAt;
-                this.endedAt = data.endedAt;
+                this.from = data.from;
+                this.to = data.to;
                 this.source = data.source;
             });
         this._outcomeFiltersSub = this._store$
             .select(selectors.outcome.filter)
             .subscribe(data => {
-                this.processedAt = data.processedAt;
+                this.date = data.date;
                 this.category = data.category;
                 this.description = data.description;
             });
@@ -75,14 +75,14 @@ export class SummaryComponent implements OnInit, OnDestroy {
         if (form.valid) {
             if (this.modeService.savedMode === Mode.Income) {
                 this._summaryService.setIncomeFilter(
-                    this.startedAt,
-                    this.endedAt,
+                    this.from,
+                    this.to,
                     this.source,
                 );
             }
             if (this.modeService.savedMode === Mode.Outcome) {
                 this._summaryService.setOutcomeFilter(
-                    this.processedAt,
+                    this.date,
                     this.category,
                     this.description,
                 );

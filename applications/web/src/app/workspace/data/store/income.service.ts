@@ -32,8 +32,8 @@ export class IncomeService {
     private processItem(item: IIncome, years: number[]): void {
         years.push(
             ...eachYearOfInterval({
-                start: item.startedAt,
-                end: item.endedAt,
+                start: item.from,
+                end: item.to,
             }).map(item => item.getFullYear()),
         );
     }

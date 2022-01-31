@@ -42,20 +42,16 @@ export class OutcomeService {
         );
     }
 
-    private getFilterAction(
-        item: IOutcome,
-        startedAt: Date,
-        endedAt: Date,
-    ): boolean {
-        return item.processedAt >= startedAt && item.processedAt <= endedAt;
+    private getFilterAction(item: IOutcome, from: Date, to: Date): boolean {
+        return item.date >= from && item.date <= to;
     }
 
     private getPointsAction(
         items: IOutcome[],
-        startedAt: Date,
-        endedAt: Date,
+        from: Date,
+        to: Date,
     ): IChartPoint[] {
-        const monts = eachMonthOfInterval({ start: startedAt, end: endedAt });
+        const monts = eachMonthOfInterval({ start: from, end: to });
         return _.map(this.getMonthSumSet(monts, items), item => {
             return new ChartPoint(item.key.toShortMonthString(), item.value);
         });
@@ -87,8 +83,8 @@ export class OutcomeService {
         for (const month of months) {
             const monthItems = _(items).filter(
                 item =>
-                    month.getFullYear() === item.processedAt.getFullYear() &&
-                    month.getMonth() === item.processedAt.getMonth(),
+                    month.getFullYear() === item.date.getFullYear() &&
+                    month.getMonth() === item.date.getMonth(),
             );
             set.push(
                 new Item(

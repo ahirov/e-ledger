@@ -15,10 +15,10 @@
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text">From<sup>*</sup>:</span>
                 <input
-                    #elStartedAt="ngModel"
+                    #elFrom="ngModel"
                     type="text"
                     class="elDynamicValidation form-control"
-                    name="startedAt"
+                    name="from"
                     ngModel
                     required
                     bsDatepicker
@@ -26,15 +26,15 @@
                         isAnimated: true,
                         dateInputFormat: 'DD/MM/YYYY'
                     }"
-                    (onHidden)="elStartedAt.control.markAsDirty()" />
+                    (onHidden)="elFrom.control.markAsDirty()" />
             </div>
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text">To<sup>*</sup>:</span>
                 <input
-                    #elEndedAt="ngModel"
+                    #elTo="ngModel"
                     type="text"
                     class="elDynamicValidation form-control"
-                    name="endedAt"
+                    name="to"
                     ngModel
                     required
                     bsDatepicker
@@ -42,7 +42,7 @@
                         isAnimated: true,
                         dateInputFormat: 'DD/MM/YYYY'
                     }"
-                    (onHidden)="elEndedAt.control.markAsDirty()" />
+                    (onHidden)="elTo.control.markAsDirty()" />
             </div>
             <div class="input-group input-group-sm mb-3">
                 <label class="input-group-text">Source<sup>*</sup>:</label>
@@ -59,10 +59,10 @@
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text">Date<sup>*</sup>:</span>
                 <input
-                    #elProcessedAt="ngModel"
+                    #elDate="ngModel"
                     type="text"
                     class="elDynamicValidation form-control"
-                    name="processedAt"
+                    name="date"
                     ngModel
                     required
                     bsDatepicker
@@ -70,7 +70,7 @@
                         isAnimated: true,
                         dateInputFormat: 'DD/MM/YYYY'
                     }"
-                    (onHidden)="elProcessedAt.control.markAsDirty()" />
+                    (onHidden)="elDate.control.markAsDirty()" />
             </div>
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text">Details:</span>

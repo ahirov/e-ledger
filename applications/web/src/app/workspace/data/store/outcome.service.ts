@@ -29,6 +29,6 @@ export class OutcomeService {
     }
 
     private processItem(item: IOutcome, years: number[]): void {
-        years.push(item.processedAt.getFullYear());
+        years.push(item.date.getFullYear());
     }
 }

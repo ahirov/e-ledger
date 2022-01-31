@@ -16,9 +16,9 @@ export class ExportIncomeService implements IExportService<IIncome> {
         return <IIncome[]>_(items)
             .filter(
                 (item: IIncome): boolean =>
-                    filter.from <= item.endedAt && filter.to >= item.startedAt,
+                    filter.from <= item.to && filter.to >= item.from,
             )
-            .orderBy((item: IIncome): Date => item.startedAt, "desc")
+            .orderBy((item: IIncome): Date => item.from, "desc")
             .value();
     }
 
@@ -26,8 +26,8 @@ export class ExportIncomeService implements IExportService<IIncome> {
         const header = ["From", "To", "Source", "Sum"];
         const columns = _.map(items, item => {
             return [
-                item.startedAt.toFullDateString(),
-                item.endedAt.toFullDateString(),
+                item.from.toFullDateString(),
+                item.to.toFullDateString(),
                 Source[item.source],
                 item.sum,
             ];

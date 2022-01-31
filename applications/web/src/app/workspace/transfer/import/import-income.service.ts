@@ -29,8 +29,8 @@ export class ImportIncomeService implements IImportService<IIncome> {
                     _(incomes)
                         .filter(
                             (item: IIncome): boolean =>
-                                item.startedAt.getTime() === from.getTime() &&
-                                item.endedAt.getTime() === to.getTime() &&
+                                item.from.getTime() === from.getTime() &&
+                                item.to.getTime() === to.getTime() &&
                                 item.source === source,
                         )
                         .map((item: IIncome): string => item.id)

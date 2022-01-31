@@ -42,20 +42,16 @@ export class IncomeService {
         );
     }
 
-    private getFilterAction(
-        item: IIncome,
-        startedAt: Date,
-        endedAt: Date,
-    ): boolean {
-        return startedAt <= item.endedAt && endedAt >= item.startedAt;
+    private getFilterAction(item: IIncome, from: Date, to: Date): boolean {
+        return from <= item.to && to >= item.from;
     }
 
     private getPointsAction(
         items: IIncome[],
-        startedAt: Date,
-        endedAt: Date,
+        from: Date,
+        to: Date,
     ): IChartPoint[] {
-        const days = eachDayOfInterval({ start: startedAt, end: endedAt });
+        const days = eachDayOfInterval({ start: from, end: to });
         return _.map(this.getDaySumSet(days, items), item => {
             return new ChartPoint(item.key.toDayShortMonthString(), item.value);
         });
@@ -63,10 +59,10 @@ export class IncomeService {
 
     private getSectionsAction(
         items: IIncome[],
-        startedAt: Date,
-        endedAt: Date,
+        from: Date,
+        to: Date,
     ): IChartSection[] {
-        const sections = _(this.getSourceSumSet(startedAt, endedAt, items))
+        const sections = _(this.getSourceSumSet(from, to, items))
             .groupBy(item => item.key)
             .map((items, key) => {
                 return new Item(
@@ -90,7 +86,7 @@ export class IncomeService {
         const set: IItem<Date>[] = [];
         for (const day of days) {
             const dayItems = _(items).filter(
-                item => day >= item.startedAt && day <= item.endedAt,
+                item => day >= item.from && day <= item.to,
             );
             set.push(
                 new Item(
@@ -103,16 +99,16 @@ export class IncomeService {
     }
 
     private getSourceSumSet(
-        startedAt: Date,
-        endedAt: Date,
+        from: Date,
+        to: Date,
         items: IIncome[],
     ): IItem<Source>[] {
         const set: IItem<Source>[] = [];
         for (const item of items) {
             const days =
                 getOverlappingDaysInIntervals(
-                    { start: startedAt, end: endedAt },
-                    { start: item.startedAt, end: item.endedAt },
+                    { start: from, end: to },
+                    { start: item.from, end: item.to },
                 ) + 1;
             set.push(new Item(item.source, days * item.sumPerDay));
         }

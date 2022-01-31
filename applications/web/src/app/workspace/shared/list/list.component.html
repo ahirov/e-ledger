@@ -12,8 +12,8 @@
             </thead>
             <tbody>
                 <tr *ngFor="let item of incomes">
-                    <td>{{ item.startedAt | date: "mediumDate" }}</td>
-                    <td>{{ item.endedAt | date: "mediumDate" }}</td>
+                    <td>{{ item.from | date: "mediumDate" }}</td>
+                    <td>{{ item.to | date: "mediumDate" }}</td>
                     <td>{{ SOURCE[item.source] }}</td>
                     <td>{{ item.sum.toFixed(2) }}</td>
                     <td>
@@ -40,7 +40,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let item of outcomes">
-                    <td>{{ item.processedAt | date: "mediumDate" }}</td>
+                    <td>{{ item.date | date: "mediumDate" }}</td>
                     <td>{{ item.description | truncate }}</td>
                     <td>{{ CATEGORY[item.category] }}</td>
                     <td>{{ item.sum.toFixed(2) }}</td>

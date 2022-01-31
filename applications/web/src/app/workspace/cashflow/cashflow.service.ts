@@ -13,23 +13,18 @@ export class CashflowService {
 
     public addIncome(form: NgForm): void {
         const value = form.value;
-        const startedAt = new Date(value.startedAt);
-        const endedAt = new Date(value.endedAt);
+        const from = new Date(value.from);
+        const to = new Date(value.to);
         const source = parseInt(value.source);
         const sum = parseFloat(value.sum);
 
-        const startedDate = startedAt.toDate();
-        const endedDate = endedAt.toDate();
+        const fromDate = from.toDate();
+        const toDate = to.toDate();
 
-        if (startedDate <= endedDate) {
+        if (fromDate <= toDate) {
             this._store$.dispatch(
                 fromIncomeActions.addIncome({
-                    payload: new Income(
-                        startedDate,
-                        endedDate,
-                        source,
-                        sum,
-                    ),
+                    payload: new Income(fromDate, toDate, source, sum),
                 }),
             );
             form.reset();
@@ -38,19 +33,14 @@ export class CashflowService {
 
     public addOutcome(form: NgForm): void {
         const value = form.value;
-        const processedAt = new Date(value.processedAt);
+        const date = new Date(value.date);
         const category = parseInt(value.category);
         const sum = parseFloat(value.sum);
         const description = value.description;
 
         this._store$.dispatch(
             fromOutcomeActions.addOutcome({
-                payload: new Outcome(
-                    processedAt.toDate(),
-                    category,
-                    sum,
-                    description,
-                ),
+                payload: new Outcome(date.toDate(), category, sum, description),
             }),
         );
         form.reset();
