@@ -38,10 +38,7 @@ export class ChartPieComponent implements OnInit, OnDestroy, AfterViewInit {
     public options!: ChartConfiguration["options"];
     public plugins!: Plugin[];
 
-    constructor(
-        private _chartService: ChartService,
-        private _store$: Store,
-    ) {}
+    constructor(private _chartService: ChartService, private _store$: Store) {}
 
     public ngOnInit(): void {
         this._styles = this._chartService.styles;
@@ -95,6 +92,7 @@ export class ChartPieComponent implements OnInit, OnDestroy, AfterViewInit {
                     },
                 },
             },
+            layout: { padding: { top: 14, bottom: 14 } },
         };
     }
 

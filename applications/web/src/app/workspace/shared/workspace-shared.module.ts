@@ -1,13 +1,8 @@
 import { NgModule } from "@angular/core";
-
-import { SharedModule } from "../../shared/shared.module";
-import { ListComponent } from "./list/list.component";
-import { ListService } from "./list/list.service";
+import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 
 @NgModule({
-    declarations: [ListComponent],
-    imports: [SharedModule],
-    exports: [ListComponent],
-    providers: [ListService],
+    imports: [BsDatepickerModule.forRoot()],
+    exports: [BsDatepickerModule],
 })
 export class WorkspaceSharedModule {}

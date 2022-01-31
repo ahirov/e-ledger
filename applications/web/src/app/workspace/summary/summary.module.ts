@@ -6,6 +6,7 @@ import { NgSelectModule } from "@ng-select/ng-select";
 
 import { SharedModule } from "../../shared/shared.module";
 import { WorkspaceSharedModule } from "../shared/workspace-shared.module";
+import { WorkspaceListModule } from "../shared/list/workspace-list.module";
 
 import { FeatureKey } from "../../shared/store/app.model";
 import { summaryReducer } from "./store/state.reducer";
@@ -29,6 +30,7 @@ import { ListPaginationComponent } from "./pagination/list-pagination.component"
         FormsModule,
         NgSelectModule,
         WorkspaceSharedModule,
+        WorkspaceListModule,
 
         StoreModule.forFeature(FeatureKey.Summary, summaryReducer),
         EffectsModule.forFeature([SummaryIncomeEffects, SummaryOutcomeEffects]),

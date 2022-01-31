@@ -4,6 +4,7 @@ import { NgSelectModule } from "@ng-select/ng-select";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
 
 import { SharedModule } from "../../shared/shared.module";
+import { WorkspaceSharedModule } from "../shared/workspace-shared.module";
 import { TransferComponent } from "./transfer.component";
 
 import { ExportService } from "./export/export.service";
@@ -20,6 +21,7 @@ import { ImportOutcomeService } from "./import/import-outcome.service";
         FormsModule,
         NgSelectModule,
         TooltipModule.forRoot(),
+        WorkspaceSharedModule
     ],
     exports: [TransferComponent],
     providers: [

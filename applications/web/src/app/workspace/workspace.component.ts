@@ -14,6 +14,8 @@ import { IOutcome } from "./data/model/outcome.model";
 import { Mode, RoutingPath, RoutingService } from "./workspace-routing.service";
 import { getIncome, getOutcome } from "./workspace.temp";
 
+import "../shared/extensions/number.extensions";
+import "../shared/extensions/date.extensions";
 import * as fromIncomeActions from "./data/store/income.actions";
 import * as fromOutcomeActions from "./data/store/outcome.actions";
 
