@@ -1,3 +1,7 @@
-<p>adjustment works!</p>
-<p *ngIf="mode === MODE.Categories">categories</p>
-<p *ngIf="mode === MODE.User">user</p>
+<div class="el-adjustment-box mx-lg-4">
+    <p *ngIf="mode === MODE.User">User</p>
+
+    <div *ngIf="mode === MODE.Enumerations">
+        <el-enumerations></el-enumerations>
+    </div>
+</div>

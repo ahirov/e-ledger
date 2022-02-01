@@ -10,10 +10,10 @@ export enum RoutingPath {
 }
 
 export enum Mode {
-    Income     = "income",
-    Outcome    = "outcome",
-    Categories = "categories",
-    User       = "user",
+    Income       = "income",
+    Outcome      = "outcome",
+    User         = "user",
+    Enumerations = "enumerations",
 }
 
 @Injectable()
@@ -55,8 +55,8 @@ export class RoutingService {
 
     public getMode(param: { [key: string]: string }): Mode | null {
         const mode = param["mode"];
-        if (mode === Mode.Categories) {
-            return Mode.Categories;
+        if (mode === Mode.Enumerations) {
+            return Mode.Enumerations;
         }
         if (mode === Mode.User) {
             return Mode.User;

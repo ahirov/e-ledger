@@ -4,23 +4,24 @@
     > div {
         min-height: 8.3125rem;
     }
-    > form div.input-group > .input-group-text {
-        @include media-breakpoint-only(xs) {
-            width: 25vw;
+    > form {
+        div.input-group > .input-group-text {
+            @include media-breakpoint-only(xs) {
+                width: 25vw;
+            }
+            @include media-breakpoint-only(sm) {
+                width: 25%;
+            }
+            @include media-breakpoint-up(md) {
+                width: 20%;
+            }
+            > sup {
+                color: $danger;
+            }
         }
-        @include media-breakpoint-only(sm) {
-            width: 25%;
+        > div:last-child button {
+            width: 80%;
         }
-        @include media-breakpoint-up(md) {
-            width: 20%;
-        }
-        > sup {
-            color: $danger;
-        }
-    }
-    .el-hint {
-        color: $danger;
-        font-size: 0.75rem;
     }
 }
 

@@ -6,7 +6,6 @@ import { Mode, RoutingService } from "../workspace-routing.service";
 
 @Component({
     templateUrl: "./adjustment.component.html",
-    styleUrls: ["./adjustment.component.scss"],
 })
 export class AdjustmentComponent implements OnInit, OnDestroy {
     private _paramsSub!: Subscription;
@@ -19,7 +18,7 @@ export class AdjustmentComponent implements OnInit, OnDestroy {
         private _modeService: RoutingService,
     ) {}
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this._paramsSub = this._route.params.subscribe(params => {
             const mode = this._modeService.getMode(params);
             if (mode) {
@@ -28,7 +27,7 @@ export class AdjustmentComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         if (this._paramsSub) {
             this._paramsSub.unsubscribe();
         }

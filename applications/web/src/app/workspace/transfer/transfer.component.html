@@ -1,7 +1,7 @@
-<ng-template #exportTooltip
+<ng-template #elExportTooltip
     >Save data to a file<br />(all fields are required)</ng-template
 >
-<ng-template #importTooltip
+<ng-template #elImportTooltip
     >Upload data from a file<br />(file field is required)</ng-template
 >
 <div class="el-transfer-box mx-lg-4">
@@ -10,7 +10,7 @@
             Export<img
                 class="align-top"
                 src="../../../assets/QuestionMark.svg"
-                [tooltip]="exportTooltip"
+                [tooltip]="elExportTooltip"
                 placement="left" />:
         </p>
         <form
@@ -89,7 +89,7 @@
             Import<img
                 class="align-top"
                 src="../../../assets/QuestionMark.svg"
-                [tooltip]="importTooltip"
+                [tooltip]="elImportTooltip"
                 placement="left" />:
         </p>
         <form
