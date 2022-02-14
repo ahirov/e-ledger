@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IOutcome } from "../../data/model/outcome.model";
+import { IOutcomeData } from "../../data/model/outcome.model";
 import { IOutcomeFilter } from "../model/outcome.model";
 
 export const ADD_OUTCOME    = "[Summary][Outcome] Add outcome";
@@ -13,7 +13,7 @@ export const PROCESS_OUTPUT = "[Summary][Outcome] Process output";
 
 export const addOutcome = createAction(
     ADD_OUTCOME,
-    props<{ payload: IOutcome }>(),
+    props<{ payload: IOutcomeData }>(),
 );
 export const deleteOutcome = createAction(
     DELETE_OUTCOME,

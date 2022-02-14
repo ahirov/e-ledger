@@ -1,12 +1,12 @@
 import { createReducer, on } from "@ngrx/store";
 import { createEntityAdapter, EntityAdapter } from "@ngrx/entity";
 
-import { IIncome } from "../model/income.model";
+import { IIncomeData } from "../model/income.model";
 import { IIncomeState } from "../model/state.model";
 import * as fromActions from "./income.actions";
 
-const adapter: EntityAdapter<IIncome> = createEntityAdapter<IIncome>({
-    selectId: (income: IIncome) => income.id,
+const adapter: EntityAdapter<IIncomeData> = createEntityAdapter<IIncomeData>({
+    selectId: (income: IIncomeData) => income.id,
     sortComparer: false,
 });
 

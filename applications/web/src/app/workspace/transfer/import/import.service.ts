@@ -1,16 +1,18 @@
 import { Injectable } from "@angular/core";
-import { Dictionary } from "@ngrx/entity";
 import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { map, take } from "rxjs/operators";
 import { read, utils } from "xlsx";
 
-import { ModalComponent } from "../../../shared/modal/modal.component";
 import { IImportService } from "../model/import.model";
+import { ISource } from "../../adjustment/model/income.model";
+import { ICategory } from "../../adjustment/model/outcome.model";
 import { Mode } from "../../workspace-routing.service";
 import { ImportIncomeService } from "./import-income.service";
 import { ImportOutcomeService } from "./import-outcome.service";
-import { selectors } from "../../data/store/state.selectors";
+import { ModalComponent } from "../../../shared/modal/modal.component";
+import { selectors as enumSelectors } from "../../adjustment/store/adjustment.selectors";
+import { selectors } from "../store/transfer.selectors";
 
 @Injectable()
 export class ImportService {
@@ -31,17 +33,15 @@ export class ImportService {
             if (mode === Mode.Income) {
                 this.processData(
                     data,
-                    isRewritten,
                     this._incomeService,
-                    selectors.income.items,
+                    isRewritten ? selectors.income : enumSelectors.sources,
                 );
             }
             if (mode === Mode.Outcome) {
                 this.processData(
                     data,
-                    isRewritten,
                     this._outcomeService,
-                    selectors.outcome.items,
+                    isRewritten ? selectors.outcome : enumSelectors.categories,
                 );
             }
         };
@@ -50,35 +50,43 @@ export class ImportService {
 
     private processData<T>(
         data: any[],
-        isRewritten: boolean,
         service: IImportService<T>,
         selector: MemoizedSelector<
             object,
-            Dictionary<T>,
-            DefaultProjectorFn<Dictionary<T>>
+            | { items: T[]; list: ISource[] | ICategory[] }
+            | ISource[]
+            | ICategory[],
+            DefaultProjectorFn<
+                | {
+                      items: T[];
+                      list: ISource[] | ICategory[];
+                  }
+                | ISource[]
+                | ICategory[]
+            >
         >,
     ) {
-        if (isRewritten) {
-            this._store$
-                .select(selector)
-                .pipe(
-                    take(1),
-                    map(items => {
-                        try {
-                            this.printResult(service.processItems(data, items));
-                        } catch {
-                            throw new Error("Invalid input file!");
-                        }
-                    }),
-                )
-                .subscribe();
-        } else {
-            try {
-                this.printResult(service.processItems(data));
-            } catch {
-                throw new Error("Invalid input file!");
-            }
-        }
+        this._store$
+            .select(selector)
+            .pipe(
+                take(1),
+                map(info => {
+                    try {
+                        this.printResult(
+                            "items" in info
+                                ? service.processItems(
+                                      data,
+                                      info.list,
+                                      info.items,
+                                  )
+                                : service.processItems(data, info),
+                        );
+                    } catch {
+                        throw new Error("Invalid input file!");
+                    }
+                }),
+            )
+            .subscribe();
     }
 
     private printResult(result: { total: number; deleted: number }): void {

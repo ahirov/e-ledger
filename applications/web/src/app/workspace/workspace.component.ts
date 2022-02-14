@@ -9,8 +9,10 @@ import {
 import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 
-import { IIncome } from "./data/model/income.model";
-import { IOutcome } from "./data/model/outcome.model";
+import { IIncomeData } from "./data/model/income.model";
+import { IOutcomeData } from "./data/model/outcome.model";
+import { Source } from "./adjustment/model/income.model";
+import { Category } from "./adjustment/model/outcome.model";
 import { Mode, RoutingPath, RoutingService } from "./workspace-routing.service";
 import { getIncome, getOutcome } from "./workspace.temp";
 
@@ -18,6 +20,7 @@ import "../shared/extensions/number.extensions";
 import "../shared/extensions/date.extensions";
 import * as fromIncomeActions from "./data/store/income.actions";
 import * as fromOutcomeActions from "./data/store/outcome.actions";
+import * as fromActions from "./adjustment/store/adjustment.actions";
 
 @Component({
     templateUrl: "./workspace.component.html",
@@ -44,8 +47,8 @@ export class WorkspaceComponent implements OnInit, AfterViewInit {
         let item = 0;
         let date = Date.now();
         const totalItems = 100;
-        const incomes: IIncome[] = [];
-        const outcomes: IOutcome[] = [];
+        const incomes: IIncomeData[] = [];
+        const outcomes: IOutcomeData[] = [];
 
         const intervalId = setInterval(() => {
             const income = <any>getIncome(item);
@@ -67,6 +70,20 @@ export class WorkspaceComponent implements OnInit, AfterViewInit {
                 );
             }
         }, 1);
+        const sources = [
+            new Source(1, "Job"),
+            new Source(2, "Deposit"),
+            new Source(3, "Stolen"),
+            new Source(4, "Business"),
+            new Source(5, "Job2"),
+            new Source(6, "Job3"),
+            new Source(7, "Job4"),
+            new Source(8, "Job5"),
+            new Source(9, "Robbery"),
+        ];
+        const categories = [new Category(1, "Food"), new Category(2, "Sport")];
+        this._store$.dispatch(fromActions.setSources({ payload: sources }));
+        this._store$.dispatch(fromActions.setCategories({ payload: categories }));
         /*//////////////////////////////////////////////////*/
     }
 

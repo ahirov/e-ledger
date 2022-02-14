@@ -1,62 +1,60 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { Dictionary } from "@ngrx/entity";
+import { Feature } from "../../../shared/store/app.model";
+import { ISummaryState } from "../model/state.model";
+import { IDataState } from "../../data/model/state.model";
+import { IAdjustmentState } from "../../adjustment/model/state.mode";
 
-import { FeatureKey } from "../../../shared/store/app.model";
-import { IState as DataState } from "../../data/model/state.model";
-import { IState } from "../model/state.model";
+import { getIncomes, getOutcomes } from "../../data/store/state.functions";
 import { environment } from "applications/web/src/environments/environment";
 import * as _ from "lodash";
 
 const itemsPerPage = environment.pageItemsCount;
-const dataSelector = createFeatureSelector<DataState>(FeatureKey.Data);
-const summarySelector = createFeatureSelector<IState>(FeatureKey.Summary);
+const data       = createFeatureSelector<IDataState>(Feature.Data);
+const summary    = createFeatureSelector<ISummaryState>(Feature.Summary);
+const adjustment = createFeatureSelector<IAdjustmentState>(Feature.Adjustment);
 export const selectors = {
     income: {
-        filter: createSelector(summarySelector, state => state.income.filter),
-        itemsCount: createSelector(
-            summarySelector,
-            state => state.income.ids.length,
-        ),
-        page: createSelector(summarySelector, state => state.income.page),
-        pagesCount: createSelector(summarySelector, state =>
+        filter:     createSelector(summary, state => state.income.filter),
+        itemsCount: createSelector(summary, state => state.income.ids.length),
+        page:       createSelector(summary, state => state.income.page),
+        pagesCount: createSelector(summary, state =>
             _.ceil(state.income.ids.length / itemsPerPage),
         ),
         pageItems: createSelector(
-            dataSelector,
-            summarySelector,
-            (dataState, summaryState) =>
-                getPageItems(
-                    summaryState.income.page,
-                    summaryState.income.ids,
+            summary,
+            data,
+            adjustment,
+            (state, dataState, adjustmentState) =>
+                getIncomes(
+                    getPageIds(state.income.page, state.income.ids),
+                    adjustmentState.sources,
                     dataState.income.entities,
                 ),
         ),
     },
     outcome: {
-        filter: createSelector(summarySelector, state => state.outcome.filter),
-        itemsCount: createSelector(
-            summarySelector,
-            state => state.outcome.ids.length,
-        ),
-        page: createSelector(summarySelector, state => state.outcome.page),
-        pagesCount: createSelector(summarySelector, state =>
+        filter:     createSelector(summary, state => state.outcome.filter),
+        itemsCount: createSelector(summary, state => state.outcome.ids.length),
+        page:       createSelector(summary, state => state.outcome.page),
+        pagesCount: createSelector(summary, state =>
             _.ceil(state.outcome.ids.length / itemsPerPage),
         ),
         pageItems: createSelector(
-            dataSelector,
-            summarySelector,
-            (dataState, summaryState) =>
-                getPageItems(
-                    summaryState.outcome.page,
-                    summaryState.outcome.ids,
+            summary,
+            data,
+            adjustment,
+            (state, dataState, adjustmentState) =>
+                getOutcomes(
+                    getPageIds(state.outcome.page, state.outcome.ids),
+                    adjustmentState.categories,
                     dataState.outcome.entities,
                 ),
         ),
     },
 };
 
-function getPageItems<T>(page: number, ids: string[], items: Dictionary<T>): T[] {
+function getPageIds(page: number, ids: string[]): string[] {
     const start = page * itemsPerPage;
     const end = start + itemsPerPage;
-    return _.map(_.slice(ids, start, end), id => <T>items[id]);
+    return _.slice(ids, start, end);
 }

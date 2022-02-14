@@ -1,22 +1,21 @@
-import { Dictionary } from "@ngrx/entity";
 import { Extension } from "./extension.mode";
 import { WorkSheet } from "xlsx";
 
 export interface IExportFilter {
-    from: Date;
-    to: Date;
-    extension: Extension;
+    readonly from: Date;
+    readonly to: Date;
+    readonly extension: Extension;
 }
 
 export interface IExportService<T> {
-    getItems(filter: IExportFilter, items: Dictionary<T>): T[];
+    getItems(filter: IExportFilter, items: T[]): T[];
     getWorkSheet(filter: IExportFilter, items: T[]): WorkSheet;
 }
 
 export class ExportFilter implements IExportFilter {
     constructor(
-        public from: Date,
-        public to: Date,
-        public extension: Extension,
+        public readonly from: Date,
+        public readonly to: Date,
+        public readonly extension: Extension,
     ) {}
 }

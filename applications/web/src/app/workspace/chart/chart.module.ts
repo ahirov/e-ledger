@@ -7,7 +7,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { NgChartsModule } from "ng2-charts";
 
-import { FeatureKey } from "../../shared/store/app.model";
+import { Feature } from "../../shared/store/app.model";
 import { chartReducer } from "./store/state.reducer";
 import { ChartIncomeEffects } from "./store/income.effects";
 import { ChartOutcomeEffects } from "./store/outcome.effects";
@@ -33,7 +33,7 @@ import { ChartPieComponent } from "./type/chart-pie.component";
         FormsModule,
         NgChartsModule,
         NgSelectModule,
-        StoreModule.forFeature(FeatureKey.Chart, chartReducer),
+        StoreModule.forFeature(Feature.Chart, chartReducer),
         EffectsModule.forFeature([ChartIncomeEffects, ChartOutcomeEffects]),
     ],
     exports: [ChartComponent],

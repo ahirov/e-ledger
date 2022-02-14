@@ -2,10 +2,10 @@ import { Injectable } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Store } from "@ngrx/store";
 
-import { Income } from "../data/model/income.model";
-import { Outcome } from "../data/model/outcome.model";
-import * as fromIncomeActions from "../data/store/income.actions";
-import * as fromOutcomeActions from "../data/store/outcome.actions";
+import { IncomeData } from "../data/model/income.model";
+import { OutcomeData } from "../data/model/outcome.model";
+import { addIncome } from "../data/store/income.actions";
+import { addOutcome } from "../data/store/outcome.actions";
 
 @Injectable()
 export class CashflowService {
@@ -15,16 +15,16 @@ export class CashflowService {
         const value = form.value;
         const from = new Date(value.from);
         const to = new Date(value.to);
-        const source = parseInt(value.source);
         const sum = parseFloat(value.sum);
+        const sourceId = parseInt(value.source);
 
         const fromDate = from.toDate();
         const toDate = to.toDate();
 
         if (fromDate <= toDate) {
             this._store$.dispatch(
-                fromIncomeActions.addIncome({
-                    payload: new Income(fromDate, toDate, source, sum),
+                addIncome({
+                    payload: new IncomeData(fromDate, toDate, sum, sourceId),
                 }),
             );
             form.reset();
@@ -34,13 +34,18 @@ export class CashflowService {
     public addOutcome(form: NgForm): void {
         const value = form.value;
         const date = new Date(value.date);
-        const category = parseInt(value.category);
         const sum = parseFloat(value.sum);
+        const categoryId = parseInt(value.category);
         const description = value.description;
 
         this._store$.dispatch(
-            fromOutcomeActions.addOutcome({
-                payload: new Outcome(date.toDate(), category, sum, description),
+            addOutcome({
+                payload: new OutcomeData(
+                    date.toDate(),
+                    sum,
+                    categoryId,
+                    description,
+                ),
             }),
         );
         form.reset();

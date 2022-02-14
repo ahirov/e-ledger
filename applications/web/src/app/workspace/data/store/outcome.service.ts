@@ -1,14 +1,12 @@
 import { Injectable } from "@angular/core";
-import { Dictionary } from "@ngrx/entity";
-
-import { IOutcome } from "../model/outcome.model";
+import { IOutcome, IOutcomeData } from "../model/outcome.model";
 import * as _ from "lodash";
 
 @Injectable()
 export class OutcomeService {
     public getYears(
-        newItems: IOutcome[],
-        allItems: Dictionary<IOutcome>,
+        newItems: IOutcomeData[],
+        allItems: IOutcome[],
         allYears: number[],
     ): number[] {
         const years: number[] = [];
@@ -28,7 +26,7 @@ export class OutcomeService {
             .value();
     }
 
-    private processItem(item: IOutcome, years: number[]): void {
+    private processItem(item: IOutcome | IOutcomeData, years: number[]): void {
         years.push(item.date.getFullYear());
     }
 }

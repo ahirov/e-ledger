@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Dictionary } from "@ngrx/entity";
 import { getOverlappingDaysInIntervals, eachDayOfInterval } from "date-fns";
-
-import { IIncome, Source } from "../../data/model/income.model";
+import { IIncome } from "../../data/model/income.model";
 import { StateService } from "./state.service";
 import {
     ChartPoint,
@@ -18,10 +16,7 @@ import * as _ from "lodash";
 export class IncomeService {
     constructor(private _stateService: StateService) {}
 
-    public getPoints(
-        year: number | null,
-        items: Dictionary<IIncome>,
-    ): IChartPoint[] {
+    public getPoints(year: number | null, items: IIncome[]): IChartPoint[] {
         return this._stateService.getChart(
             year,
             items,
@@ -30,10 +25,7 @@ export class IncomeService {
         );
     }
 
-    public getSections(
-        year: number | null,
-        items: Dictionary<IIncome>,
-    ): IChartSection[] {
+    public getSections(year: number | null, items: IIncome[]): IChartSection[] {
         return this._stateService.getChart(
             year,
             items,
@@ -66,15 +58,16 @@ export class IncomeService {
             .groupBy(item => item.key)
             .map((items, key) => {
                 return new Item(
-                    Source[parseInt(key)],
+                    key,
                     _.sumBy(items, item => item.value),
+                    _.first(items)?.name,
                 );
             });
         const total = sections.sumBy(item => item.value);
         return sections
             .map(item => {
                 return new ChartSection(
-                    item.key,
+                    item.name || "-",
                     (item.value / total) * 100,
                     item.value,
                 );
@@ -102,15 +95,21 @@ export class IncomeService {
         from: Date,
         to: Date,
         items: IIncome[],
-    ): IItem<Source>[] {
-        const set: IItem<Source>[] = [];
+    ): IItem<number>[] {
+        const set: IItem<number>[] = [];
         for (const item of items) {
             const days =
                 getOverlappingDaysInIntervals(
                     { start: from, end: to },
                     { start: item.from, end: item.to },
                 ) + 1;
-            set.push(new Item(item.source, days * item.sumPerDay));
+            set.push(
+                new Item(
+                    item.source.id,
+                    days * item.sumPerDay,
+                    item.source.name,
+                ),
+            );
         }
         return set;
     }

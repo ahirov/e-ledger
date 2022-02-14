@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Dictionary } from "@ngrx/entity";
 import { eachMonthOfInterval } from "date-fns";
-
-import { Category, IOutcome } from "../../data/model/outcome.model";
+import { IOutcome } from "../../data/model/outcome.model";
 import { StateService } from "./state.service";
 import {
     ChartPoint,
@@ -18,10 +16,7 @@ import * as _ from "lodash";
 export class OutcomeService {
     constructor(private _stateService: StateService) {}
 
-    public getPoints(
-        year: number | null,
-        items: Dictionary<IOutcome>,
-    ): IChartPoint[] {
+    public getPoints(year: number | null, items: IOutcome[]): IChartPoint[] {
         return this._stateService.getChart(
             year,
             items,
@@ -32,7 +27,7 @@ export class OutcomeService {
 
     public getSections(
         year: number | null,
-        items: Dictionary<IOutcome>,
+        items: IOutcome[],
     ): IChartSection[] {
         return this._stateService.getChart(
             year,
@@ -62,15 +57,16 @@ export class OutcomeService {
             .groupBy(item => item.key)
             .map((items, key) => {
                 return new Item(
-                    Category[parseInt(key)],
+                    key,
                     _.sumBy(items, item => item.value),
+                    _.first(items)?.name,
                 );
             });
         const total = sections.sumBy(item => item.value);
         return sections
             .map(item => {
                 return new ChartSection(
-                    item.key,
+                    item.name || "-",
                     (item.value / total) * 100,
                     item.value,
                 );
@@ -96,10 +92,10 @@ export class OutcomeService {
         return set;
     }
 
-    private getCategorySumSet(items: IOutcome[]): IItem<Category>[] {
-        const set: IItem<Category>[] = [];
+    private getCategorySumSet(items: IOutcome[]): IItem<number>[] {
+        const set: IItem<number>[] = [];
         for (const item of items) {
-            set.push(new Item(item.category, item.sum));
+            set.push(new Item(item.category.id, item.sum, item.category.name));
         }
         return set;
     }

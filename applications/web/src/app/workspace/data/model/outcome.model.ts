@@ -1,41 +1,53 @@
-import { IEntity } from "./state.model";
 import { v4 as uuid } from "uuid";
+import { IEntity } from "./state.model";
+import { ICategory } from "../../adjustment/model/outcome.model";
 
-export interface IOutcome extends IEntity {
-    date: Date;
-    category: Category;
-    description: string | null;
-    sum: number;
+interface IOutcomeCommon extends IEntity {
+    readonly date: Date;
+    readonly sum: number;
+    readonly description: string | null;
 }
 
-export class Outcome implements IOutcome {
-    public readonly id: string;
-    public readonly createdAt: Date;
+export interface IOutcomeData extends IOutcomeCommon {
+    readonly categoryId: number;
+}
 
-    public date: Date;
-    public category: Category;
-    public sum: number;
-    public description: string | null;
+export interface IOutcome extends IOutcomeCommon {
+    readonly category: ICategory;
+}
+
+export class OutcomeData implements IOutcomeData {
+    public readonly id: string;
+    public readonly created: Date;
+
+    public readonly date: Date;
+    public readonly sum: number;
+    public readonly categoryId: number;
+    public readonly description: string | null;
 
     constructor(
         date: Date,
-        category: Category,
         sum: number,
+        categoryId: number,
         description: string,
         now?: number,
     ) {
         this.id = uuid();
-        this.createdAt = now ? new Date(now) : new Date();
+        this.created = now ? new Date(now) : new Date();
         this.date = date;
-        this.category = category;
+        this.categoryId = categoryId;
         this.sum = sum.round2();
         this.description = description ? description : null;
     }
 }
 
-/*////////////////// TEMP CODE!!! //////////////////*/
-export enum Category {
-    Sport = 1,
-    Food = 2,
+export class Outcome implements IOutcome {
+    constructor(
+        public readonly id: string,
+        public readonly created: Date,
+        public readonly date: Date,
+        public readonly sum: number,
+        public readonly description: string | null,
+        public readonly category: ICategory,
+    ) {}
 }
-/*//////////////////////////////////////////////////*/

@@ -1,17 +1,17 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { FeatureKey } from "../../../shared/store/app.model";
-import { IState } from "../chart.model";
+import { Feature } from "../../../shared/store/app.model";
+import { IChartState } from "../chart.model";
 
-const selector = createFeatureSelector<IState>(FeatureKey.Chart);
+const chart = createFeatureSelector<IChartState>(Feature.Chart);
 export const selectors = {
     income: {
-        year: createSelector(selector, state => state.income.year),
-        points: createSelector(selector, state => state.income.points),
-        sections: createSelector(selector, state => state.income.sections),
+        year:     createSelector(chart, state => state.income.year),
+        points:   createSelector(chart, state => state.income.points),
+        sections: createSelector(chart, state => state.income.sections),
     },
     outcome: {
-        year: createSelector(selector, state => state.outcome.year),
-        points: createSelector(selector, state => state.outcome.points),
-        sections: createSelector(selector, state => state.outcome.sections),
+        year:     createSelector(chart, state => state.outcome.year),
+        points:   createSelector(chart, state => state.outcome.points),
+        sections: createSelector(chart, state => state.outcome.sections),
     },
 };

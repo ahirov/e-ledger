@@ -11,7 +11,7 @@ import { AdjustmentModule } from "./adjustment/adjustment.module";
 import { ExitModule } from "./exit/exit.module";
 import { WorkspaceRoutingModule } from "./workspace-routing.module";
 
-import { FeatureKey } from "../shared/store/app.model";
+import { Feature } from "../shared/store/app.model";
 import { workspaceReducer } from "./data/store/state.reducer";
 import { WorkspaceIncomeEffects } from "./data/store/income.effects";
 import { WorkspaceOutcomeEffects } from "./data/store/outcome.effects";
@@ -47,7 +47,7 @@ import { ExitPanelComponent } from "./panel/exit-panel.component";
         ExitModule,
         WorkspaceRoutingModule,
 
-        StoreModule.forFeature(FeatureKey.Data, workspaceReducer),
+        StoreModule.forFeature(Feature.Data, workspaceReducer),
         EffectsModule.forFeature([
             WorkspaceIncomeEffects,
             WorkspaceOutcomeEffects,

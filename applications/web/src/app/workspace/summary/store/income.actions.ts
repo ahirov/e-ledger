@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IIncome } from "../../data/model/income.model";
+import { IIncomeData } from "../../data/model/income.model";
 import { IIncomeFilter } from "../model/income.model";
 
 export const ADD_INCOME     = "[Summary][Income] Add income";
@@ -13,7 +13,7 @@ export const PROCESS_OUTPUT = "[Summary][Income] Process output";
 
 export const addIncome = createAction(
     ADD_INCOME,
-    props<{ payload: IIncome }>(),
+    props<{ payload: IIncomeData }>(),
 );
 export const deleteIncome = createAction(
     DELETE_INCOME,

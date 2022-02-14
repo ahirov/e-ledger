@@ -1,6 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Dictionary } from "@ngrx/entity";
-
 import { startOfYear, endOfYear } from "date-fns";
 import * as _ from "lodash";
 
@@ -8,7 +6,7 @@ import * as _ from "lodash";
 export class StateService {
     public getChart<T, R>(
         year: number | null,
-        items: Dictionary<T>,
+        items: T[],
         action: (items: T[], from?: Date, to?: Date) => R[],
         filterAction: (item: T, from: Date, to: Date) => boolean,
     ): R[] {
@@ -23,7 +21,7 @@ export class StateService {
 
     private getFilter<T>(
         year: number,
-        items: Dictionary<T>,
+        items: T[],
         filterAction: (item: T, from: Date, to: Date) => boolean,
     ): { items: T[]; from: Date; to: Date } {
         const from = startOfYear(new Date(year, 0));

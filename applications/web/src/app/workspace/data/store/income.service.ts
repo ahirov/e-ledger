@@ -1,15 +1,13 @@
 import { Injectable } from "@angular/core";
-import { Dictionary } from "@ngrx/entity";
 import { eachYearOfInterval } from "date-fns";
-
-import { IIncome } from "../model/income.model";
+import { IIncome, IIncomeData } from "../model/income.model";
 import * as _ from "lodash";
 
 @Injectable()
 export class IncomeService {
     public getYears(
-        newItems: IIncome[],
-        allItems: Dictionary<IIncome>,
+        newItems: IIncomeData[],
+        allItems: IIncome[],
         allYears: number[],
     ): number[] {
         const years: number[] = [];
@@ -29,7 +27,7 @@ export class IncomeService {
             .value();
     }
 
-    private processItem(item: IIncome, years: number[]): void {
+    private processItem(item: IIncome | IIncomeData, years: number[]): void {
         years.push(
             ...eachYearOfInterval({
                 start: item.from,

@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Dictionary } from "@ngrx/entity";
-
-import { Category, IOutcome } from "../../data/model/outcome.model";
+import { IOutcome } from "../../data/model/outcome.model";
 import { IExportFilter, IExportService } from "../model/export.model";
 import { Extension } from "../model/extension.mode";
 import { utils, WorkSheet } from "xlsx";
@@ -9,10 +7,7 @@ import * as _ from "lodash";
 
 @Injectable()
 export class ExportOutcomeService implements IExportService<IOutcome> {
-    public getItems(
-        filter: IExportFilter,
-        items: Dictionary<IOutcome>,
-    ): IOutcome[] {
+    public getItems(filter: IExportFilter, items: IOutcome[]): IOutcome[] {
         return <IOutcome[]>_(items)
             .filter(
                 (item: IOutcome): boolean =>
@@ -27,7 +22,7 @@ export class ExportOutcomeService implements IExportService<IOutcome> {
         const columns = _.map(items, item => {
             return [
                 item.date.toFullDateString(),
-                Category[item.category],
+                item.category.name,
                 item.description,
                 item.sum,
             ];

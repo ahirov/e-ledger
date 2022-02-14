@@ -48,9 +48,9 @@
                 <label class="input-group-text">Source<sup>*</sup>:</label>
                 <ng-select class="form-control" name="source" ngModel required>
                     <ng-option
-                        *ngFor="let item of SOURCE | enumToPairs"
-                        [value]="item[0]">
-                        {{ item[1] }}
+                        *ngFor="let item of sources$ | async"
+                        [value]="item.id">
+                        {{ item.name }}
                     </ng-option>
                 </ng-select>
             </div>
@@ -88,9 +88,9 @@
                     ngModel
                     required>
                     <ng-option
-                        *ngFor="let item of CATEGORY | enumToPairs"
-                        [value]="item[0]">
-                        {{ item[1] }}
+                        *ngFor="let item of categories$ | async"
+                        [value]="item.id">
+                        {{ item.name }}
                     </ng-option>
                 </ng-select>
             </div>

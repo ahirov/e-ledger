@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Dictionary } from "@ngrx/entity";
 import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { map, take, tap } from "rxjs/operators";
@@ -41,8 +40,8 @@ export class ExportService {
         service: IExportService<T>,
         selector: MemoizedSelector<
             object,
-            Dictionary<T>,
-            DefaultProjectorFn<Dictionary<T>>
+            T[],
+            DefaultProjectorFn<T[]>
         >,
     ): void {
         this._store$

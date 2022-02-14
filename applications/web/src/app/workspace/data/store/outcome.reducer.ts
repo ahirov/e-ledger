@@ -1,12 +1,12 @@
 import { createReducer, on } from "@ngrx/store";
 import { createEntityAdapter, EntityAdapter } from "@ngrx/entity";
 
-import { IOutcome } from "../model/outcome.model";
+import { IOutcomeData } from "../model/outcome.model";
 import { IOutcomeState } from "../model/state.model";
 import * as fromActions from "./outcome.actions";
 
-const adapter: EntityAdapter<IOutcome> = createEntityAdapter<IOutcome>({
-    selectId: (outcome: IOutcome) => outcome.id,
+const adapter: EntityAdapter<IOutcomeData> = createEntityAdapter<IOutcomeData>({
+    selectId: (outcome: IOutcomeData) => outcome.id,
     sortComparer: false,
 });
 

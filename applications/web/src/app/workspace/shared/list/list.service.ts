@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from "@angular/core";
-import { Store } from "@ngrx/store";
 import { TypedAction } from "@ngrx/store/src/models";
+import { Store } from "@ngrx/store";
 
 import { Subscription } from "rxjs";
 import { take } from "rxjs/operators";
@@ -23,8 +23,8 @@ export class ListService implements OnDestroy {
 
     public openModal(
         id: string,
-        title: string,
         sum: number,
+        title: string,
         action: (props: { payload: string }) => {
             payload: string;
         } & TypedAction<any>,

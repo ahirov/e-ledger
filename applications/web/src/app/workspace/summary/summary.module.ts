@@ -8,7 +8,7 @@ import { SharedModule } from "../../shared/shared.module";
 import { WorkspaceSharedModule } from "../shared/workspace-shared.module";
 import { WorkspaceListModule } from "../shared/list/workspace-list.module";
 
-import { FeatureKey } from "../../shared/store/app.model";
+import { Feature } from "../../shared/store/app.model";
 import { summaryReducer } from "./store/state.reducer";
 import { SummaryIncomeEffects } from "./store/income.effects";
 import { SummaryOutcomeEffects } from "./store/outcome.effects";
@@ -32,7 +32,7 @@ import { ListPaginationComponent } from "./pagination/list-pagination.component"
         WorkspaceSharedModule,
         WorkspaceListModule,
 
-        StoreModule.forFeature(FeatureKey.Summary, summaryReducer),
+        StoreModule.forFeature(Feature.Summary, summaryReducer),
         EffectsModule.forFeature([SummaryIncomeEffects, SummaryOutcomeEffects]),
     ],
     exports: [SummaryComponent],

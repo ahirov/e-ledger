@@ -2,14 +2,14 @@ import { NgForm } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
+import { Observable, Subscription } from "rxjs";
 
-import { Subscription } from "rxjs";
-import { Source } from "../data/model/income.model";
-import { Category } from "../data/model/outcome.model";
+import { ISource } from "../adjustment/model/income.model";
+import { ICategory } from "../adjustment/model/outcome.model";
 import { SummaryService } from "./summary.service";
 import { Mode, RoutingService } from "../workspace-routing.service";
-
-import { selectors } from "./store/state.selectors";
+import { selectors as dataSelectors } from "./store/state.selectors";
+import { selectors } from "../adjustment/store/adjustment.selectors";
 
 @Component({
     templateUrl: "./summary.component.html",
@@ -21,15 +21,15 @@ export class SummaryComponent implements OnInit, OnDestroy {
     private _outcomeFiltersSub!: Subscription;
 
     public MODE = Mode;
-    public SOURCE = Source;
-    public CATEGORY = Category;
+    public sources$!: Observable<ISource[]>;
+    public categories$!: Observable<ICategory[]>;
 
     public from: Date | null = null;
     public to: Date | null = null;
-    public source: Source | null = null;
+    public sourceId: number | null = null;
 
     public date: Date | null = null;
-    public category: Category | null = null;
+    public categoryId: number | null = null;
     public description: string | null = null;
 
     constructor(
@@ -44,19 +44,21 @@ export class SummaryComponent implements OnInit, OnDestroy {
             this.modeService.saveMode(params),
         );
         this._incomeFiltersSub = this._store$
-            .select(selectors.income.filter)
+            .select(dataSelectors.income.filter)
             .subscribe(data => {
                 this.from = data.from;
                 this.to = data.to;
-                this.source = data.source;
+                this.sourceId = data.sourceId;
             });
         this._outcomeFiltersSub = this._store$
-            .select(selectors.outcome.filter)
+            .select(dataSelectors.outcome.filter)
             .subscribe(data => {
                 this.date = data.date;
-                this.category = data.category;
+                this.categoryId = data.categoryId;
                 this.description = data.description;
             });
+        this.sources$ = this._store$.select(selectors.sources);
+        this.categories$ = this._store$.select(selectors.categories);
     }
 
     public ngOnDestroy(): void {
@@ -77,13 +79,13 @@ export class SummaryComponent implements OnInit, OnDestroy {
                 this._summaryService.setIncomeFilter(
                     this.from,
                     this.to,
-                    this.source,
+                    this.sourceId,
                 );
             }
             if (this.modeService.savedMode === Mode.Outcome) {
                 this._summaryService.setOutcomeFilter(
                     this.date,
-                    this.category,
+                    this.categoryId,
                     this.description,
                 );
             }

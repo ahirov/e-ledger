@@ -4,9 +4,9 @@ import { TypedAction } from "@ngrx/store/src/models";
 import { Actions, concatLatestFrom, createEffect, ofType } from "@ngrx/effects";
 
 import { switchMap } from "rxjs/operators";
-import { IOutcome } from "../model/outcome.model";
+import { IOutcomeData } from "../model/outcome.model";
 import { OutcomeService } from "./outcome.service";
-import { selectors as dataSelectors } from "./state.selectors";
+import { selectors } from "./state.selectors";
 import * as fromSummaryActions from "../../summary/store/outcome.actions";
 import * as fromChartActions from "../../chart/store/outcome.actions";
 import * as fromActions from "./outcome.actions";
@@ -21,7 +21,7 @@ export class WorkspaceOutcomeEffects {
 
     addOutcome$ = createEffect(() =>
         this._actions$.pipe(
-            ofType<{ payload: IOutcome } & TypedAction<any>>(
+            ofType<{ payload: IOutcomeData } & TypedAction<any>>(
                 fromActions.ADD_OUTCOME,
             ),
             switchMap(action => [
@@ -33,7 +33,7 @@ export class WorkspaceOutcomeEffects {
 
     addOutcomes$ = createEffect(() =>
         this._actions$.pipe(
-            ofType<{ payload: IOutcome[] } & TypedAction<any>>(
+            ofType<{ payload: IOutcomeData[] } & TypedAction<any>>(
                 fromActions.ADD_OUTCOMES,
             ),
             switchMap(action => [
@@ -58,12 +58,12 @@ export class WorkspaceOutcomeEffects {
 
     processOutcomeYears$ = createEffect(() =>
         this._actions$.pipe(
-            ofType<{ payload: IOutcome[] } & TypedAction<any>>(
+            ofType<{ payload: IOutcomeData[] } & TypedAction<any>>(
                 fromActions.PROCESS_YEARS,
             ),
             concatLatestFrom(() => [
-                this._store$.select(dataSelectors.outcome.items),
-                this._store$.select(dataSelectors.outcome.years),
+                this._store$.select(selectors.outcome.items),
+                this._store$.select(selectors.outcome.years),
             ]),
             switchMap(([action, allItems, allYears]) => [
                 fromActions.setYears({

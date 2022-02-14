@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Dictionary } from "@ngrx/entity";
-
-import { IIncome, Source } from "../../data/model/income.model";
+import { IIncome } from "../../data/model/income.model";
 import { IExportFilter, IExportService } from "../model/export.model";
 import { Extension } from "../model/extension.mode";
 import { utils, WorkSheet } from "xlsx";
@@ -9,10 +7,7 @@ import * as _ from "lodash";
 
 @Injectable()
 export class ExportIncomeService implements IExportService<IIncome> {
-    public getItems(
-        filter: IExportFilter,
-        items: Dictionary<IIncome>,
-    ): IIncome[] {
+    public getItems(filter: IExportFilter, items: IIncome[]): IIncome[] {
         return <IIncome[]>_(items)
             .filter(
                 (item: IIncome): boolean =>
@@ -28,7 +23,7 @@ export class ExportIncomeService implements IExportService<IIncome> {
             return [
                 item.from.toFullDateString(),
                 item.to.toFullDateString(),
-                Source[item.source],
+                item.source.name,
                 item.sum,
             ];
         });

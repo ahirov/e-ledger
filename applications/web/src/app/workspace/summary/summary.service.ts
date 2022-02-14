@@ -1,12 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 
-import { Source } from "../data/model/income.model";
-import { Category } from "../data/model/outcome.model";
 import { IncomeFilter } from "./model/income.model";
 import { OutcomeFilter } from "./model/outcome.model";
-import * as fromIncomeActions from "./store/income.actions";
-import * as fromOutcomeActions from "./store/outcome.actions";
+import { setFilter as setIncomeFilter } from "./store/income.actions";
+import { setFilter as setOutcomeFilter } from "./store/outcome.actions";
 
 @Injectable()
 export class SummaryService {
@@ -15,14 +13,14 @@ export class SummaryService {
     public setIncomeFilter(
         from: Date | null,
         to: Date | null,
-        source: Source | null,
+        sourceId: number | null,
     ): void {
         this._store$.dispatch(
-            fromIncomeActions.setFilter({
+            setIncomeFilter({
                 payload: new IncomeFilter(
                     from ? new Date(from).toDate() : null,
                     to ? new Date(to).toDate() : null,
-                    source,
+                    sourceId,
                 ),
             }),
         );
@@ -30,14 +28,14 @@ export class SummaryService {
 
     public setOutcomeFilter(
         date: Date | null,
-        category: Category | null,
+        categoryId: number | null,
         description: string | null,
     ): void {
         this._store$.dispatch(
-            fromOutcomeActions.setFilter({
+            setOutcomeFilter({
                 payload: new OutcomeFilter(
                     date ? new Date(date).toDate() : null,
-                    category,
+                    categoryId,
                     description ? description : null,
                 ),
             }),

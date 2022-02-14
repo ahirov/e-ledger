@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IOutcome } from "../model/outcome.model";
+import { IOutcomeData } from "../model/outcome.model";
 
 export const ADD_OUTCOME     = "[Workspace][Outcome] Add outcome";
 export const ADD_OUTCOMES    = "[Workspace][Outcome] Add outcomes";
@@ -10,11 +10,11 @@ export const SET_YEARS       = "[Workspace][Outcome] Set years";
 
 export const addOutcome = createAction(
     ADD_OUTCOME,
-    props<{ payload: IOutcome }>(),
+    props<{ payload: IOutcomeData }>(),
 );
 export const addOutcomes = createAction(
     ADD_OUTCOMES,
-    props<{ payload: IOutcome[] }>(),
+    props<{ payload: IOutcomeData[] }>(),
 );
 export const deleteOutcome = createAction(
     DELETE_OUTCOME,
@@ -26,6 +26,6 @@ export const deleteOutcomes = createAction(
 );
 export const processYears = createAction(
     PROCESS_YEARS,
-    props<{ payload: IOutcome[] }>(),
+    props<{ payload: IOutcomeData[] }>(),
 );
 export const setYears = createAction(SET_YEARS, props<{ payload: number[] }>());

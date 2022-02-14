@@ -2,7 +2,7 @@
     >Save data to a file<br />(all fields are required)</ng-template
 >
 <ng-template #elImportTooltip
-    >Upload data from a file<br />(file field is required)</ng-template
+    >Upload data from XLSX<br />(file field is required)</ng-template
 >
 <div class="el-transfer-box mx-lg-4">
     <div>
@@ -102,6 +102,7 @@
                     <div class="my-2">
                         <input
                             type="file"
+                            accept=".xlsx"
                             class="elDynamicValidation form-control form-control-sm"
                             name="file"
                             ngModel

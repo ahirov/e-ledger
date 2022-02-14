@@ -14,11 +14,11 @@
                     <ng-select
                         class="form-control"
                         name="source"
-                        [(ngModel)]="source">
+                        [(ngModel)]="sourceId">
                         <ng-option
-                            *ngFor="let item of SOURCE | enumToPairs"
-                            [value]="item[0]">
-                            {{ item[1] }}
+                            *ngFor="let item of sources$ | async"
+                            [value]="item.id">
+                            {{ item.name }}
                         </ng-option>
                     </ng-select>
                 </div>
@@ -48,11 +48,11 @@
                     <ng-select
                         class="form-control"
                         name="category"
-                        [(ngModel)]="category">
+                        [(ngModel)]="categoryId">
                         <ng-option
-                            *ngFor="let item of CATEGORY | enumToPairs"
-                            [value]="item[0]">
-                            {{ item[1] }}
+                            *ngFor="let item of categories$ | async"
+                            [value]="item.id">
+                            {{ item.name }}
                         </ng-option>
                     </ng-select>
                 </div>

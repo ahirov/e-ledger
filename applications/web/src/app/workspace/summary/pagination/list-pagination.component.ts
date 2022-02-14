@@ -2,9 +2,9 @@ import { Component, Input } from "@angular/core";
 import { DefaultProjectorFn, MemoizedSelector } from "@ngrx/store";
 import { TypedAction } from "@ngrx/store/src/models";
 
+import { Mode } from "../../workspace-routing.service";
 import { IIncome } from "../../data/model/income.model";
 import { IOutcome } from "../../data/model/outcome.model";
-import { Mode } from "../../workspace-routing.service";
 
 import { selectors } from "../store/state.selectors";
 import * as fromIncomeActions from "../store/income.actions";

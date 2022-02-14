@@ -10,7 +10,7 @@ interface IPartState<F> {
 export interface IIncomeState extends IPartState<IIncomeFilter> {}
 export interface IOutcomeState extends IPartState<IOutcomeFilter> { }
 
-export interface IState {
+export interface ISummaryState {
     income: IIncomeState;
     outcome: IOutcomeState;
 }

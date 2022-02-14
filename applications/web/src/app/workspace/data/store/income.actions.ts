@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IIncome } from "../model/income.model";
+import { IIncomeData } from "../model/income.model";
 
 export const ADD_INCOME     = "[Workspace][Income] Add income";
 export const ADD_INCOMES    = "[Workspace][Income] Add incomes";
@@ -10,11 +10,11 @@ export const SET_YEARS      = "[Workspace][Income] Set years";
 
 export const addIncome = createAction(
     ADD_INCOME,
-    props<{ payload: IIncome }>(),
+    props<{ payload: IIncomeData }>(),
 );
 export const addIncomes = createAction(
     ADD_INCOMES,
-    props<{ payload: IIncome[] }>(),
+    props<{ payload: IIncomeData[] }>(),
 );
 export const deleteIncome = createAction(
     DELETE_INCOME,
@@ -26,6 +26,6 @@ export const deleteIncomes = createAction(
 );
 export const processYears = createAction(
     PROCESS_YEARS,
-    props<{ payload: IIncome[] }>(),
+    props<{ payload: IIncomeData[] }>(),
 );
 export const setYears = createAction(SET_YEARS, props<{ payload: number[] }>());

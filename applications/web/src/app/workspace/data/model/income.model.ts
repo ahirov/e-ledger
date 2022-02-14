@@ -1,37 +1,45 @@
-import { IEntity } from "./state.model";
 import { v4 as uuid } from "uuid";
 import { differenceInDays } from "date-fns";
+import { IEntity } from "./state.model";
+import { ISource } from "../../adjustment/model/income.model";
 
-export interface IIncome extends IEntity {
-    from: Date;
-    to: Date;
-    source: Source;
-    sum: number;
-    sumPerDay: number;
+interface IIncomeCommon extends IEntity {
+    readonly from: Date;
+    readonly to: Date;
+    readonly sum: number;
+    readonly sumPerDay: number;
 }
 
-export class Income implements IIncome {
-    public readonly id: string;
-    public readonly createdAt: Date;
+export interface IIncomeData extends IIncomeCommon {
+    readonly sourceId: number;
+}
 
-    public from: Date;
-    public to: Date;
-    public source: Source;
-    public sum: number;
-    public sumPerDay: number;
+export interface IIncome extends IIncomeCommon {
+    readonly source: ISource;
+}
+
+export class IncomeData implements IIncomeData {
+    public readonly id: string;
+    public readonly created: Date;
+
+    public readonly from: Date;
+    public readonly to: Date;
+    public readonly sum: number;
+    public readonly sumPerDay: number;
+    public readonly sourceId: number;
 
     constructor(
         from: Date,
         to: Date,
-        source: Source,
         sum: number,
+        sourceId: number,
         now?: number,
     ) {
         this.id = uuid();
-        this.createdAt = now ? new Date(now) : new Date();
+        this.created = now ? new Date(now) : new Date();
         this.from = from;
         this.to = to;
-        this.source = source;
+        this.sourceId = sourceId;
         this.sum = sum.round2();
 
         const range = differenceInDays(this.to, this.from) + 1;
@@ -39,9 +47,14 @@ export class Income implements IIncome {
     }
 }
 
-/*////////////////// TEMP CODE!!! //////////////////*/
-export enum Source {
-    Salary = 1,
-    Deposit = 2,
+export class Income implements IIncome {
+    constructor(
+        public readonly id: string,
+        public readonly created: Date,
+        public readonly from: Date,
+        public readonly to: Date,
+        public readonly sum: number,
+        public readonly sumPerDay: number,
+        public readonly source: ISource,
+    ) {}
 }
-/*//////////////////////////////////////////////////*/

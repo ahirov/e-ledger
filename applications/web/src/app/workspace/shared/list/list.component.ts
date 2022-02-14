@@ -2,13 +2,12 @@ import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 
-import { IIncome, Source } from "../../data/model/income.model";
-import { IOutcome, Category } from "../../data/model/outcome.model";
-import { Mode } from "../../workspace-routing.service";
 import { ListService } from "./list.service";
-
-import * as fromIncomeActions from "../../data/store/income.actions";
-import * as fromOutcomeActions from "../../data/store/outcome.actions";
+import { Mode } from "../../workspace-routing.service";
+import { IIncome } from "../../data/model/income.model";
+import { IOutcome } from "../../data/model/outcome.model";
+import { deleteIncome } from "../../data/store/income.actions";
+import { deleteOutcome } from "../../data/store/outcome.actions";
 
 @Component({
     selector: "el-list",
@@ -35,16 +34,10 @@ export class ListComponent implements OnInit, OnDestroy {
     >;
 
     public MODE = Mode;
-    public SOURCE = Source;
-    public CATEGORY = Category;
-
     public incomes: IIncome[] = [];
     public outcomes: IOutcome[] = [];
 
-    constructor(
-        private _listService: ListService,
-        private _store$: Store,
-    ) {}
+    constructor(private _listService: ListService, private _store$: Store) {}
 
     public ngOnInit(): void {
         this._incomesSub = this._store$
@@ -71,18 +64,18 @@ export class ListComponent implements OnInit, OnDestroy {
     public onIncomeDelete(income: IIncome): void {
         this._listService.openModal(
             income.id,
-            Source[income.source],
             income.sum,
-            fromIncomeActions.deleteIncome,
+            income.source.name,
+            deleteIncome,
         );
     }
 
     public onOutcomeDelete(outcome: IOutcome): void {
         this._listService.openModal(
             outcome.id,
-            Category[outcome.category],
             outcome.sum,
-            fromOutcomeActions.deleteOutcome,
+            outcome.category.name,
+            deleteOutcome,
         );
     }
 }

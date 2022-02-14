@@ -1,8 +1,10 @@
-import { Dictionary } from "@ngrx/entity";
+import { ISource } from "../../adjustment/model/income.model";
+import { ICategory } from "../../adjustment/model/outcome.model";
 
 export interface IImportService<T> {
     processItems(
         data: any[],
-        items?: Dictionary<T>,
+        list: ISource[] | ICategory[],
+        items?: T[],
     ): { total: number; deleted: number };
 }

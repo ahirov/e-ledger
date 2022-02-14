@@ -1,35 +1,38 @@
 import { NgForm } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
+import { Observable, Subscription } from "rxjs";
 
-import { DefaultProjectorFn, MemoizedSelector } from "@ngrx/store";
-import { Subscription } from "rxjs";
-
-import { IIncome, Source } from "../data/model/income.model";
-import { Category, IOutcome } from "../data/model/outcome.model";
-import { Mode, RoutingService } from "../workspace-routing.service";
+import { IIncome } from "../data/model/income.model";
+import { IOutcome } from "../data/model/outcome.model";
+import { ISource } from "../adjustment/model/income.model";
+import { ICategory } from "../adjustment/model/outcome.model";
 import { CashflowService } from "./cashflow.service";
-import { selectors } from "../data/store/state.selectors";
+import { Mode, RoutingService } from "../workspace-routing.service";
+import { selectors as dataSelectors } from "../data/store/state.selectors";
+import { selectors } from "../adjustment/store/adjustment.selectors";
 
 @Component({
     templateUrl: "./cashflow.component.html",
     styleUrls: ["./cashflow.component.scss"],
 })
 export class CashflowComponent implements OnInit, OnDestroy {
-    @ViewChild("elCashflowForm")
-    private _form!: NgForm;
     private _paramsSub!: Subscription;
 
+    @ViewChild("elCashflowForm")
+    private _form!: NgForm;
+
     public MODE = Mode;
-    public SOURCE = Source;
-    public CATEGORY = Category;
+    public sources$!: Observable<ISource[]>;
+    public categories$!: Observable<ICategory[]>;
 
     public get incomesSelector(): MemoizedSelector<
         object,
         IIncome[],
         DefaultProjectorFn<IIncome[]>
     > {
-        return selectors.income.previewItems;
+        return dataSelectors.income.previewItems;
     }
 
     public get outcomesSelector(): MemoizedSelector<
@@ -37,12 +40,13 @@ export class CashflowComponent implements OnInit, OnDestroy {
         IOutcome[],
         DefaultProjectorFn<IOutcome[]>
     > {
-        return selectors.outcome.previewItems;
+        return dataSelectors.outcome.previewItems;
     }
 
     constructor(
         private _route: ActivatedRoute,
         private _cashflowService: CashflowService,
+        private _store$: Store,
         public modeService: RoutingService,
     ) {}
 
@@ -53,6 +57,8 @@ export class CashflowComponent implements OnInit, OnDestroy {
                 this._form.reset();
             }
         });
+        this.sources$ = this._store$.select(selectors.sources);
+        this.categories$ = this._store$.select(selectors.categories);
     }
 
     public ngOnDestroy(): void {
