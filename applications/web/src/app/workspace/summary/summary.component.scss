@@ -5,7 +5,7 @@
         div.input-group {
             > .input-group-text {
                 @include media-breakpoint-only(xs) {
-                    width: 25vw;
+                    width: $input-group-offset-xs;
                 }
                 @include media-breakpoint-only(sm) {
                     width: 20%;
@@ -20,11 +20,5 @@
                 }
             }
         }
-    }
-}
-
-::ng-deep.bs-datepicker {
-    @include media-breakpoint-down(sm) {
-        margin-left: -25vw;
     }
 }

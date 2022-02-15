@@ -75,6 +75,12 @@ p,
     }
 }
 
+.bs-datepicker {
+    @include media-breakpoint-down(sm) {
+        margin-left: -$input-group-offset-xs;
+    }
+}
+
 .el-text-small {
     @include font-size(0.75rem);
     @include media-breakpoint-down(sm) {
