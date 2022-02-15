@@ -7,6 +7,11 @@ import * as fromActions from "../auth/store/auth.actions";
 @Injectable()
 export class AuthTimerService implements OnDestroy {
     private _timer: Subscription | null = null;
+    private _expiration: Date | null = null;
+
+    public get expiration(): Date | null {
+        return this._expiration;
+    }
 
     constructor(private _store$: Store) {}
 
@@ -14,9 +19,10 @@ export class AuthTimerService implements OnDestroy {
         this.clearTimer();
     }
 
-    public setTimer(expirationDate: Date): void {
+    public setTimer(expiration: Date): void {
         this.clearTimer();
-        this._timer = timer(expirationDate).subscribe(() => {
+        this._expiration = expiration;
+        this._timer = timer(expiration).subscribe(() => {
             this._store$.dispatch(new fromActions.Logout());
         });
     }

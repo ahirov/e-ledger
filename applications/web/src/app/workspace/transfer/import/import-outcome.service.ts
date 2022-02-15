@@ -9,7 +9,7 @@ import {
     IOutcomeData,
     OutcomeData,
 } from "../../data/model/outcome.model";
-import { addOutcomes, deleteOutcomes } from "../../data/store/outcome.actions";
+import * as fromActions from "../../data/store/outcome.actions";
 import * as _ from "lodash";
 
 @Injectable()
@@ -64,8 +64,8 @@ export class ImportOutcomeService implements IImportService<IOutcome> {
 
     private saveItems(items: IOutcomeData[], deleteIds: string[]) {
         if (deleteIds.length) {
-            this._store$.dispatch(deleteOutcomes({ payload: deleteIds }));
+            this._store$.dispatch(fromActions.deleteOutcomes({ payload: deleteIds }));
         }
-        this._store$.dispatch(addOutcomes({ payload: items }));
+        this._store$.dispatch(fromActions.addOutcomes({ payload: items }));
     }
 }

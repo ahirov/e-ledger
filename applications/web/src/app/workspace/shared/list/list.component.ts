@@ -6,8 +6,8 @@ import { ListService } from "./list.service";
 import { Mode } from "../../workspace-routing.service";
 import { IIncome } from "../../data/model/income.model";
 import { IOutcome } from "../../data/model/outcome.model";
-import { deleteIncome } from "../../data/store/income.actions";
-import { deleteOutcome } from "../../data/store/outcome.actions";
+import * as fromIncomeActions from "../../data/store/income.actions";
+import * as fromOutcomeActions from "../../data/store/outcome.actions";
 
 @Component({
     selector: "el-list",
@@ -66,7 +66,7 @@ export class ListComponent implements OnInit, OnDestroy {
             income.id,
             income.sum,
             income.source.name,
-            deleteIncome,
+            fromIncomeActions.deleteIncome,
         );
     }
 
@@ -75,7 +75,7 @@ export class ListComponent implements OnInit, OnDestroy {
             outcome.id,
             outcome.sum,
             outcome.category.name,
-            deleteOutcome,
+            fromOutcomeActions.deleteOutcome,
         );
     }
 }

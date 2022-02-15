@@ -3,8 +3,8 @@ import { Store } from "@ngrx/store";
 
 import { IncomeFilter } from "./model/income.model";
 import { OutcomeFilter } from "./model/outcome.model";
-import { setFilter as setIncomeFilter } from "./store/income.actions";
-import { setFilter as setOutcomeFilter } from "./store/outcome.actions";
+import * as fromIncomeActions from "./store/income.actions";
+import * as fromOutcomeActions from "./store/outcome.actions";
 
 @Injectable()
 export class SummaryService {
@@ -16,7 +16,7 @@ export class SummaryService {
         sourceId: number | null,
     ): void {
         this._store$.dispatch(
-            setIncomeFilter({
+            fromIncomeActions.setFilter({
                 payload: new IncomeFilter(
                     from ? new Date(from).toDate() : null,
                     to ? new Date(to).toDate() : null,
@@ -32,7 +32,7 @@ export class SummaryService {
         description: string | null,
     ): void {
         this._store$.dispatch(
-            setOutcomeFilter({
+            fromOutcomeActions.setFilter({
                 payload: new OutcomeFilter(
                     date ? new Date(date).toDate() : null,
                     categoryId,

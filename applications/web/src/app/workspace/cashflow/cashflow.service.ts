@@ -4,8 +4,8 @@ import { Store } from "@ngrx/store";
 
 import { IncomeData } from "../data/model/income.model";
 import { OutcomeData } from "../data/model/outcome.model";
-import { addIncome } from "../data/store/income.actions";
-import { addOutcome } from "../data/store/outcome.actions";
+import * as fromIncomeActions from "../data/store/income.actions";
+import * as fromOutcomeActions from "../data/store/outcome.actions";
 
 @Injectable()
 export class CashflowService {
@@ -23,7 +23,7 @@ export class CashflowService {
 
         if (fromDate <= toDate) {
             this._store$.dispatch(
-                addIncome({
+                fromIncomeActions.addIncome({
                     payload: new IncomeData(fromDate, toDate, sum, sourceId),
                 }),
             );
@@ -39,7 +39,7 @@ export class CashflowService {
         const description = value.description;
 
         this._store$.dispatch(
-            addOutcome({
+            fromOutcomeActions.addOutcome({
                 payload: new OutcomeData(
                     date.toDate(),
                     sum,

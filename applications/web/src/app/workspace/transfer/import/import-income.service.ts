@@ -9,7 +9,7 @@ import {
     IIncomeData,
     IncomeData,
 } from "../../data/model/income.model";
-import { addIncomes, deleteIncomes } from "../../data/store/income.actions";
+import * as fromActions from "../../data/store/income.actions";
 import * as _ from "lodash";
 
 @Injectable()
@@ -54,8 +54,8 @@ export class ImportIncomeService implements IImportService<IIncome> {
 
     private saveItems(items: IIncomeData[], deleteIds: string[]) {
         if (deleteIds.length) {
-            this._store$.dispatch(deleteIncomes({ payload: deleteIds }));
+            this._store$.dispatch(fromActions.deleteIncomes({ payload: deleteIds }));
         }
-        this._store$.dispatch(addIncomes({ payload: items }));
+        this._store$.dispatch(fromActions.addIncomes({ payload: items }));
     }
 }
