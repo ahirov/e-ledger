@@ -12,33 +12,10 @@
 @import "ngx-bootstrap/datepicker/bs-datepicker";
 @import "@ng-select/ng-select/scss/default.theme.scss";
 
-@mixin el-required {
-    background: repeating-linear-gradient(
-        -45deg,
-        #fff,
-        #fff 0.5rem,
-        rgba($danger, 0.2) 0.5rem,
-        rgba($danger, 0.2) 1rem
-    );
-}
-
 body {
     background-color: $light;
     @include media-breakpoint-up(lg) {
         background-color: rgba($dark, 0.8);
-    }
-}
-
-input.ng-touched.ng-dirty.ng-invalid.elDynamicValidation,
-input.ng-touched.ng-invalid:not(.elDynamicValidation) {
-    border-color: $danger;
-    @include el-required;
-}
-
-ng-select.ng-touched.ng-invalid {
-    border-color: $danger;
-    > div {
-        @include el-required;
     }
 }
 

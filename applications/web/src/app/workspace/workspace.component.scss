@@ -1,5 +1,15 @@
 @import "toolkit";
 
+@mixin el-required {
+    background: repeating-linear-gradient(
+        -45deg,
+        $white,
+        $white 0.5rem,
+        rgba($danger, 0.2) 0.5rem,
+        rgba($danger, 0.2) 1rem
+    );
+}
+
 .el-workspace-box {
     $border: $border-width solid $primary;
     > div {
@@ -55,6 +65,17 @@
     .el-workspace-area {
         @include media-breakpoint-up(lg) {
             @include border-start-radius($border-radius);
+        }
+        ::ng-deep input.ng-touched.ng-dirty.ng-invalid.elDynamicValidation,
+        ::ng-deep input.ng-touched.ng-invalid:not(.elDynamicValidation) {
+            border-color: $danger;
+            @include el-required;
+        }
+        ::ng-deep ng-select.ng-touched.ng-invalid {
+            border-color: $danger;
+            > div {
+                @include el-required;
+            }
         }
     }
 }
