@@ -82,8 +82,9 @@ export class WorkspaceComponent implements OnInit, AfterViewInit {
             new Source(9, "Robbery"),
         ];
         const categories = [new Category(1, "Food"), new Category(2, "Sport")];
-        this._store$.dispatch(fromActions.setSources({ payload: sources }));
-        this._store$.dispatch(fromActions.setCategories({ payload: categories }));
+        this._store$.dispatch(
+            fromActions.save({ payload: { sources, categories } }),
+        );
         /*//////////////////////////////////////////////////*/
     }
 
@@ -120,8 +121,8 @@ export class WorkspaceComponent implements OnInit, AfterViewInit {
         const commands = this._routingService.hasSavedMode(path)
             ? [path, this._routingService.savedMode]
             : mode
-                ? [path, mode]
-                : [path];
+            ? [path, mode]
+            : [path];
         this._router.navigate(commands, { relativeTo: this._route });
     }
 }

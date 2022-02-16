@@ -16,10 +16,11 @@ export const adjustmentReducer = createReducer(
             categories: [...state.categories],
         };
     }),
-    on(fromActions.setSources, (state, { payload }): IAdjustmentState => {
-        return { ...state, sources: [...payload] };
-    }),
-    on(fromActions.setCategories, (state, { payload }): IAdjustmentState => {
-        return { ...state, categories: [...payload] };
+    on(fromActions.save, (state, { payload }): IAdjustmentState => {
+        return {
+            ...state,
+            sources: [...payload.sources],
+            categories: [...payload.categories],
+        };
     }),
 );

@@ -95,7 +95,7 @@ export class ImportService {
             : "";
         this._modalService.show(ModalComponent, {
             initialState: {
-                title: "Import completed.",
+                title: "Import completed:",
                 content: `${result.total} items were added${replaced}.`,
             },
             animated: true,

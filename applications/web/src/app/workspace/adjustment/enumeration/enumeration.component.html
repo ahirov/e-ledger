@@ -1,9 +1,10 @@
 <ng-template #elItemTemplate let-item="item" let-index="index">
     <div class="d-flex justify-content-between m-1">
-        <div>{{ item.value }}</div>
+        <div>{{ item.value.name }}</div>
         <button
             type="button"
             class="btn btn-outline-danger"
+            [disabled]="item.value.isDisabled"
             (click)="onDelete(item, index)">
             <img src="../../../assets/DeleteButton.svg" />
         </button></div
@@ -17,7 +18,6 @@
                 #elSourceItems
                 [itemTemplate]="elItemTemplate"
                 [(ngModel)]="sources"
-                fieldName="name"
                 itemClass="el-item"
                 itemActiveClass="el-active-item"
                 placeholderItem="no items..."
@@ -46,7 +46,6 @@
                 #elCategoryItems
                 [itemTemplate]="elItemTemplate"
                 [(ngModel)]="categories"
-                fieldName="name"
                 itemClass="el-item"
                 itemActiveClass="el-active-item"
                 placeholderItem="no items..."

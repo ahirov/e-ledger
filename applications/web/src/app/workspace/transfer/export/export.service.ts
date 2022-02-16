@@ -64,7 +64,7 @@ export class ExportService {
     private printResult(count: number): void {
         this._modalService.show(ModalComponent, {
             initialState: {
-                title: "Export completed.",
+                title: "Export completed:",
                 content: `${count} items were selected.`,
             },
             animated: true,

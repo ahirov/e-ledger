@@ -6,9 +6,11 @@ import {
     SortableComponent,
     SortableItem,
 } from "applications/ngx-bootstrap/src/sortable/sortable.component";
+import { BsModalService } from "ngx-bootstrap/modal";
 
-import { ISource, Source } from "../model/income.model";
-import { Category, ICategory } from "../model/outcome.model";
+import { ISourceView, Source, SourceView } from "../model/income.model";
+import { Category, CategoryView, ICategoryView } from "../model/outcome.model";
+import { ModalComponent } from "../../../shared/modal/modal.component";
 import { environment } from "applications/web/src/environments/environment";
 import { selectors } from "../store/adjustment.selectors";
 import * as fromActions from "../store/adjustment.actions";
@@ -28,20 +30,23 @@ export class EnumerationsComponent implements OnInit, OnDestroy {
     @ViewChild("elCategoryItems")
     private _categoryItems!: SortableComponent;
 
-    public sources: ISource[] = [];
-    public categories: ICategory[] = [];
+    public sources: ISourceView[] = [];
+    public categories: ICategoryView[] = [];
     public maxLength = environment.enumerationMaxLength;
 
-    constructor(private _store$: Store) {}
+    constructor(
+        private _modalService: BsModalService,
+        private _store$: Store,
+    ) {}
 
     public ngOnInit(): void {
         this._sourcesSub = this._store$
-            .select(selectors.sources)
+            .select(selectors.viewSources)
             .subscribe(data => {
                 this.sources = data;
             });
         this._categoriesSub = this._store$
-            .select(selectors.categories)
+            .select(selectors.viewCategories)
             .subscribe(data => {
                 this.categories = data;
             });
@@ -62,13 +67,13 @@ export class EnumerationsComponent implements OnInit, OnDestroy {
             const value = rawValue.substring(0, this.maxLength);
             if (item.name === "source") {
                 this.sources.push(
-                    new Source(this.getId(this.sources), value),
+                    new SourceView(this.getId(this.sources), value, false),
                 );
                 this._sourceItems.writeValue(this.sources);
             }
             if (item.name === "category") {
                 this.categories.push(
-                    new Category(this.getId(this.categories), value),
+                    new CategoryView(this.getId(this.categories), value, false),
                 );
                 this._categoryItems.writeValue(this.categories);
             }
@@ -77,11 +82,11 @@ export class EnumerationsComponent implements OnInit, OnDestroy {
     }
 
     public onDelete(item: SortableItem, index: number): void {
-        if (item.initData instanceof Source) {
+        if (item.initData instanceof SourceView) {
             _.pullAt(this.sources, [index]);
             this._sourceItems.writeValue(this.sources);
         }
-        if (item.initData instanceof Category) {
+        if (item.initData instanceof CategoryView) {
             _.pullAt(this.categories, [index]);
             this._categoryItems.writeValue(this.categories);
         }
@@ -89,18 +94,27 @@ export class EnumerationsComponent implements OnInit, OnDestroy {
 
     public onSave(): void {
         this._store$.dispatch(
-            fromActions.setSources({ payload: this.sources }),
+            fromActions.save({
+                payload: {
+                    sources: _.map(
+                        this.sources,
+                        item => new Source(item.id, item.name),
+                    ),
+                    categories: _.map(
+                        this.categories,
+                        item => new Category(item.id, item.name),
+                    ),
+                },
+            }),
         );
-        this._store$.dispatch(
-            fromActions.setCategories({ payload: this.categories }),
-        );
+        this.printResult();
     }
 
     public onCancel(): void {
         this._store$.dispatch(fromActions.refresh());
     }
 
-    private getId(items: ISource[] | ICategory[]): number {
+    private getId(items: ISourceView[] | ICategoryView[]): number {
         let id = 1;
         _(items)
             .sortBy(item => item.id)
@@ -112,5 +126,15 @@ export class EnumerationsComponent implements OnInit, OnDestroy {
                 return true;
             });
         return id;
+    }
+
+    private printResult(): void {
+        this._modalService.show(ModalComponent, {
+            initialState: {
+                title: "Operation result:",
+                content: "All changes saved!",
+            },
+            animated: true,
+        });
     }
 }
