@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
+import { environment } from "applications/web/src/environments/environment";
 import * as _ from "lodash";
 
 @Pipe({
@@ -7,7 +8,7 @@ import * as _ from "lodash";
 export class TruncatePipe implements PipeTransform {
     transform(
         text: string | null,
-        length: number = 20,
+        length: number = environment.truncateLength,
         omission: string = "...",
     ): string {
         if (text) {

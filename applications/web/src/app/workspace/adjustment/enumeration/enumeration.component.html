@@ -30,7 +30,8 @@
                     type="text"
                     name="source"
                     class="form-control"
-                    ngModel />
+                    ngModel
+                    [maxlength]="maxLength" />
                 <button
                     type="button"
                     class="btn btn-sm btn-primary fw-bold"
@@ -58,7 +59,8 @@
                     type="text"
                     name="category"
                     class="form-control"
-                    ngModel />
+                    ngModel
+                    [maxlength]="maxLength" />
                 <button
                     type="button"
                     class="btn btn-sm btn-primary fw-bold"

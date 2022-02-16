@@ -42,7 +42,16 @@
             <tbody>
                 <tr *ngFor="let item of outcomes">
                     <td>{{ item.date | date: "mediumDate" }}</td>
-                    <td>{{ item.description | truncate }}</td>
+                    <td
+                        [tooltip]="
+                            item.description &&
+                            item.description.length > truncateLength
+                                ? item.description
+                                : ''
+                        "
+                        placement="bottom">
+                        {{ item.description | truncate }}
+                    </td>
                     <td>{{ item.category.name }}</td>
                     <td>{{ item.sum.toFixed(2) }}</td>
                     <td>

@@ -10,6 +10,7 @@ import { ISource } from "../adjustment/model/income.model";
 import { ICategory } from "../adjustment/model/outcome.model";
 import { CashflowService } from "./cashflow.service";
 import { Mode, RoutingService } from "../workspace-routing.service";
+import { environment } from "applications/web/src/environments/environment";
 import { selectors as dataSelectors } from "../data/store/state.selectors";
 import { selectors } from "../adjustment/store/adjustment.selectors";
 
@@ -26,6 +27,8 @@ export class CashflowComponent implements OnInit, OnDestroy {
     public MODE = Mode;
     public sources$!: Observable<ISource[]>;
     public categories$!: Observable<ICategory[]>;
+    public descriptionMaxLength = environment.descriptionMaxLength;
+    public sumMaxValue = environment.sumMaxValue;
 
     public get incomesSelector(): MemoizedSelector<
         object,

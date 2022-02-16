@@ -9,6 +9,7 @@ import {
 
 import { ISource, Source } from "../model/income.model";
 import { Category, ICategory } from "../model/outcome.model";
+import { environment } from "applications/web/src/environments/environment";
 import { selectors } from "../store/adjustment.selectors";
 import * as fromActions from "../store/adjustment.actions";
 import * as _ from "lodash";
@@ -29,6 +30,7 @@ export class EnumerationsComponent implements OnInit, OnDestroy {
 
     public sources: ISource[] = [];
     public categories: ICategory[] = [];
+    public maxLength = environment.enumerationMaxLength;
 
     constructor(private _store$: Store) {}
 
@@ -55,16 +57,18 @@ export class EnumerationsComponent implements OnInit, OnDestroy {
     }
 
     public onAdd(item: NgModel): void {
-        if (item.value) {
+        const rawValue = item.value;
+        if (rawValue) {
+            const value = rawValue.substring(0, this.maxLength);
             if (item.name === "source") {
                 this.sources.push(
-                    new Source(this.getId(this.sources), item.value),
+                    new Source(this.getId(this.sources), value),
                 );
                 this._sourceItems.writeValue(this.sources);
             }
             if (item.name === "category") {
                 this.categories.push(
-                    new Category(this.getId(this.categories), item.value),
+                    new Category(this.getId(this.categories), value),
                 );
                 this._categoryItems.writeValue(this.categories);
             }

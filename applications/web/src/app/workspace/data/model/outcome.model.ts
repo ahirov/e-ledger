@@ -1,6 +1,7 @@
 import { v4 as uuid } from "uuid";
 import { IEntity } from "./state.model";
 import { ICategory } from "../../adjustment/model/outcome.model";
+import { environment } from "applications/web/src/environments/environment";
 
 interface IOutcomeCommon extends IEntity {
     readonly date: Date;
@@ -29,15 +30,20 @@ export class OutcomeData implements IOutcomeData {
         date: Date,
         sum: number,
         categoryId: number,
-        description: string,
+        description: string | null,
         now?: number,
     ) {
         this.id = uuid();
         this.created = now ? new Date(now) : new Date();
         this.date = date;
         this.categoryId = categoryId;
-        this.sum = sum.round2();
-        this.description = description ? description : null;
+
+        const sumValue = sum.round2();
+        this.sum = sumValue <= environment.sumMaxValue ? sumValue : 0;
+
+        this.description = description
+            ? description.substring(0, environment.descriptionMaxLength)
+            : null;
     }
 }
 

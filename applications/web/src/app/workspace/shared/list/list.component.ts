@@ -6,6 +6,8 @@ import { ListService } from "./list.service";
 import { Mode } from "../../workspace-routing.service";
 import { IIncome } from "../../data/model/income.model";
 import { IOutcome } from "../../data/model/outcome.model";
+
+import { environment } from "applications/web/src/environments/environment";
 import * as fromIncomeActions from "../../data/store/income.actions";
 import * as fromOutcomeActions from "../../data/store/outcome.actions";
 
@@ -36,6 +38,7 @@ export class ListComponent implements OnInit, OnDestroy {
     public MODE = Mode;
     public incomes: IIncome[] = [];
     public outcomes: IOutcome[] = [];
+    public truncateLength = environment.truncateLength;
 
     constructor(private _listService: ListService, private _store$: Store) {}
 

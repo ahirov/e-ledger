@@ -23,6 +23,9 @@
             margin-bottom: 0.25rem;
             border: 1px solid $primary;
             border-radius: $border-radius;
+            > div > div {
+                overflow-x: hidden;
+            }
             > div > button {
                 border: 2px solid $dark;
                 display: block;

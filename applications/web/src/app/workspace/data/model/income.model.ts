@@ -2,6 +2,7 @@ import { v4 as uuid } from "uuid";
 import { differenceInDays } from "date-fns";
 import { IEntity } from "./state.model";
 import { ISource } from "../../adjustment/model/income.model";
+import { environment } from "applications/web/src/environments/environment";
 
 interface IIncomeCommon extends IEntity {
     readonly from: Date;
@@ -40,7 +41,9 @@ export class IncomeData implements IIncomeData {
         this.from = from;
         this.to = to;
         this.sourceId = sourceId;
-        this.sum = sum.round2();
+
+        const sumValue = sum.round2();
+        this.sum = sumValue <= environment.sumMaxValue ? sumValue : 0;
 
         const range = differenceInDays(this.to, this.from) + 1;
         this.sumPerDay = this.sum / range;

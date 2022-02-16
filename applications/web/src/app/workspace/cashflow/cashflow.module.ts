@@ -1,7 +1,4 @@
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { NgSelectModule } from "@ng-select/ng-select";
-
 import { SharedModule } from "../../shared/shared.module";
 import { WorkspaceSharedModule } from "../shared/workspace-shared.module";
 import { WorkspaceListModule } from "../shared/list/workspace-list.module";
@@ -13,8 +10,6 @@ import { CashflowComponent } from "./cashflow.component";
     declarations: [CashflowComponent],
     imports: [
         SharedModule,
-        FormsModule,
-        NgSelectModule,
         WorkspaceSharedModule,
         WorkspaceListModule,
     ],

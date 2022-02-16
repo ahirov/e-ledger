@@ -1,10 +1,7 @@
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
-
-import { NgSelectModule } from "@ng-select/ng-select";
 import { NgChartsModule } from "ng2-charts";
 
 import { Feature } from "../../shared/store/app.model";
@@ -20,6 +17,7 @@ import { ChartComponent } from "./chart.component";
 import { ChartLineComponent } from "./type/chart-line.component";
 import { ChartBarComponent } from "./type/chart-bar.component";
 import { ChartPieComponent } from "./type/chart-pie.component";
+import { WorkspaceSharedModule } from "../shared/workspace-shared.module";
 
 @NgModule({
     declarations: [
@@ -30,9 +28,8 @@ import { ChartPieComponent } from "./type/chart-pie.component";
     ],
     imports: [
         CommonModule,
-        FormsModule,
         NgChartsModule,
-        NgSelectModule,
+        WorkspaceSharedModule,
         StoreModule.forFeature(Feature.Chart, chartReducer),
         EffectsModule.forFeature([ChartIncomeEffects, ChartOutcomeEffects]),
     ],

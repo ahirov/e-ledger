@@ -1,8 +1,4 @@
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { NgSelectModule } from "@ng-select/ng-select";
-import { TooltipModule } from "ngx-bootstrap/tooltip";
-
 import { SharedModule } from "../../shared/shared.module";
 import { WorkspaceSharedModule } from "../shared/workspace-shared.module";
 import { TransferComponent } from "./transfer.component";
@@ -16,13 +12,7 @@ import { ImportOutcomeService } from "./import/import-outcome.service";
 
 @NgModule({
     declarations: [TransferComponent],
-    imports: [
-        SharedModule,
-        FormsModule,
-        NgSelectModule,
-        TooltipModule.forRoot(),
-        WorkspaceSharedModule
-    ],
+    imports: [SharedModule, WorkspaceSharedModule],
     exports: [TransferComponent],
     providers: [
         ExportService,

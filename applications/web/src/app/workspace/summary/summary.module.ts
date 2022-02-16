@@ -1,8 +1,6 @@
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
-import { NgSelectModule } from "@ng-select/ng-select";
 
 import { SharedModule } from "../../shared/shared.module";
 import { WorkspaceSharedModule } from "../shared/workspace-shared.module";
@@ -27,8 +25,6 @@ import { ListPaginationComponent } from "./pagination/list-pagination.component"
     ],
     imports: [
         SharedModule,
-        FormsModule,
-        NgSelectModule,
         WorkspaceSharedModule,
         WorkspaceListModule,
 

@@ -78,7 +78,8 @@
                     type="text"
                     class="form-control"
                     name="description"
-                    ngModel />
+                    ngModel
+                    [maxlength]="descriptionMaxLength" />
             </div>
             <div class="input-group input-group-sm mb-3">
                 <label class="input-group-text">Category<sup>*</sup>:</label>
@@ -103,7 +104,8 @@
                 name="sum"
                 ngModel
                 required
-                pattern="^[0-9]*\.?[0-9]{0,2}$" />
+                pattern="^[0-9]*\.?[0-9]{0,2}$"
+                [max]="sumMaxValue" />
             <span class="input-group-text">$<sup>*</sup></span>
         </div>
         <div class="el-text-small text-danger"><sup>*</sup>required</div>
