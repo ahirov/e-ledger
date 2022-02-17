@@ -1,6 +1,9 @@
 import { ErrorHandler, Inject, Injectable, Injector } from "@angular/core";
 import { BsModalService, ModalOptions } from "ngx-bootstrap/modal";
+
+import { CustomError } from "./error.model";
 import { ErrorComponent } from "./error.component";
+import { environment } from "../../environments/environment";
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
@@ -12,12 +15,23 @@ export class GlobalErrorHandler implements ErrorHandler {
 
     public handleError(error: any): void {
         const initialState: ModalOptions = {
-            initialState: {
-                message:
-                    error instanceof Error ? error.message : error.toString(),
-            },
+            initialState: { message: this.getMessage(error) },
             animated: true,
         };
         this._modalService.show(ErrorComponent, initialState);
+    }
+
+    private getMessage(error: any): string {
+        if (error instanceof CustomError) {
+            return error.customMessage;
+        } else {
+            if (environment.production) {
+                return "Unknown error!";
+            } else {
+                return error instanceof Error
+                    ? error.message
+                    : error.toString();
+            }
+        }
     }
 }

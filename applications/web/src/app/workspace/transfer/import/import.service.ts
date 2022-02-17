@@ -7,6 +7,7 @@ import { read, utils } from "xlsx";
 import { IImportService } from "../model/import.model";
 import { ISource } from "../../adjustment/model/income.model";
 import { ICategory } from "../../adjustment/model/outcome.model";
+import { CustomError } from "../../../error/error.model";
 import { Mode } from "../../workspace-routing.service";
 import { ImportIncomeService } from "./import-income.service";
 import { ImportOutcomeService } from "./import-outcome.service";
@@ -26,23 +27,29 @@ export class ImportService {
     public upload(file: File, isRewritten: boolean, mode: Mode): void {
         var reader = new FileReader();
         reader.onload = event => {
-            var wb = read(event.target?.result);
-            const wsName = wb.SheetNames[0];
-            const ws = wb.Sheets[wsName];
-            const data = utils.sheet_to_json(ws);
-            if (mode === Mode.Income) {
-                this.processData(
-                    data,
-                    this._incomeService,
-                    isRewritten ? selectors.income : enumSelectors.sources,
-                );
-            }
-            if (mode === Mode.Outcome) {
-                this.processData(
-                    data,
-                    this._outcomeService,
-                    isRewritten ? selectors.outcome : enumSelectors.categories,
-                );
+            try {
+                var wb = read(event.target?.result);
+                const wsName = wb.SheetNames[0];
+                const ws = wb.Sheets[wsName];
+                const data = utils.sheet_to_json(ws);
+                if (mode === Mode.Income) {
+                    this.processData(
+                        data,
+                        this._incomeService,
+                        isRewritten ? selectors.income : enumSelectors.sources,
+                    );
+                }
+                if (mode === Mode.Outcome) {
+                    this.processData(
+                        data,
+                        this._outcomeService,
+                        isRewritten
+                            ? selectors.outcome
+                            : enumSelectors.categories,
+                    );
+                }
+            } catch {
+                throw new CustomError("Invalid input file!");
             }
         };
         reader.readAsArrayBuffer(file);
@@ -82,7 +89,7 @@ export class ImportService {
                                 : service.processItems(data, info),
                         );
                     } catch {
-                        throw new Error("Invalid input file!");
+                        throw new CustomError("Invalid input file!");
                     }
                 }),
             )

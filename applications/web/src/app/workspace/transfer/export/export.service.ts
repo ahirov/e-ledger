@@ -3,6 +3,7 @@ import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { map, take, tap } from "rxjs/operators";
 
+import { CustomError } from "../../../error/error.model";
 import { IExportFilter, IExportService } from "../model/export.model";
 import { ModalComponent } from "../../../shared/modal/modal.component";
 import { Mode } from "../../workspace-routing.service";
@@ -31,7 +32,7 @@ export class ExportService {
                 this.process(filter, this._outcomeService, outcomeSelector);
             }
         } else {
-            throw new Error("Invalid input data!");
+            throw new CustomError("Invalid input data!");
         }
     }
 
