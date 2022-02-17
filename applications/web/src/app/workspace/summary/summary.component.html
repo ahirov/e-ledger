@@ -31,8 +31,8 @@
                     <input
                         type="text"
                         class="form-control"
-                        name="from"
-                        [(ngModel)]="from"
+                        name="incomeFrom"
+                        [(ngModel)]="incomeFrom"
                         bsDatepicker
                         [bsConfig]="{
                             isAnimated: true,
@@ -61,12 +61,12 @@
                 *ngIf="modeService.savedMode === MODE.Outcome"
                 class="col-md-6 order-md-first">
                 <div class="input-group input-group-sm my-2">
-                    <span class="input-group-text">Date:</span>
+                    <span class="input-group-text">From:</span>
                     <input
                         type="text"
                         class="form-control"
-                        name="date"
-                        [(ngModel)]="date"
+                        name="outcomeFrom"
+                        [(ngModel)]="outcomeFrom"
                         bsDatepicker
                         [bsConfig]="{
                             isAnimated: true,
@@ -82,8 +82,8 @@
                     <input
                         type="text"
                         class="form-control"
-                        name="to"
-                        [(ngModel)]="to"
+                        name="incomeTo"
+                        [(ngModel)]="incomeTo"
                         bsDatepicker
                         [bsConfig]="{
                             isAnimated: true,
@@ -95,12 +95,17 @@
                 *ngIf="modeService.savedMode === MODE.Outcome"
                 class="col-md-6">
                 <div class="input-group input-group-sm my-2">
-                    <span class="input-group-text">Details:</span>
+                    <span class="input-group-text">To:</span>
                     <input
                         type="text"
                         class="form-control"
-                        name="description"
-                        [(ngModel)]="description" />
+                        name="outcomeTo"
+                        [(ngModel)]="outcomeTo"
+                        bsDatepicker
+                        [bsConfig]="{
+                            isAnimated: true,
+                            dateInputFormat: 'DD/MM/YYYY'
+                        }" />
                 </div>
             </div>
             <div class="col-md-6 d-flex">

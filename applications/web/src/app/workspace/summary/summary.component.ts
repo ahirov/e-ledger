@@ -24,13 +24,13 @@ export class SummaryComponent implements OnInit, OnDestroy {
     public sources$!: Observable<ISource[]>;
     public categories$!: Observable<ICategory[]>;
 
-    public from: Date | null = null;
-    public to: Date | null = null;
+    public incomeFrom: Date | null = null;
+    public incomeTo: Date | null = null;
     public sourceId: number | null = null;
 
-    public date: Date | null = null;
+    public outcomeFrom: Date | null = null;
+    public outcomeTo: Date | null = null;
     public categoryId: number | null = null;
-    public description: string | null = null;
 
     constructor(
         private _route: ActivatedRoute,
@@ -46,16 +46,16 @@ export class SummaryComponent implements OnInit, OnDestroy {
         this._incomeFiltersSub = this._store$
             .select(dataSelectors.income.filter)
             .subscribe(data => {
-                this.from = data.from;
-                this.to = data.to;
+                this.incomeFrom = data.from;
+                this.incomeTo = data.to;
                 this.sourceId = data.sourceId;
             });
         this._outcomeFiltersSub = this._store$
             .select(dataSelectors.outcome.filter)
             .subscribe(data => {
-                this.date = data.date;
+                this.outcomeFrom = data.from;
+                this.outcomeTo = data.to;
                 this.categoryId = data.categoryId;
-                this.description = data.description;
             });
         this.sources$ = this._store$.select(selectors.sources);
         this.categories$ = this._store$.select(selectors.categories);
@@ -77,16 +77,16 @@ export class SummaryComponent implements OnInit, OnDestroy {
         if (form.valid) {
             if (this.modeService.savedMode === Mode.Income) {
                 this._summaryService.setIncomeFilter(
-                    this.from,
-                    this.to,
+                    this.incomeFrom,
+                    this.incomeTo,
                     this.sourceId,
                 );
             }
             if (this.modeService.savedMode === Mode.Outcome) {
                 this._summaryService.setOutcomeFilter(
-                    this.date,
+                    this.outcomeFrom,
+                    this.outcomeTo,
                     this.categoryId,
-                    this.description,
                 );
             }
         }

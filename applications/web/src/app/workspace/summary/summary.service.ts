@@ -18,8 +18,8 @@ export class SummaryService {
         this._store$.dispatch(
             fromIncomeActions.setFilter({
                 payload: new IncomeFilter(
-                    from ? new Date(from).toDate() : null,
-                    to ? new Date(to).toDate() : null,
+                    from ? from.toDate() : null,
+                    to ? to.toDate() : null,
                     sourceId,
                 ),
             }),
@@ -27,16 +27,16 @@ export class SummaryService {
     }
 
     public setOutcomeFilter(
-        date: Date | null,
+        from: Date | null,
+        to: Date | null,
         categoryId: number | null,
-        description: string | null,
     ): void {
         this._store$.dispatch(
             fromOutcomeActions.setFilter({
                 payload: new OutcomeFilter(
-                    date ? new Date(date).toDate() : null,
+                    from ? from.toDate() : null,
+                    to ? to.toDate() : null,
                     categoryId,
-                    description ? description : null,
                 ),
             }),
         );
