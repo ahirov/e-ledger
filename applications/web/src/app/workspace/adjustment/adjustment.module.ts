@@ -3,14 +3,20 @@ import { CommonModule } from "@angular/common";
 import { StoreModule } from "@ngrx/store";
 import { SortableModule } from "../../../../../ngx-bootstrap/src/sortable/sortable.module";
 
-import { Feature } from "../../shared/store/app.model";
-import { adjustmentReducer } from "./store/adjustment.reducer";
 import { AdjustmentComponent } from "./adjustment.component";
+import { SettingsComponent } from "./setting/setting.component";
 import { EnumerationsComponent } from "./enumeration/enumeration.component";
 import { WorkspaceSharedModule } from "../shared/workspace-shared.module";
 
+import { Feature } from "../../shared/store/app.model";
+import { adjustmentReducer } from "./store/adjustment.reducer";
+
 @NgModule({
-    declarations: [AdjustmentComponent, EnumerationsComponent],
+    declarations: [
+        AdjustmentComponent,
+        EnumerationsComponent,
+        SettingsComponent,
+    ],
     imports: [
         CommonModule,
         WorkspaceSharedModule,

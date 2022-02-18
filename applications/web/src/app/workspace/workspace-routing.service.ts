@@ -12,7 +12,7 @@ export enum RoutingPath {
 export enum Mode {
     Income       = "income",
     Outcome      = "outcome",
-    User         = "user",
+    Settings     = "settings",
     Enumerations = "enumerations",
 }
 
@@ -58,8 +58,8 @@ export class RoutingService {
         if (mode === Mode.Enumerations) {
             return Mode.Enumerations;
         }
-        if (mode === Mode.User) {
-            return Mode.User;
+        if (mode === Mode.Settings) {
+            return Mode.Settings;
         }
         return null;
     }

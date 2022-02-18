@@ -1,0 +1,26 @@
+@import "toolkit";
+
+.el-user-box {
+    @include media-breakpoint-up(lg) {
+        margin-top: 3.5rem;
+    }
+    > form {
+        > div.input-group > span.input-group-text {
+            @include media-breakpoint-only(xs) {
+                width: $input-group-offset-xs;
+            }
+            @include media-breakpoint-only(sm) {
+                width: 19%;
+            }
+            @include media-breakpoint-up(md) {
+                width: 15%;
+            }
+            @include media-breakpoint-only(lg) {
+                width: 18%;
+            }
+        }
+        > div:last-child button {
+            width: 80%;
+        }
+    }
+}
