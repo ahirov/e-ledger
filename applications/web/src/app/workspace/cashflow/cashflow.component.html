@@ -21,11 +21,7 @@
                     name="from"
                     ngModel
                     required
-                    bsDatepicker
-                    [bsConfig]="{
-                        isAnimated: true,
-                        dateInputFormat: 'DD/MM/YYYY'
-                    }"
+                    datepicker
                     (onHidden)="elFrom.control.markAsDirty()" />
             </div>
             <div class="input-group input-group-sm mb-3">
@@ -37,11 +33,7 @@
                     name="to"
                     ngModel
                     required
-                    bsDatepicker
-                    [bsConfig]="{
-                        isAnimated: true,
-                        dateInputFormat: 'DD/MM/YYYY'
-                    }"
+                    datepicker
                     (onHidden)="elTo.control.markAsDirty()" />
             </div>
             <div class="input-group input-group-sm mb-3">
@@ -65,11 +57,7 @@
                     name="date"
                     ngModel
                     required
-                    bsDatepicker
-                    [bsConfig]="{
-                        isAnimated: true,
-                        dateInputFormat: 'DD/MM/YYYY'
-                    }"
+                    datepicker
                     (onHidden)="elDate.control.markAsDirty()" />
             </div>
             <div class="input-group input-group-sm mb-3">
