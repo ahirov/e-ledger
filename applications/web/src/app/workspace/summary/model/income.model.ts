@@ -2,16 +2,16 @@ import { IIncome, IIncomeData } from "../../data/model/income.model";
 import { IEntityFilter } from "../../data/model/state.model";
 
 export interface IIncomeFilter extends IEntityFilter {
-    from: Date | null;
-    to: Date | null;
-    sourceId: number | null;
+    readonly from: Date | null;
+    readonly to: Date | null;
+    readonly sourceId: number | null;
 }
 
 export class IncomeFilter implements IIncomeFilter {
     constructor(
-        public from: Date | null = null,
-        public to: Date | null = null,
-        public sourceId: number | null = null,
+        public readonly from: Date | null = null,
+        public readonly to: Date | null = null,
+        public readonly sourceId: number | null = null,
     ) {}
 
     public any(): boolean {

@@ -1,17 +1,29 @@
+<ng-template #elUserTooltip
+    >User data<br />(all fields are required)</ng-template
+>
+<ng-template #elWorkflowTooltip
+    >Saving data to the server<br />(required)</ng-template
+>
 <div class="el-user-box">
-    <p class="mt-3 mb-2 text-end fw-bold">User:</p>
+    <p class="mt-3 mb-2 text-end fw-bold">
+        User<img
+            class="align-top"
+            src="../../../assets/QuestionMark.svg"
+            [tooltip]="elUserTooltip"
+            placement="left" />:
+    </p>
     <form
         #elSettingForm="ngForm"
         autocomplete="off"
         novalidate
-        (ngSubmit)="onSubmit()">
+        (ngSubmit)="onSubmit(elSettingForm)">
         <div class="input-group input-group-sm mb-3">
             <span class="input-group-text">Email:</span>
             <input
                 class="form-control"
                 type="email"
                 name="email"
-                ngModel
+                [(ngModel)]="email"
                 email
                 required />
         </div>
@@ -21,8 +33,9 @@
                 class="form-control"
                 type="password"
                 name="password"
-                ngModel
-                required />
+                [(ngModel)]="password"
+                passwordsIdentical="passwordConfirm"
+                (focus)="onPasswordFocus()" />
         </div>
         <div class="input-group input-group-sm mb-3">
             <span class="input-group-text">Password:</span>
@@ -30,11 +43,19 @@
                 class="form-control"
                 type="password"
                 name="passwordConfirm"
-                ngModel
-                required />
+                placeholder="confirm the password.."
+                [(ngModel)]="passwordConfirm"
+                passwordsIdentical="password"
+                (focus)="onPasswordFocus()" />
         </div>
         <hr />
-        <p class="mb-2 text-end fw-bold">Workflow:</p>
+        <p class="mb-2 text-end fw-bold">
+            Workflow<img
+                class="align-top"
+                src="../../../assets/QuestionMark.svg"
+                [tooltip]="elWorkflowTooltip"
+                placement="left" />:
+        </p>
         <div class="input-group input-group-sm mb-3">
             <label class="input-group-text">Sync period:</label>
             <ng-select

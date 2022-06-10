@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 
-import { IChartPoint, IChartSection } from "./chart.model";
+import { IChartPoint, IChartSection } from "./model/chart.model";
 import { Mode, RoutingService } from "../workspace-routing.service";
 
 import { selectors as dataSelectors } from "../data/store/state.selectors";

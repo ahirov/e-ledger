@@ -1,12 +1,8 @@
 import { Injectable } from "@angular/core";
-
-import { ObservableInput, of } from "rxjs";
-
-import { AuthUser } from "./auth.model";
-import { AuthResponse } from "./auth.model";
+import { AuthUser, IAuthUser } from "./model/user.model";
+import { IAuthResponse } from "./model/response.model";
 import { AuthTimerService } from "./auth-timer.service";
 import { AppStorage, StorageKey } from "../shared/store/app.storage";
-import * as fromActions from "./store/auth.actions";
 
 @Injectable()
 export class AuthResponseService {
@@ -15,28 +11,25 @@ export class AuthResponseService {
         private _timer: AuthTimerService,
     ) {}
 
-    public processAuthentication(data: AuthResponse): fromActions.LoginEnd {
+    public processAuthentication(response: IAuthResponse): IAuthUser {
         const expirationDate = new Date(
-            new Date().getTime() + +data.expiresIn * 1000,
+            new Date().getTime() + +response.expiresIn * 1000,
         );
         const user = new AuthUser(
-            data.email,
-            data.localId,
-            data.idToken,
+            response.email,
+            response.localId,
+            response.idToken,
             expirationDate,
         );
         this._timer.setTimer(expirationDate);
         this._storage.saveData(StorageKey.User, user);
-        return new fromActions.LoginEnd({
-            user: user,
-            redirect: true,
-        });
+        return user;
     }
 
-    public processError(responce: any): ObservableInput<fromActions.LoginFail> {
+    public processError(response: any): string {
         let message = "An unknown error occurred!";
-        if (responce?.error?.error) {
-            switch (responce.error.error.message) {
+        if (response?.error?.error) {
+            switch (response.error.error.message) {
                 case "EMAIL_EXISTS":
                     message = "The email is already exists!";
                     break;
@@ -57,6 +50,6 @@ export class AuthResponseService {
                     break;
             }
         }
-        return of(new fromActions.LoginFail(message));
+        return message;
     }
 }

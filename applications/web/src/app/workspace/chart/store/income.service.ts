@@ -9,7 +9,7 @@ import {
     IChartSection,
     IItem,
     Item,
-} from "../chart.model";
+} from "../model/chart.model";
 import * as _ from "lodash";
 
 @Injectable()

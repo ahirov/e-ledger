@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { Feature } from "../../../shared/store/app.model";
-import { IChartState } from "../chart.model";
+import { IChartState } from "../model/state.model";
 
 const chart = createFeatureSelector<IChartState>(Feature.Chart);
 export const selectors = {

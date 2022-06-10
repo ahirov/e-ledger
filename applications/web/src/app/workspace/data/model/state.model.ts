@@ -3,15 +3,15 @@ import { IIncomeData } from "./income.model";
 import { IOutcomeData } from "./outcome.model";
 
 interface IPartState<T> extends EntityState<T> {
-    years: number[];
+    readonly years: number[];
 }
 
 export interface IIncomeState extends IPartState<IIncomeData> {}
 export interface IOutcomeState extends IPartState<IOutcomeData> {}
 
 export interface IDataState {
-    income: IIncomeState;
-    outcome: IOutcomeState;
+    readonly income: IIncomeState;
+    readonly outcome: IOutcomeState;
 }
 
 export interface IEntity {

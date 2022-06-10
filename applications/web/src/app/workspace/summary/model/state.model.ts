@@ -2,15 +2,15 @@ import { IIncomeFilter } from "./income.model";
 import { IOutcomeFilter } from "./outcome.model";
 
 interface IPartState<F> {
-    filter: F;
-    page: number;
-    ids: string[];
+    readonly filter: F;
+    readonly page: number;
+    readonly ids: string[];
 }
 
 export interface IIncomeState extends IPartState<IIncomeFilter> {}
 export interface IOutcomeState extends IPartState<IOutcomeFilter> { }
 
 export interface ISummaryState {
-    income: IIncomeState;
-    outcome: IOutcomeState;
+    readonly income: IIncomeState;
+    readonly outcome: IOutcomeState;
 }

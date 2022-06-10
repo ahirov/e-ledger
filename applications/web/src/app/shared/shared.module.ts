@@ -4,13 +4,12 @@ import { ModalModule } from "ngx-bootstrap/modal";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
 
 import { TruncatePipe } from "../shared/pipes/string.pipe";
-import { ModalComponent } from "./modal/modal.component";
-import { ModalConfirmComponent } from "./modal/modal-confirm.component";
+import { MessageDialog } from "./dialog/message.dialog";
 
 @NgModule({
     declarations: [TruncatePipe],
     imports: [CommonModule, ModalModule.forRoot(), TooltipModule.forRoot()],
     exports: [CommonModule, ModalModule, TooltipModule, TruncatePipe],
-    entryComponents: [ModalComponent, ModalConfirmComponent],
+    entryComponents: [MessageDialog],
 })
 export class SharedModule {}

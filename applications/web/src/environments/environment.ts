@@ -1,7 +1,13 @@
+import { credentials } from "./credentials";
+
+const webApiUrl = "https://identitytoolkit.googleapis.com/v1/accounts:";
+const webApiParameter = `?key=${credentials.webApiKey}`;
+
 export const environment = {
     production: false,
-    webApiSignupPath: "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=",
-    webApiLoginPath:  "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=",
+    webApiUpdateUrl: `${webApiUrl}update${webApiParameter}`,
+    webApiSignupUrl: `${webApiUrl}signUp${webApiParameter}`,
+    webApiLoginUrl:  `${webApiUrl}signInWithPassword${webApiParameter}`,
 
     pagePreviewItemsCount: 3,
     pageItemsCount: 6,

@@ -5,12 +5,11 @@ import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 import { take } from "rxjs/operators";
 import { BsModalService, ModalOptions } from "ngx-bootstrap/modal";
-
-import { ModalConfirmComponent } from "../../../shared/modal/modal-confirm.component";
+import { ListDialog } from "./dialog/list.dialog";
 
 @Injectable()
 export class ListService implements OnDestroy {
-    private _modalSub: Subscription | null = null;
+    private _dialogSub: Subscription | null = null;
 
     constructor(
         private _modalService: BsModalService,
@@ -18,40 +17,39 @@ export class ListService implements OnDestroy {
     ) {}
 
     public ngOnDestroy(): void {
-        this.clearModal();
+        this.clearDialog();
     }
 
-    public openModal(
+    public openDialog(
         id: string,
         sum: number,
-        title: string,
+        name: string,
         action: (props: { payload: string }) => {
             payload: string;
         } & TypedAction<any>,
     ): void {
         const initialState: ModalOptions = {
             initialState: {
-                title: "Do you want to delete this item?:",
-                content: `${title} - ${sum.toFixed(2)}`,
+                message: `${name} - ${sum.toFixed(2)}`,
             },
             animated: true,
         };
-        const modalRef = this._modalService.show(ModalConfirmComponent, initialState);
-        if (modalRef.content) {
-            this.clearModal();
-            this._modalSub = modalRef.content.confirmation$
+        const dialogRef = this._modalService.show(ListDialog, initialState);
+        if (dialogRef.content) {
+            this.clearDialog();
+            this._dialogSub = dialogRef.content.confirmation$
                 .pipe(take(1))
                 .subscribe(() => {
                     this._store$.dispatch(action({ payload: id }));
-                    modalRef.hide();
+                    dialogRef.hide();
                 });
         }
     }
 
-    private clearModal(): void {
-        if (this._modalSub) {
-            this._modalSub.unsubscribe();
-            this._modalSub = null;
+    private clearDialog(): void {
+        if (this._dialogSub) {
+            this._dialogSub.unsubscribe();
+            this._dialogSub = null;
         }
     }
 }

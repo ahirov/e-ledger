@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { AuthUser } from "./auth.model";
+import { AuthUser } from "./model/user.model";
 import { AuthTimerService } from "./auth-timer.service";
 import { AppStorage, StorageKey } from "../shared/store/app.storage";
 import { UndefinedAction } from "../shared/store/undefined.action";
@@ -15,25 +15,26 @@ export class AuthLoginService {
         private _timer: AuthTimerService,
     ) {}
 
-    public processLogin(data: fromActions.LoginEnd): void {
-        if (data.payload.redirect) {
+    public processLogin(action: fromActions.LoginEnd): void {
+        if (action.payload.isRedirected) {
             this._router.navigate(["/"]);
         }
     }
+
     public processAutoLogin(): fromActions.AuthAction {
-        const userData: any = this._storage.loadData(StorageKey.User);
+        const userData = this._storage.loadData(StorageKey.User);
         if (userData) {
             const user = new AuthUser(
                 userData.email,
-                userData.id,
-                userData._token,
-                new Date(userData._tokenExpirationDate),
+                userData.localId,
+                userData._idToken,
+                new Date(userData._expiresIn),
             );
-            if (user.token) {
-                this._timer.setTimer(user.tokenExpirationDate);
+            if (user.idToken) {
+                this._timer.setTimer(user.expiresIn);
                 return new fromActions.LoginEnd({
                     user: user,
-                    redirect: false,
+                    isRedirected: false,
                 });
             }
         }

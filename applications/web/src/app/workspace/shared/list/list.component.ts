@@ -65,7 +65,7 @@ export class ListComponent implements OnInit, OnDestroy {
     }
 
     public onIncomeDelete(income: IIncome): void {
-        this._listService.openModal(
+        this._listService.openDialog(
             income.id,
             income.sum,
             income.source.name,
@@ -74,7 +74,7 @@ export class ListComponent implements OnInit, OnDestroy {
     }
 
     public onOutcomeDelete(outcome: IOutcome): void {
-        this._listService.openModal(
+        this._listService.openDialog(
             outcome.id,
             outcome.sum,
             outcome.category.name,

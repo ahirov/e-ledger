@@ -9,7 +9,7 @@ export class AuthErrorService {
         passwordConfirm: "Password confirm",
     };
 
-    public getMessages(form: NgForm, extraMessage?: string): string[] {
+    public getMessages(form: NgForm, extraMessage: string | null): string[] {
         const messages: string[] = [];
         Object.keys(form.controls).forEach(control => {
             this.getValidationMessages(control, form.controls[control]).forEach(

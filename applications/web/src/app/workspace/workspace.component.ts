@@ -83,7 +83,7 @@ export class WorkspaceComponent implements OnInit, AfterViewInit {
         ];
         const categories = [new Category(1, "Food"), new Category(2, "Sport")];
         this._store$.dispatch(
-            fromActions.save({ payload: { sources, categories } }),
+            fromActions.saveEnums({ payload: { sources, categories } }),
         );
         /*//////////////////////////////////////////////////*/
     }

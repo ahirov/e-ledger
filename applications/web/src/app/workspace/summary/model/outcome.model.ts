@@ -2,16 +2,16 @@ import { IOutcome, IOutcomeData } from "../../data/model/outcome.model";
 import { IEntityFilter } from "../../data/model/state.model";
 
 export interface IOutcomeFilter extends IEntityFilter {
-    from: Date | null;
-    to: Date | null;
-    categoryId: number | null;
+    readonly from: Date | null;
+    readonly to: Date | null;
+    readonly categoryId: number | null;
 }
 
 export class OutcomeFilter implements IOutcomeFilter {
     constructor(
-        public from: Date | null = null,
-        public to: Date | null = null,
-        public categoryId: number | null = null,
+        public readonly from: Date | null = null,
+        public readonly to: Date | null = null,
+        public readonly categoryId: number | null = null,
     ) {}
 
     public any(): boolean {

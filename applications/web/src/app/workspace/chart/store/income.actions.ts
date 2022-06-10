@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IChartPoint, IChartSection } from "../chart.model";
+import { IChartPoint, IChartSection } from "../model/chart.model";
 
 export const SET_YEAR     = "[Chart][Income] Set year";
 export const SET_POINTS   = "[Chart][Income] Set points";

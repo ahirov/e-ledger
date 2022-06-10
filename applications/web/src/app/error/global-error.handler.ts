@@ -2,7 +2,7 @@ import { ErrorHandler, Inject, Injectable, Injector } from "@angular/core";
 import { BsModalService, ModalOptions } from "ngx-bootstrap/modal";
 
 import { CustomError } from "./error.model";
-import { ErrorComponent } from "./error.component";
+import { ErrorDialog } from "./dialog/error.dialog";
 import { environment } from "../../environments/environment";
 
 @Injectable()
@@ -18,7 +18,7 @@ export class GlobalErrorHandler implements ErrorHandler {
             initialState: { message: this.getMessage(error) },
             animated: true,
         };
-        this._modalService.show(ErrorComponent, initialState);
+        this._modalService.show(ErrorDialog, initialState);
     }
 
     private getMessage(error: any): string {

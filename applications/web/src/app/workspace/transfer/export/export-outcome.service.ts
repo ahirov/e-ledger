@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { IOutcome } from "../../data/model/outcome.model";
 import { IExportFilter, IExportService } from "../model/export.model";
-import { Extension } from "../model/extension.mode";
+import { Extension } from "../model/extension.model";
 import { utils, WorkSheet } from "xlsx";
 import * as _ from "lodash";
 

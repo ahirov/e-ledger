@@ -13,7 +13,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { environment } from "../environments/environment";
 
 import { AppComponent } from "./app.component";
-import { ErrorComponent } from "./error/error.component";
+import { ErrorDialog } from "./error/dialog/error.dialog";
 import { GlobalErrorHandler } from "./error/global-error.handler";
 
 @NgModule({
@@ -33,6 +33,6 @@ import { GlobalErrorHandler } from "./error/global-error.handler";
     ],
     bootstrap: [AppComponent],
     providers: [{ provide: ErrorHandler, useClass: GlobalErrorHandler }],
-    entryComponents: [ErrorComponent],
+    entryComponents: [ErrorDialog],
 })
 export class AppModule {}

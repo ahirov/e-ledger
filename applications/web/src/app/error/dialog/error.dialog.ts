@@ -2,10 +2,10 @@ import { Component } from "@angular/core";
 import { BsModalRef } from "ngx-bootstrap/modal";
 
 @Component({
-    selector: "el-error-modal",
-    templateUrl: "./error.component.html",
+    selector: "el-error-dialog",
+    templateUrl: "./error.dialog.html",
 })
-export class ErrorComponent {
+export class ErrorDialog {
     public message?: string;
 
     constructor(public modalRef: BsModalRef) {}

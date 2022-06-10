@@ -1,4 +1,4 @@
-import { Extension } from "./extension.mode";
+import { Extension } from "./extension.model";
 import { WorkSheet } from "xlsx";
 
 export interface IExportFilter {

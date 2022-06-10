@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { IIncomeState } from "../chart.model";
+import { IIncomeState } from "../model/state.model";
 import * as fromActions from "./income.actions";
 
 const initialState: IIncomeState = {

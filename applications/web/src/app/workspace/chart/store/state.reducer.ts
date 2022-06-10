@@ -1,5 +1,5 @@
 import { ActionReducerMap } from "@ngrx/store";
-import { IChartState } from "../chart.model";
+import { IChartState } from "../model/state.model";
 import { incomeReducer } from "./income.reducer";
 import { outcomeReducer } from "./outcome.reducer";
 

@@ -12,7 +12,7 @@ import { ChartConfiguration, ChartType, Plugin } from "chart.js";
 import { BaseChartDirective } from "ng2-charts";
 import { Subscription } from "rxjs";
 
-import { IChartSection } from "../chart.model";
+import { IChartSection } from "../model/chart.model";
 import { ChartService, ScssVariables } from "../chart.service";
 import DatalabelsPlugin from "chartjs-plugin-datalabels";
 import * as _ from "lodash";

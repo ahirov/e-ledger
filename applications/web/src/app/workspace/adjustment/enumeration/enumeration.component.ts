@@ -6,11 +6,10 @@ import {
     SortableComponent,
     SortableItem,
 } from "applications/ngx-bootstrap/src/sortable/sortable.component";
-import { BsModalService } from "ngx-bootstrap/modal";
 
+import { AdjustmentService } from "../adjustment.service";
 import { ISourceView, Source, SourceView } from "../model/income.model";
 import { Category, CategoryView, ICategoryView } from "../model/outcome.model";
-import { ModalComponent } from "../../../shared/modal/modal.component";
 import { environment } from "applications/web/src/environments/environment";
 import { selectors } from "../store/adjustment.selectors";
 import * as fromActions from "../store/adjustment.actions";
@@ -35,7 +34,7 @@ export class EnumerationsComponent implements OnInit, OnDestroy {
     public maxLength = environment.enumerationMaxLength;
 
     constructor(
-        private _modalService: BsModalService,
+        private _adjustmentService: AdjustmentService,
         private _store$: Store,
     ) {}
 
@@ -94,7 +93,7 @@ export class EnumerationsComponent implements OnInit, OnDestroy {
 
     public onSave(): void {
         this._store$.dispatch(
-            fromActions.save({
+            fromActions.saveEnums({
                 payload: {
                     sources: _.map(
                         this.sources,
@@ -107,11 +106,11 @@ export class EnumerationsComponent implements OnInit, OnDestroy {
                 },
             }),
         );
-        this.printResult();
+        this._adjustmentService.showSavedDialog();
     }
 
     public onCancel(): void {
-        this._store$.dispatch(fromActions.refresh());
+        this._store$.dispatch(fromActions.refreshEnums());
     }
 
     private getId(items: ISourceView[] | ICategoryView[]): number {
@@ -126,15 +125,5 @@ export class EnumerationsComponent implements OnInit, OnDestroy {
                 return true;
             });
         return id;
-    }
-
-    private printResult(): void {
-        this._modalService.show(ModalComponent, {
-            initialState: {
-                title: "Operation result:",
-                content: "All changes saved!",
-            },
-            animated: true,
-        });
     }
 }

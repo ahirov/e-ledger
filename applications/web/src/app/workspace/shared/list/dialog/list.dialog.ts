@@ -3,21 +3,20 @@ import { BsModalRef } from "ngx-bootstrap/modal";
 import { Subject } from "rxjs";
 
 @Component({
-    selector: "el-confirm-modal",
-    templateUrl: "./modal-confirm.component.html",
+    selector: "el-list-dialog",
+    templateUrl: "./list.dialog.html",
 })
-export class ModalConfirmComponent implements OnInit {
+export class ListDialog implements OnInit {
     public confirmation$!: Subject<void>;
-    public title?: string;
-    public content?: string;
+    public message?: string;
 
     constructor(public modalRef: BsModalRef) {}
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.confirmation$ = new Subject();
     }
 
-    public confirm(): void {
+    public onConfirm(): void {
         this.confirmation$.next();
     }
 }

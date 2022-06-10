@@ -11,7 +11,7 @@ import { CustomError } from "../../../error/error.model";
 import { Mode } from "../../workspace-routing.service";
 import { ImportIncomeService } from "./import-income.service";
 import { ImportOutcomeService } from "./import-outcome.service";
-import { ModalComponent } from "../../../shared/modal/modal.component";
+import { MessageDialog } from "../../../shared/dialog/message.dialog";
 import { selectors as enumSelectors } from "../../adjustment/store/adjustment.selectors";
 import { selectors } from "../store/transfer.selectors";
 
@@ -79,7 +79,7 @@ export class ImportService {
                 take(1),
                 map(info => {
                     try {
-                        this.printResult(
+                        this.showDialog(
                             "items" in info
                                 ? service.processItems(
                                       data,
@@ -96,14 +96,13 @@ export class ImportService {
             .subscribe();
     }
 
-    private printResult(result: { total: number; deleted: number }): void {
-        const replaced = result.deleted > 0
-            ? ` (${result.deleted} items replaced)`
-            : "";
-        this._modalService.show(ModalComponent, {
+    private showDialog(result: { total: number; deleted: number }): void {
+        const replaced =
+            result.deleted > 0 ? ` (${result.deleted} items replaced)` : "";
+        this._modalService.show(MessageDialog, {
             initialState: {
                 title: "Import completed:",
-                content: `${result.total} items were added${replaced}.`,
+                message: `${result.total} items were added${replaced}.`,
             },
             animated: true,
         });

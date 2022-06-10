@@ -1,17 +1,12 @@
-import { AuthUser } from "../auth.model";
+import { IAuthState } from "../model/state.model";
 import * as fromActions from "./auth.actions";
 
-export interface State {
-    user: AuthUser | null;
-    error: string | null;
-}
-
-const initialState: State = { user: null, error: null };
+const initialState: IAuthState = { user: null, error: null };
 
 export function authReducer(
     state = initialState,
     action: fromActions.AuthAction,
-): State {
+): IAuthState {
     switch (action.type) {
         case fromActions.SIGNUP_START:
         case fromActions.LOGIN_START:
@@ -35,11 +30,6 @@ export function authReducer(
             return {
                 ...state,
                 user: null,
-            };
-        case fromActions.CLEAR_ERROR:
-            return {
-                ...state,
-                error: null,
             };
         default:
             return state;

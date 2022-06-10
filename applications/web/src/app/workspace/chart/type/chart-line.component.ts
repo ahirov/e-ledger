@@ -12,7 +12,7 @@ import { ChartConfiguration, ChartType } from "chart.js";
 import { BaseChartDirective } from "ng2-charts";
 import { Subscription } from "rxjs";
 
-import { IChartPoint } from "../chart.model";
+import { IChartPoint } from "../model/chart.model";
 import { ChartService, ScssVariables } from "../chart.service";
 
 @Component({

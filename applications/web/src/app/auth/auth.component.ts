@@ -1,10 +1,9 @@
 import { NgForm } from "@angular/forms";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
-
 import { Subscription } from "rxjs";
 
-import { AuthCredentials } from "./auth.model";
+import { AuthRequest } from "./model/request.model";
 import { AuthErrorService } from "./auth-error.service";
 import { authAnimations } from "./auth.animations";
 import { selectors } from "./store/auth.selectors";
@@ -16,22 +15,24 @@ import * as fromActions from "../auth/store/auth.actions";
     animations: authAnimations,
 })
 export class AuthComponent implements OnInit, OnDestroy {
-    private _extraError: { message: string; isExternal: boolean } | null = null;
+    private _extraError: string | null = null;
     private _storeSub!: Subscription;
 
     public isSignUpMode = false;
 
     constructor(
-        private _store$: Store,
         private _errorService: AuthErrorService,
+        private _store$: Store,
     ) {}
 
     public ngOnInit(): void {
-        this._storeSub = this._store$.select(selectors.error).subscribe(error => {
-            if (error) {
-                this._extraError = { message: error, isExternal: true };
-            }
-        });
+        this._storeSub = this._store$
+            .select(selectors.error)
+            .subscribe(error => {
+                if (error) {
+                    this._extraError = error;
+                }
+            });
     }
 
     public ngOnDestroy(): void {
@@ -59,20 +60,17 @@ export class AuthComponent implements OnInit, OnDestroy {
                 if (password === passwordConfirm) {
                     this._store$.dispatch(
                         new fromActions.SignupStart(
-                            new AuthCredentials(email, password),
+                            new AuthRequest(email, password),
                         ),
                     );
                     form.reset();
                 } else {
-                    this._extraError = {
-                        message: "Passwords do not match!",
-                        isExternal: false,
-                    };
+                    this._extraError = "Passwords do not match!";
                 }
             } else {
                 this._store$.dispatch(
                     new fromActions.LoginStart(
-                        new AuthCredentials(email, password),
+                        new AuthRequest(email, password),
                     ),
                 );
                 form.reset();
@@ -85,14 +83,11 @@ export class AuthComponent implements OnInit, OnDestroy {
     }
 
     public getErrorMessages(form: NgForm): string[] {
-        return this._errorService.getMessages(form, this._extraError?.message);
+        return this._errorService.getMessages(form, this._extraError);
     }
 
     private clearExtraError(): void {
         if (this._extraError) {
-            if (this._extraError.isExternal) {
-                this._store$.dispatch(new fromActions.ClearError());
-            }
             this._extraError = null;
         }
     }

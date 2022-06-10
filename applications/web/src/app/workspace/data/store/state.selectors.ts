@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { Feature } from "../../../shared/store/app.model";
 import { IDataState } from "../model/state.model";
-import { IAdjustmentState } from "../../adjustment/model/state.mode";
+import { IAdjustmentState } from "../../adjustment/model/state.model";
 
 import { environment } from "applications/web/src/environments/environment";
 import { getIncomes, getOutcomes } from "./state.functions";

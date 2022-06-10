@@ -1,6 +1,7 @@
 import { Action } from "@ngrx/store";
 
-import { AuthUser, AuthCredentials } from "../auth.model";
+import { IAuthUser } from "../model/user.model";
+import { IAuthRequest } from "../model/request.model";
 import { UndefinedAction } from "../../shared/store/undefined.action";
 
 export const SIGNUP_START = "[Auth] Signup start";
@@ -9,23 +10,23 @@ export const LOGIN_END    = "[Auth] Login end";
 export const LOGIN_FAIL   = "[Auth] Login fail";
 export const LOGIN_AUTO   = "[Auth] Login auto";
 export const LOGOUT       = "[Auth] Logout";
-export const CLEAR_ERROR  = "[Auth] Clear error";
 
 export class SignupStart implements Action {
     readonly type = SIGNUP_START;
-    constructor(public payload: AuthCredentials) {}
+    constructor(public payload: IAuthRequest) {}
 }
 
 export class LoginStart implements Action {
     readonly type = LOGIN_START;
-    constructor(public payload: AuthCredentials) {}
+    constructor(public payload: IAuthRequest) {}
 }
 
 export class LoginEnd implements Action {
     readonly type = LOGIN_END;
 
-    constructor(public payload: { user: AuthUser; redirect: boolean }) {}
+    constructor(public payload: { user: IAuthUser; isRedirected: boolean }) {}
 }
+
 export class LoginFail implements Action {
     readonly type = LOGIN_FAIL;
 
@@ -40,10 +41,6 @@ export class Logout implements Action {
     readonly type = LOGOUT;
 }
 
-export class ClearError implements Action {
-    readonly type = CLEAR_ERROR;
-}
-
 export type AuthAction =
     | SignupStart
     | LoginStart
@@ -51,5 +48,4 @@ export type AuthAction =
     | LoginFail
     | LoginAuto
     | Logout
-    | ClearError
     | UndefinedAction;

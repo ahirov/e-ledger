@@ -2,15 +2,15 @@ import { Injectable } from "@angular/core";
 import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { map, take, tap } from "rxjs/operators";
+import { writeFile, utils } from "xlsx";
 
 import { CustomError } from "../../../error/error.model";
 import { IExportFilter, IExportService } from "../model/export.model";
-import { ModalComponent } from "../../../shared/modal/modal.component";
+import { MessageDialog } from "../../../shared/dialog/message.dialog";
 import { Mode } from "../../workspace-routing.service";
 import { ExportIncomeService } from "../export/export-income.service";
 import { ExportOutcomeService } from "../export/export-outcome.service";
 import { selectors as dataSelectors } from "../../data/store/state.selectors";
-import { writeFile, utils } from "xlsx";
 
 @Injectable()
 export class ExportService {
@@ -39,11 +39,7 @@ export class ExportService {
     private process<T>(
         filter: IExportFilter,
         service: IExportService<T>,
-        selector: MemoizedSelector<
-            object,
-            T[],
-            DefaultProjectorFn<T[]>
-        >,
+        selector: MemoizedSelector<object, T[], DefaultProjectorFn<T[]>>,
     ): void {
         this._store$
             .select(selector)
@@ -56,17 +52,17 @@ export class ExportService {
 
                     utils.book_append_sheet(wb, ws, "Data");
                     writeFile(wb, `workbook.${filter.extension}`);
-                    this.printResult(items.length);
+                    this.showDialog(items.length);
                 }),
             )
             .subscribe();
     }
 
-    private printResult(count: number): void {
-        this._modalService.show(ModalComponent, {
+    private showDialog(count: number): void {
+        this._modalService.show(MessageDialog, {
             initialState: {
                 title: "Export completed:",
-                content: `${count} items were selected.`,
+                message: `${count} items were selected.`,
             },
             animated: true,
         });

@@ -22,11 +22,11 @@ export class ExitComponent implements OnInit, OnDestroy {
             const now = new Date();
             if (expiration > now) {
                 this._time = differenceInSeconds(expiration, now);
-                this.printTime();
+                this.processTime();
                 this._interval = interval(1000).subscribe(() => {
                     if (this._time > 0) {
                         this._time--;
-                        this.printTime();
+                        this.processTime();
                     } else {
                         this.clearInterval();
                     }
@@ -40,7 +40,7 @@ export class ExitComponent implements OnInit, OnDestroy {
         this.clearInterval();
     }
 
-    private printTime(): void {
+    private processTime(): void {
         this.minutes = Math.floor(this._time / 60);
         this.seconds = this._time - this.minutes * 60;
     }

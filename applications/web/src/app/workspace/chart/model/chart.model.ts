@@ -1,17 +1,3 @@
-interface IPartState {
-    year: number | null;
-    points: IChartPoint[];
-    sections: IChartSection[];
-}
-
-export interface IIncomeState extends IPartState {}
-export interface IOutcomeState extends IPartState {}
-
-export interface IChartState {
-    income: IIncomeState;
-    outcome: IOutcomeState;
-}
-
 export interface IItem<T> {
     readonly key: T;
     readonly value: number;

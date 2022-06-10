@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { NgForm } from "@angular/forms";
 
 import { Subscription } from "rxjs";
-import { Extension } from "./model/extension.mode";
+import { Extension } from "./model/extension.model";
 import { ExportFilter } from "./model/export.model";
 import { CustomError } from "../../error/error.model";
 
