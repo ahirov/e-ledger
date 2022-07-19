@@ -5,7 +5,7 @@ import { NgForm } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { Extension } from "./model/extension.model";
 import { ExportFilter } from "./model/export.model";
-import { CustomError } from "../../error/error.model";
+import { GlobalError } from "../../error/error.model";
 
 import { ExportService } from "./export/export.service";
 import { ImportService } from "./import/import.service";
@@ -78,7 +78,7 @@ export class TransferComponent implements OnInit, OnDestroy {
             if (input.files.length === 1) {
                 this._file = input.files[0];
             } else if (input.files.length > 1) {
-                throw new CustomError("Multiple files cannot be used!");
+                throw new GlobalError("Multiple files cannot be used!");
             }
         }
     }

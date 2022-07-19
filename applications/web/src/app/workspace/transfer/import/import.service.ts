@@ -7,7 +7,7 @@ import { read, utils } from "xlsx";
 import { IImportService } from "../model/import.model";
 import { ISource } from "../../adjustment/model/income.model";
 import { ICategory } from "../../adjustment/model/outcome.model";
-import { CustomError } from "../../../error/error.model";
+import { GlobalError } from "../../../error/error.model";
 import { Mode } from "../../workspace-routing.service";
 import { ImportIncomeService } from "./import-income.service";
 import { ImportOutcomeService } from "./import-outcome.service";
@@ -49,7 +49,7 @@ export class ImportService {
                     );
                 }
             } catch {
-                throw new CustomError("Invalid input file!");
+                throw new GlobalError("Invalid input file!");
             }
         };
         reader.readAsArrayBuffer(file);
@@ -89,7 +89,7 @@ export class ImportService {
                                 : service.processItems(data, info),
                         );
                     } catch {
-                        throw new CustomError("Invalid input file!");
+                        throw new GlobalError("Invalid input file!");
                     }
                 }),
             )

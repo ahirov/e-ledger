@@ -3,7 +3,8 @@ import { Router } from "@angular/router";
 
 import { AuthUser } from "./model/user.model";
 import { AuthTimerService } from "./auth-timer.service";
-import { AppStorage, StorageKey } from "../shared/store/app.storage";
+import { AppStorage } from "../shared/store/app.storage";
+import { Vault } from "../shared/store/app.model";
 import { UndefinedAction } from "../shared/store/undefined.action";
 import * as fromActions from "./store/auth.actions";
 
@@ -22,7 +23,7 @@ export class AuthLoginService {
     }
 
     public processAutoLogin(): fromActions.AuthAction {
-        const userData = this._storage.loadData(StorageKey.User);
+        const userData = this._storage.loadData(Vault.User);
         if (userData) {
             const user = new AuthUser(
                 userData.email,
@@ -42,7 +43,7 @@ export class AuthLoginService {
     }
 
     public processLogout(): void {
-        this._storage.clearData(StorageKey.User);
+        this._storage.clearData(Vault.User);
         this._timer.clearTimer();
         this._router.navigate(["/auth"]);
     }

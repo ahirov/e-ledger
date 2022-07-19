@@ -10,12 +10,12 @@ import { TransferComponent } from "./transfer/transfer.component";
 import { AdjustmentComponent } from "./adjustment/adjustment.component";
 import { ExitComponent } from "./exit/exit.component";
 
-import { CashflowPanelComponent } from "./panel/cashflow-panel.component";
-import { SummaryPanelComponent } from "./panel/summary-panel.component";
-import { ChartPanelComponent } from "./panel/chart-panel.component";
-import { TransferPanelComponent } from "./panel/transfer-panel.component";
-import { AdjustmentPanelComponent } from "./panel/adjustment-panel.component";
-import { ExitPanelComponent } from "./panel/exit-panel.component";
+import { PanelCashflowComponent } from "./panel/panel-cashflow.component";
+import { PanelSummaryComponent } from "./panel/panel-summary.component";
+import { PanelChartComponent } from "./panel/panel-chart.component";
+import { PanelTransferComponent } from "./panel/panel-transfer.component";
+import { PanelAdjustmentComponent } from "./panel/panel-adjustment.component";
+import { PanelExitComponent } from "./panel/panel-exit.component";
 
 const routes: Routes = [
     {
@@ -34,7 +34,7 @@ const routes: Routes = [
                     {
                         path: "",
                         outlet: "panel",
-                        component: CashflowPanelComponent,
+                        component: PanelCashflowComponent,
                     },
                 ],
             },
@@ -49,7 +49,7 @@ const routes: Routes = [
                     {
                         path: "",
                         outlet: "panel",
-                        component: SummaryPanelComponent,
+                        component: PanelSummaryComponent,
                     },
                 ],
             },
@@ -64,7 +64,7 @@ const routes: Routes = [
                     {
                         path: "",
                         outlet: "panel",
-                        component: ChartPanelComponent,
+                        component: PanelChartComponent,
                     },
                 ],
             },
@@ -79,7 +79,7 @@ const routes: Routes = [
                     {
                         path: "",
                         outlet: "panel",
-                        component: TransferPanelComponent,
+                        component: PanelTransferComponent,
                     },
                 ],
             },
@@ -94,7 +94,7 @@ const routes: Routes = [
                     {
                         path: "",
                         outlet: "panel",
-                        component: AdjustmentPanelComponent,
+                        component: PanelAdjustmentComponent,
                     },
                 ],
             },
@@ -109,7 +109,7 @@ const routes: Routes = [
                     {
                         path: "",
                         outlet: "panel",
-                        component: ExitPanelComponent,
+                        component: PanelExitComponent,
                     },
                 ],
             },

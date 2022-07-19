@@ -20,22 +20,22 @@ import { IncomeService } from "./data/store/income.service";
 import { OutcomeService } from "./data/store/outcome.service";
 import { RoutingService } from "./workspace-routing.service";
 import { WorkspaceComponent } from "./workspace.component";
-import { CashflowPanelComponent } from "./panel/cashflow-panel.component";
-import { SummaryPanelComponent } from "./panel/summary-panel.component";
-import { ChartPanelComponent } from "./panel/chart-panel.component";
-import { TransferPanelComponent } from "./panel/transfer-panel.component";
-import { AdjustmentPanelComponent } from "./panel/adjustment-panel.component";
-import { ExitPanelComponent } from "./panel/exit-panel.component";
+import { PanelCashflowComponent } from "./panel/panel-cashflow.component";
+import { PanelSummaryComponent } from "./panel/panel-summary.component";
+import { PanelChartComponent } from "./panel/panel-chart.component";
+import { PanelTransferComponent } from "./panel/panel-transfer.component";
+import { PanelAdjustmentComponent } from "./panel/panel-adjustment.component";
+import { PanelExitComponent } from "./panel/panel-exit.component";
 
 @NgModule({
     declarations: [
         WorkspaceComponent,
-        CashflowPanelComponent,
-        SummaryPanelComponent,
-        ChartPanelComponent,
-        TransferPanelComponent,
-        AdjustmentPanelComponent,
-        ExitPanelComponent,
+        PanelCashflowComponent,
+        PanelSummaryComponent,
+        PanelChartComponent,
+        PanelTransferComponent,
+        PanelAdjustmentComponent,
+        PanelExitComponent,
     ],
     imports: [
         CommonModule,

@@ -4,7 +4,7 @@ import { BsModalService } from "ngx-bootstrap/modal";
 import { map, take, tap } from "rxjs/operators";
 import { writeFile, utils } from "xlsx";
 
-import { CustomError } from "../../../error/error.model";
+import { GlobalError } from "../../../error/error.model";
 import { IExportFilter, IExportService } from "../model/export.model";
 import { MessageDialog } from "../../../shared/dialog/message.dialog";
 import { Mode } from "../../workspace-routing.service";
@@ -32,7 +32,7 @@ export class ExportService {
                 this.process(filter, this._outcomeService, outcomeSelector);
             }
         } else {
-            throw new CustomError("Invalid input data!");
+            throw new GlobalError("Invalid input data!");
         }
     }
 

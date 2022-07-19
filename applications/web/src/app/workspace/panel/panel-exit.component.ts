@@ -13,7 +13,7 @@ import * as fromActions from "../../auth/store/auth.actions";
         </button>
     </div>`,
 })
-export class ExitPanelComponent {
+export class PanelExitComponent {
     constructor(private _store$: Store) {}
 
     public onLogout(): void {

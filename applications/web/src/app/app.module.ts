@@ -14,7 +14,7 @@ import { environment } from "../environments/environment";
 
 import { AppComponent } from "./app.component";
 import { ErrorDialog } from "./error/dialog/error.dialog";
-import { GlobalErrorHandler } from "./error/global-error.handler";
+import { GlobalErrorHandler } from "./error/error.handler";
 
 @NgModule({
     declarations: [AppComponent],

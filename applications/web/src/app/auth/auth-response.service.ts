@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core";
 import { AuthUser, IAuthUser } from "./model/user.model";
 import { IAuthResponse } from "./model/response.model";
 import { AuthTimerService } from "./auth-timer.service";
-import { AppStorage, StorageKey } from "../shared/store/app.storage";
+import { AppStorage } from "../shared/store/app.storage";
+import { Vault } from "../shared/store/app.model";
 
 @Injectable()
 export class AuthResponseService {
@@ -22,7 +23,7 @@ export class AuthResponseService {
             expirationDate,
         );
         this._timer.setTimer(expirationDate);
-        this._storage.saveData(StorageKey.User, user);
+        this._storage.saveData(Vault.User, user);
         return user;
     }
 

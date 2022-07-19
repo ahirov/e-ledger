@@ -1,21 +1,18 @@
 import { Injectable } from "@angular/core";
-
-export enum StorageKey {
-    User = "user",
-}
+import { Vault } from "./app.model";
 
 @Injectable({ providedIn: "root" })
 export class AppStorage {
-    public loadData(key: StorageKey): any {
-        const data = localStorage.getItem(key);
+    public loadData(vault: Vault): any {
+        const data = localStorage.getItem(vault);
         return data ? JSON.parse(data) : null;
     }
 
-    public saveData(key: StorageKey, data: any): void {
-        localStorage.setItem(key, JSON.stringify(data));
+    public saveData(vault: Vault, data: any): void {
+        localStorage.setItem(vault, JSON.stringify(data));
     }
 
-    public clearData(key: StorageKey): void {
-        localStorage.removeItem(key);
+    public clearData(vault: Vault): void {
+        localStorage.removeItem(vault);
     }
 }

@@ -1,5 +1,5 @@
-export class CustomError extends Error {
-    constructor(public customMessage: string) {
-        super(customMessage);
+export class GlobalError extends Error {
+    constructor(public notation: string) {
+        super(notation);
     }
 }

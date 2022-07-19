@@ -3,4 +3,4 @@ import { Component } from "@angular/core";
 @Component({
     templateUrl: "./panel.component.html",
 })
-export class SummaryPanelComponent {}
+export class PanelCashflowComponent {}
