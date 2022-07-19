@@ -1,9 +1,11 @@
 <div class="el-cashflow-box mx-lg-4">
     <div class="my-1 my-lg-2">
-        <el-list
-            [mode]="modeService.savedMode"
-            [incomesSelector]="incomesSelector"
-            [outcomesSelector]="outcomesSelector"></el-list>
+        <el-list-income
+            *ngIf="modeService.savedMode === MODE.Income"
+            [selector]="incomesSelector"></el-list-income>
+        <el-list-outcome
+            *ngIf="modeService.savedMode === MODE.Outcome"
+            [selector]="outcomesSelector"></el-list-outcome>
     </div>
     <p class="mb-2 text-end fw-bold">New record:</p>
     <form

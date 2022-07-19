@@ -11,10 +11,10 @@ import * as fromIncomeActions from "../store/income.actions";
 import * as fromOutcomeActions from "../store/outcome.actions";
 
 @Component({
-    selector: "el-list-pagination",
-    templateUrl: "./list-pagination.component.html",
+    selector: "el-content",
+    templateUrl: "./content.component.html",
 })
-export class ListPaginationComponent {
+export class ContentComponent {
     @Input()
     public mode!: Mode;
     public MODE = Mode;

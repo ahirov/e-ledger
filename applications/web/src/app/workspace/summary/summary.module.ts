@@ -15,12 +15,12 @@ import { StateService } from "./store/state.service";
 import { SummaryService } from "./summary.service";
 import { SummaryComponent } from "./summary.component";
 import { PaginationComponent } from "./pagination/pagination.component";
-import { ListPaginationComponent } from "./pagination/list-pagination.component";
+import { ContentComponent } from "./content/content.component";
 
 @NgModule({
     declarations: [
         SummaryComponent,
-        ListPaginationComponent,
+        ContentComponent,
         PaginationComponent,
     ],
     imports: [
