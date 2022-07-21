@@ -1,6 +1,6 @@
 @import "toolkit";
 
-:host > div > form > div.input-group > span.input-group-text {
+.input-group-text {
     width: 26%;
     @include media-breakpoint-down(sm) {
         width: 30%;

@@ -1,6 +1,6 @@
-<div class="el-workspace-box row">
-    <div class="el-workspace-panel order-lg-last col-lg-4 bg-light">
-        <div #elWorkspacePanelTabs class="el-workspace-panel-tabs d-flex">
+<div class="row">
+    <div class="order-lg-last col-lg-4 bg-light">
+        <div #elWorkspacePanelTabs class="d-flex">
             <button
                 type="button"
                 class="btn flex-fill"
@@ -28,7 +28,9 @@
             <button
                 type="button"
                 class="btn flex-fill"
-                (click)="onTabClick($event, ROUTINGPATH.Adjustment, MODE.Settings)">
+                (click)="
+                    onTabClick($event, ROUTINGPATH.Adjustment, MODE.Settings)
+                ">
                 <img src="../../assets/AdjustmentButton.svg" />
             </button>
             <button
@@ -38,11 +40,11 @@
                 <img src="../../assets/ExitButton.svg" />
             </button>
         </div>
-        <div class="el-workspace-panel-area">
+        <div>
             <router-outlet name="panel"></router-outlet>
         </div>
     </div>
-    <div class="el-workspace-area order-lg-first col-lg-8 bg-light">
+    <div class="order-lg-first col-lg-8 bg-light">
         <router-outlet></router-outlet>
     </div>
 </div>

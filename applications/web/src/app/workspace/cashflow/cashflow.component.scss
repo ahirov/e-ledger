@@ -1,11 +1,11 @@
 @import "toolkit";
 
-.el-cashflow-box {
+:host > div {
     > div {
         min-height: 8.3125rem;
     }
-    > form {
-        div.input-group > .input-group-text {
+    form {
+        .input-group-text {
             @include media-breakpoint-only(xs) {
                 width: $input-group-offset-xs;
             }
@@ -15,11 +15,11 @@
             @include media-breakpoint-up(md) {
                 width: 20%;
             }
-            > sup {
+            sup {
                 color: $danger;
             }
         }
-        > div:last-child button {
+        button {
             width: 80%;
         }
     }

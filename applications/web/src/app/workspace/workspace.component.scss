@@ -10,7 +10,7 @@
     );
 }
 
-.el-workspace-box {
+:host > div {
     $border: $border-width solid $primary;
     > div {
         @include media-breakpoint-up(lg) {
@@ -18,17 +18,25 @@
             min-height: 45vh;
         }
     }
-    .el-workspace-panel {
+    > div:first-child {
         @include media-breakpoint-up(lg) {
             @include border-end-radius($border-radius);
         }
-        .el-workspace-panel-tabs {
+        > div:first-child {
             @include media-breakpoint-up(lg) {
                 height: 12%;
             }
-            .btn {
+            button {
                 &:not(.el-btn-active):hover {
                     background-color: $info;
+                }
+                &.el-btn-active {
+                    margin-bottom: -1px;
+                    border: {
+                        top: $border;
+                        left: $border;
+                        right: $border;
+                    }
                 }
                 padding: 0;
                 background-color: $light;
@@ -37,16 +45,8 @@
                     padding: 0.75rem 0;
                 }
             }
-            .el-btn-active {
-                margin-bottom: -1px;
-                border: {
-                    top: $border;
-                    left: $border;
-                    right: $border;
-                }
-            }
         }
-        .el-workspace-panel-area {
+        > div:last-child {
             border: {
                 top: $border;
                 bottom: $border;
@@ -62,19 +62,21 @@
             }
         }
     }
-    .el-workspace-area {
+    > div:last-child {
         @include media-breakpoint-up(lg) {
             @include border-start-radius($border-radius);
         }
-        ::ng-deep input.ng-touched.ng-dirty.ng-invalid.elDynamicValidation,
-        ::ng-deep input.ng-touched.ng-invalid:not(.elDynamicValidation) {
-            border-color: $danger;
-            @include el-required;
-        }
-        ::ng-deep ng-select.ng-touched.ng-invalid {
-            border-color: $danger;
-            > div {
+        ::ng-deep {
+            input.ng-touched.ng-dirty.ng-invalid.el-validation,
+            input.ng-touched.ng-invalid:not(.el-validation) {
+                border-color: $danger;
                 @include el-required;
+            }
+            ng-select.ng-touched.ng-invalid {
+                border-color: $danger;
+                > div {
+                    @include el-required;
+                }
             }
         }
     }

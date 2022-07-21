@@ -1,32 +1,29 @@
 @import "toolkit";
 
-.el-auth-title {
-    font-family: TitleFont;
-}
-
-.el-auth-box {
+:host > div {
     margin-top: 20vh;
-}
-
-.el-auth-box form > div.input-group > span.input-group-text,
-.el-auth-signup-switch {
-    width: 30%;
-    @include media-breakpoint-down(sm) {
-        width: 32%;
+    .el-title {
+        font-family: TitleFont;
     }
-}
-
-.el-auth-signup-switch {
-    margin: 2px 0 10px 0;
-}
-
-.el-auth-continue-button {
-    width: 30%;
-    @include media-breakpoint-down(sm) {
-        width: 50%;
+    form {
+        .input-group-text,
+        .el-form-switch {
+            width: 30%;
+            @include media-breakpoint-down(sm) {
+                width: 32%;
+            }
+        }
+        .el-space {
+            height: 8px;
+        }
+        .el-form-switch {
+            margin: 2px 0 10px 0;
+        }
+        .btn {
+            width: 30%;
+            @include media-breakpoint-down(sm) {
+                width: 50%;
+            }
+        }
     }
-}
-
-.el-auth-space {
-    height: 8px;
 }

@@ -1,6 +1,6 @@
 @import "toolkit";
 
-.el-enumerations-box {
+:host > div {
     @include media-breakpoint-up(lg) {
         margin-top: 2.5rem;
     }
@@ -23,16 +23,18 @@
             margin-bottom: 0.25rem;
             border: 1px solid $primary;
             border-radius: $border-radius;
-            > div > div {
-                overflow-x: hidden;
-            }
-            > div > button {
-                border: 2px solid $dark;
-                display: block;
-                width: 1.5rem;
-                padding: 0;
-                > img {
+            > div {
+                > div {
+                    overflow-x: hidden;
+                }
+                > button {
+                    border: 2px solid $dark;
                     display: block;
+                    width: 1.5rem;
+                    padding: 0;
+                    > img {
+                        display: block;
+                    }
                 }
             }
         }

@@ -1,4 +1,4 @@
-<div class="el-chart-box mx-lg-4">
+<div class="mx-lg-4">
     <p class="mt-3 text-end fw-bold">Charts:</p>
     <div class="row">
         <div class="col-md-6">
@@ -34,16 +34,24 @@
                 class="btn btn-sm btn-outline-primary w-50 me-3 my-2 fw-bold"
                 [class.active]="chartMode === 'period'"
                 (click)="chartMode = 'period'">
-                <span *ngIf="modeService.savedMode === MODE.Income">Per day</span>
-                <span *ngIf="modeService.savedMode === MODE.Outcome">Per month</span>
+                <span *ngIf="modeService.savedMode === MODE.Income"
+                    >Per day</span
+                >
+                <span *ngIf="modeService.savedMode === MODE.Outcome"
+                    >Per month</span
+                >
             </button>
             <button
                 type="button"
                 class="btn btn-sm btn-outline-primary w-50 ms-3 my-2 fw-bold"
                 [class.active]="chartMode === 'section'"
                 (click)="chartMode = 'section'">
-                <span *ngIf="modeService.savedMode === MODE.Income">Per source</span>
-                <span *ngIf="modeService.savedMode === MODE.Outcome">Per category</span>
+                <span *ngIf="modeService.savedMode === MODE.Income"
+                    >Per source</span
+                >
+                <span *ngIf="modeService.savedMode === MODE.Outcome"
+                    >Per category</span
+                >
             </button>
         </div>
     </div>

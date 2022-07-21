@@ -1,4 +1,4 @@
-<div class="el-cashflow-box mx-lg-4">
+<div class="mx-lg-4">
     <div class="my-1 my-lg-2">
         <el-list-income
             *ngIf="modeService.savedMode === MODE.Income"
@@ -19,7 +19,7 @@
                 <input
                     #elFrom="ngModel"
                     type="text"
-                    class="elDynamicValidation form-control"
+                    class="el-validation form-control"
                     name="from"
                     ngModel
                     required
@@ -31,7 +31,7 @@
                 <input
                     #elTo="ngModel"
                     type="text"
-                    class="elDynamicValidation form-control"
+                    class="el-validation form-control"
                     name="to"
                     ngModel
                     required
@@ -55,7 +55,7 @@
                 <input
                     #elDate="ngModel"
                     type="text"
-                    class="elDynamicValidation form-control"
+                    class="el-validation form-control"
                     name="date"
                     ngModel
                     required
