@@ -30,7 +30,7 @@ const BS_DATEPICKER_VALIDATOR: Provider = {
 };
 
 @Directive({
-    selector: "input[datepicker]",
+    selector: "input[elDatepicker]",
     host: {
         "(change)": "onChange($event)",
         "(keydown)": "onKeydownEvent($event)",
@@ -52,8 +52,8 @@ export class DatepickerInputDirective extends BsDatepickerInputDirective {
 }
 
 @Directive({
-    selector: "[datepicker]",
-    exportAs: "datepicker",
+    selector: "[elDatepicker]",
+    exportAs: "elDatepicker",
 })
 export class DatepickerDirective extends BsDatepickerDirective {
     constructor(
