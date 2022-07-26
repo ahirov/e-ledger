@@ -7,7 +7,7 @@ import { read, utils } from "xlsx";
 import { IImportService } from "../model/import.model";
 import { ISource } from "../../adjustment/model/income.model";
 import { ICategory } from "../../adjustment/model/outcome.model";
-import { GlobalError } from "../../../error/error.model";
+import { GlobalError } from "../../../shared/error/error.model";
 import { Mode } from "../../workspace-routing.service";
 import { ImportIncomeService } from "./import-income.service";
 import { ImportOutcomeService } from "./import-outcome.service";

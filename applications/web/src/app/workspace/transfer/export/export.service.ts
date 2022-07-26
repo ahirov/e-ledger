@@ -4,7 +4,7 @@ import { BsModalService } from "ngx-bootstrap/modal";
 import { map, take, tap } from "rxjs/operators";
 import { writeFile, utils } from "xlsx";
 
-import { GlobalError } from "../../../error/error.model";
+import { GlobalError } from "../../../shared/error/error.model";
 import { IExportFilter, IExportService } from "../model/export.model";
 import { MessageDialog } from "../../../shared/dialog/message.dialog";
 import { Mode } from "../../workspace-routing.service";

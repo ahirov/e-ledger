@@ -13,8 +13,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { environment } from "../environments/environment";
 
 import { AppComponent } from "./app.component";
-import { ErrorDialog } from "./error/dialog/error.dialog";
-import { GlobalErrorHandler } from "./error/error.handler";
+import { ErrorDialog } from "./shared/error/dialog/error.dialog";
+import { GlobalErrorHandler } from "./shared/error/error.handler";
 
 @NgModule({
     declarations: [AppComponent],

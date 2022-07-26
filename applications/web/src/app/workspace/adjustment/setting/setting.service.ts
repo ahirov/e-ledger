@@ -4,7 +4,7 @@ import { take } from "rxjs/operators";
 import { BsModalService } from "ngx-bootstrap/modal";
 
 import { SettingDialog } from "./dialog/setting.dialog";
-import { ErrorDialog } from "../../../error/dialog/error.dialog";
+import { ErrorDialog } from "../../../shared/error/dialog/error.dialog";
 import { AdjustmentService } from "../adjustment.service";
 import { ICredentials } from "../model/credentials.model";
 import { DialogMode } from "../model/state.model";

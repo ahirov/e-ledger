@@ -3,7 +3,7 @@ import { BsModalService, ModalOptions } from "ngx-bootstrap/modal";
 
 import { GlobalError } from "./error.model";
 import { ErrorDialog } from "./dialog/error.dialog";
-import { environment } from "../../environments/environment";
+import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {

@@ -5,7 +5,7 @@ import { NgForm } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { Extension } from "./model/extension.model";
 import { ExportFilter } from "./model/export.model";
-import { GlobalError } from "../../error/error.model";
+import { GlobalError } from "../../shared/error/error.model";
 
 import { ExportService } from "./export/export.service";
 import { ImportService } from "./import/import.service";
