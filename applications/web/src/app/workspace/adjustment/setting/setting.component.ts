@@ -1,11 +1,14 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { NgForm } from "@angular/forms";
+import { NgForm, NgModel } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 
+import { ControlErrorService } from "../../../shared/control/control-error.service";
 import { SettingService } from "./setting.service";
 import { DialogMode, SyncMode } from "../model/state.model";
-import { Credentials, ICredentials } from "../model/credentials.model";
+import { CredentialsView, ICredentialsView } from "../model/credentials.model";
+
+import { environment } from "applications/web/src/environments/environment";
 import { selectors as dataSelectors } from "../../../auth/store/auth.selectors";
 import { selectors } from "../store/adjustment.selectors";
 import * as fromActions from "../store/adjustment.actions";
@@ -16,35 +19,33 @@ import * as fromActions from "../store/adjustment.actions";
     styleUrls: ["./setting.component.scss"],
 })
 export class SettingsComponent implements OnInit, OnDestroy {
-    private _mockPassword = "xxxxxxxx";
-    private _isMockPassword!: boolean;
     private _userSub!: Subscription;
     private _errorSub!: Subscription;
     private _modeSub!: Subscription;
 
+    public formSubmitted!: boolean;
+    public credentials!: ICredentialsView;
     public syncModes!: { id: number; name: string }[];
-    public email!: string;
-    public password!: string;
-    public passwordConfirm!: string;
+    public passwordMinLength = environment.passwordMinLength;
 
     constructor(
         private _settingService: SettingService,
+        private _errorService: ControlErrorService,
         private _store$: Store,
     ) {}
 
     public ngOnInit(): void {
+        this.formSubmitted = false;
+        this.credentials = new CredentialsView();
         this.syncModes = [
             { id: SyncMode.Never, name: "never" },
             { id: SyncMode.OneMinute, name: "1 minute" },
             { id: SyncMode.FiveMinutes, name: "5 minutes" },
         ];
-        this._isMockPassword = true;
-        this.passwordConfirm = this._mockPassword;
-        this.password = this._mockPassword;
         this._userSub = this._store$
             .select(dataSelectors.user)
             .subscribe(user => {
-                this.email = user?.email || "";
+                this.credentials.email = user?.email || "";
             });
         this._modeSub = this._store$.select(selectors.mode).subscribe(value => {
             switch (value) {
@@ -53,7 +54,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
                     break;
                 case DialogMode.ReAuth:
                     this._settingService.showReAuthDialog(
-                        this.getCredentials(),
+                        this.credentials.get(),
                     );
                     break;
             }
@@ -79,21 +80,16 @@ export class SettingsComponent implements OnInit, OnDestroy {
         }
     }
 
-    public onPasswordFocus(): void {
-        if (this._isMockPassword) {
-            this.password = "";
-            this.passwordConfirm = "";
-            this._isMockPassword = false;
-        }
-    }
-
     public onSubmit(form: NgForm): void {
+        this.formSubmitted = true;
+        form.control.markAllAsTouched();
         if (form.valid) {
             this._store$.dispatch(
                 fromActions.saveSettings({
-                    payload: this.getCredentials(),
+                    payload: this.credentials.get(),
                 }),
             );
+            this.formSubmitted = false;
         }
     }
 
@@ -101,10 +97,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
         this.ngOnInit();
     }
 
-    private getCredentials(): ICredentials {
-        return new Credentials(
-            this.email,
-            !this._isMockPassword ? this.password : null,
-        );
+    public getErrorMessage(item: NgModel): string {
+        return this._errorService
+            .getErrorMessages(item.name, item.control)
+            .join(" ");
     }
 }

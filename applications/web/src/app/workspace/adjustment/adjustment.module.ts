@@ -7,11 +7,11 @@ import { SettingDialog } from "./setting/dialog/setting.dialog";
 import { SettingService } from "./setting/setting.service";
 import { AdjustmentService } from "./adjustment.service";
 import { AdjustmentResponseService } from "./adjustment-response.service";
-import { PasswordDirective } from "./setting/password.directive";
 import { AdjustmentComponent } from "./adjustment.component";
 import { SettingsComponent } from "./setting/setting.component";
 import { EnumerationsComponent } from "./enumeration/enumeration.component";
 import { WorkspaceSharedModule } from "../shared/workspace-shared.module";
+import { ControlSharedModule } from "../../shared/control/control-shared.module";
 import { SharedModule } from "../../shared/shared.module";
 
 import { Feature } from "../../shared/store/app.model";
@@ -20,7 +20,6 @@ import { AdjustmentEffects } from "./store/adjustment.effects";
 
 @NgModule({
     declarations: [
-        PasswordDirective,
         AdjustmentComponent,
         EnumerationsComponent,
         SettingsComponent,
@@ -28,6 +27,7 @@ import { AdjustmentEffects } from "./store/adjustment.effects";
     ],
     imports: [
         SharedModule,
+        ControlSharedModule,
         WorkspaceSharedModule,
         SortableModule.forRoot(),
         StoreModule.forFeature(Feature.Adjustment, adjustmentReducer),

@@ -26,7 +26,7 @@ export class GlobalErrorHandler implements ErrorHandler {
             return error.notation;
         } else {
             if (environment.production) {
-                return "Unknown error!";
+                return "An unknown error has occurred!";
             } else {
                 return error instanceof Error
                     ? error.message

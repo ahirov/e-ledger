@@ -28,7 +28,7 @@ export class AuthResponseService {
     }
 
     public processError(response: any): string {
-        let message = "An unknown error occurred!";
+        let message = "An unknown error has occurred!";
         if (response?.error?.error) {
             switch (response.error.error.message) {
                 case "EMAIL_EXISTS":

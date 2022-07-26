@@ -19,6 +19,9 @@
                 width: 18%;
             }
         }
+        .input-group + p {
+            height: 1.125rem;
+        }
         button {
             width: 80%;
         }

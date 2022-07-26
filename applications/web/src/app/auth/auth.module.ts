@@ -5,6 +5,7 @@ import { CommonModule } from "@angular/common";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 
+import { ControlSharedModule } from "../shared/control/control-shared.module";
 import { AuthComponent } from "./auth.component";
 import { AuthLoginService } from "./auth-login.service";
 import { AuthErrorService } from "./auth-error.service";
@@ -19,6 +20,7 @@ import { authReducer } from "./store/auth.reducer";
     imports: [
         CommonModule,
         FormsModule,
+        ControlSharedModule,
         RouterModule.forChild([{ path: "auth", component: AuthComponent }]),
         StoreModule.forFeature(Feature.Auth, authReducer),
         EffectsModule.forFeature([AuthEffects]),

@@ -5,49 +5,64 @@
     >Saving data to the server<br />(required)</ng-template
 >
 <div>
-    <p class="mt-3 mb-2 text-end fw-bold">
-        User<img
-            class="align-top"
-            src="../../../assets/QuestionMark.svg"
-            [tooltip]="elUserTooltip"
-            placement="left" />:
-    </p>
     <form
         #elSettingForm="ngForm"
         autocomplete="off"
         novalidate
         (ngSubmit)="onSubmit(elSettingForm)">
-        <div class="input-group input-group-sm mb-3">
+        <p class="mt-3 mb-2 text-end fw-bold">
+            User<img
+                class="align-top"
+                src="../../../assets/QuestionMark.svg"
+                [tooltip]="elUserTooltip"
+                placement="left" />:
+        </p>
+        <div class="input-group input-group-sm">
             <span class="input-group-text">Email:</span>
             <input
+                #elEmail="ngModel"
                 class="form-control"
                 type="email"
                 name="email"
-                [(ngModel)]="email"
+                [(ngModel)]="credentials.email"
                 email
                 required />
         </div>
-        <div class="input-group input-group-sm mb-3">
+        <p class="el-text-small text-danger text-end">
+            {{ getErrorMessage(elEmail) }}
+        </p>
+        <div class="input-group input-group-sm">
             <span class="input-group-text">Password:</span>
             <input
+                #elPassword="ngModel"
                 class="form-control"
                 type="password"
                 name="password"
-                [(ngModel)]="password"
-                passwordsIdentical="passwordConfirm"
-                (focus)="onPasswordFocus()" />
+                [(ngModel)]="credentials.password"
+                required
+                elEqualPasswords="passwordConfirm"
+                [minlength]="passwordMinLength"
+                (focus)="credentials.reset()" />
         </div>
-        <div class="input-group input-group-sm mb-3">
+        <p class="el-text-small text-danger text-end">
+            {{ getErrorMessage(elPassword) }}
+        </p>
+        <div class="input-group input-group-sm">
             <span class="input-group-text">Password:</span>
             <input
+                #elPasswordConfirm="ngModel"
                 class="form-control"
                 type="password"
                 name="passwordConfirm"
                 placeholder="confirm the password.."
-                [(ngModel)]="passwordConfirm"
-                passwordsIdentical="password"
-                (focus)="onPasswordFocus()" />
+                [(ngModel)]="credentials.passwordConfirm"
+                required
+                elEqualPasswords="password"
+                (focus)="credentials.reset()" />
         </div>
+        <p class="el-text-small text-danger text-end">
+            {{ getErrorMessage(elPasswordConfirm) }}
+        </p>
         <hr />
         <p class="mb-2 text-end fw-bold">
             Workflow<img
@@ -74,7 +89,7 @@
                 <button
                     type="submit"
                     class="btn btn-sm btn-primary fw-bold"
-                    [disabled]="elSettingForm.invalid">
+                    [disabled]="formSubmitted && elSettingForm.invalid">
                     Save
                 </button>
             </div>

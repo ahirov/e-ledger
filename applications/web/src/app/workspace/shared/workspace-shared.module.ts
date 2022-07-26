@@ -1,3 +1,4 @@
+import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { NgSelectModule } from "@ng-select/ng-select";
@@ -9,7 +10,12 @@ import {
 
 @NgModule({
     declarations: [DatepickerDirective, DatepickerInputDirective],
-    imports: [FormsModule, NgSelectModule, BsDatepickerModule.forRoot()],
+    imports: [
+        CommonModule,
+        FormsModule,
+        NgSelectModule,
+        BsDatepickerModule.forRoot(),
+    ],
     exports: [
         FormsModule,
         NgSelectModule,

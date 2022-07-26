@@ -29,6 +29,8 @@
                     name="password"
                     ngModel
                     required
+                    elEqualPasswords="passwordConfirm"
+                    [minlength]="passwordMinLength"
                     (focus)="onFocus()" />
             </div>
             <div *ngIf="isSignUpMode" [@authSignUpTrigger] class="input-group">
@@ -40,6 +42,7 @@
                     placeholder="confirm the password.."
                     ngModel
                     required
+                    elEqualPasswords="password"
                     (focus)="onFocus()" />
             </div>
             <div
@@ -67,7 +70,7 @@
                 <button
                     type="submit"
                     class="btn btn-primary fw-bold"
-                    [disabled]="elAuthForm.invalid">
+                    [disabled]="formSubmitted && elAuthForm.invalid">
                     Continue
                 </button>
             </div>

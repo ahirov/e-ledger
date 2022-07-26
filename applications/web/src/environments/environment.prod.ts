@@ -9,6 +9,8 @@ export const environment = {
     webApiSignupUrl: `${webApiUrl}signUp${webApiParameter}`,
     webApiLoginUrl:  `${webApiUrl}signInWithPassword${webApiParameter}`,
 
+    passwordMinLength: 6,
+
     pagePreviewItemsCount: 3,
     pageItemsCount: 6,
 

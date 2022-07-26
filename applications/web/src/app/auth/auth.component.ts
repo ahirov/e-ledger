@@ -6,6 +6,8 @@ import { Subscription } from "rxjs";
 import { AuthRequest } from "./model/request.model";
 import { AuthErrorService } from "./auth-error.service";
 import { authAnimations } from "./auth.animations";
+
+import { environment } from "../../environments/environment";
 import { selectors } from "./store/auth.selectors";
 import * as fromActions from "../auth/store/auth.actions";
 
@@ -18,7 +20,9 @@ export class AuthComponent implements OnInit, OnDestroy {
     private _extraError: string | null = null;
     private _storeSub!: Subscription;
 
+    public formSubmitted!: boolean;
     public isSignUpMode = false;
+    public passwordMinLength = environment.passwordMinLength;
 
     constructor(
         private _errorService: AuthErrorService,
@@ -26,6 +30,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     ) {}
 
     public ngOnInit(): void {
+        this.formSubmitted = false;
         this._storeSub = this._store$
             .select(selectors.error)
             .subscribe(error => {
@@ -52,29 +57,20 @@ export class AuthComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(form: NgForm): void {
+        this.formSubmitted = true;
+        form.control.markAllAsTouched();
         if (form.valid) {
-            const email    = form.value.email;
-            const password = form.value.password;
+            const request = new AuthRequest(
+                form.value.email,
+                form.value.password,
+            );
             if (this.isSignUpMode) {
-                const passwordConfirm = form.value.passwordConfirm;
-                if (password === passwordConfirm) {
-                    this._store$.dispatch(
-                        new fromActions.SignupStart(
-                            new AuthRequest(email, password),
-                        ),
-                    );
-                    form.reset();
-                } else {
-                    this._extraError = "Passwords do not match!";
-                }
+                this._store$.dispatch(new fromActions.SignupStart(request));
             } else {
-                this._store$.dispatch(
-                    new fromActions.LoginStart(
-                        new AuthRequest(email, password),
-                    ),
-                );
-                form.reset();
+                this._store$.dispatch(new fromActions.LoginStart(request));
             }
+            form.reset();
+            this.formSubmitted = false;
         }
     }
 
@@ -83,7 +79,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     }
 
     public getErrorMessages(form: NgForm): string[] {
-        return this._errorService.getMessages(form, this._extraError);
+        return this._errorService.getErrorMessages(form, this._extraError);
     }
 
     private clearExtraError(): void {
