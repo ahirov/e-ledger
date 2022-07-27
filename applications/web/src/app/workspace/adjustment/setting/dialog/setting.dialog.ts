@@ -19,7 +19,7 @@ export class SettingDialog {
 
     public onSubmit(form: NgForm): void {
         if (form.valid && this.credentials) {
-            const email    = form.value.email;
+            const email = form.value.email;
             const password = form.value.password;
 
             this._store$.dispatch(

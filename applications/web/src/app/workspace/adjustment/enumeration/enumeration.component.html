@@ -13,7 +13,7 @@
 <div>
     <div class="row">
         <div class="col-md-6">
-            <p class="mt-3 text-end fw-bold">Sources:</p>
+            <p class="text-end fw-bold">Sources:</p>
             <bs-sortable
                 #elSourceItems
                 [itemTemplate]="elItemTemplate"
@@ -23,7 +23,7 @@
                 placeholderItem="no items..."
                 placeholderClass="text-center"
                 wrapperClass="el-wrapper"></bs-sortable>
-            <div class="input-group input-group-sm">
+            <div class="input-group input-group-sm mb-3">
                 <input
                     #elSource="ngModel"
                     autocomplete="off"
@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <p class="mt-3 text-end fw-bold">Categories:</p>
+            <p class="text-end fw-bold">Categories:</p>
             <bs-sortable
                 #elCategoryItems
                 [itemTemplate]="elItemTemplate"
@@ -51,7 +51,7 @@
                 placeholderItem="no items..."
                 placeholderClass="text-center"
                 wrapperClass="el-wrapper"></bs-sortable>
-            <div class="input-group input-group-sm">
+            <div class="input-group input-group-sm mb-3">
                 <input
                     #elCategory="ngModel"
                     autocomplete="off"
@@ -69,7 +69,7 @@
             </div>
         </div>
     </div>
-    <div class="row mt-3 mb-4 text-center">
+    <div class="row mb-4 text-center">
         <div class="col-6">
             <button
                 type="button"

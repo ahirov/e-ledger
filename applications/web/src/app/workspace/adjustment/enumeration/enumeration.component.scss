@@ -1,9 +1,6 @@
 @import "toolkit";
 
 :host > div {
-    @include media-breakpoint-up(lg) {
-        margin-top: 2.5rem;
-    }
     ::ng-deep .el-wrapper {
         @include media-breakpoint-down(sm) {
             @include font-size(0.75rem);

@@ -104,12 +104,15 @@
                 <button
                     type="submit"
                     class="btn btn-sm btn-primary fw-bold"
-                    [disabled]="elCashflowForm.invalid">
+                    [disabled]="formSubmitted && elCashflowForm.invalid">
                     Add
                 </button>
             </div>
             <div class="col-6">
-                <button type="reset" class="btn btn-sm btn-primary fw-bold">
+                <button
+                    type="button"
+                    class="btn btn-sm btn-primary fw-bold"
+                    (click)="onClear(elCashflowForm)">
                     Clear
                 </button>
             </div>

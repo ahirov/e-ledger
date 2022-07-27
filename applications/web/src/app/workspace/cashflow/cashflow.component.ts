@@ -25,6 +25,7 @@ export class CashflowComponent implements OnInit, OnDestroy {
     private _form!: NgForm;
 
     public MODE = Mode;
+    public formSubmitted!: boolean;
     public sources$!: Observable<ISource[]>;
     public categories$!: Observable<ICategory[]>;
     public descriptionMaxLength = environment.descriptionMaxLength;
@@ -54,10 +55,12 @@ export class CashflowComponent implements OnInit, OnDestroy {
     ) {}
 
     public ngOnInit(): void {
+        this.formSubmitted = false;
         this._paramsSub = this._route.params.subscribe(params => {
             this.modeService.saveMode(params);
             if (this._form) {
                 this._form.reset();
+                this.formSubmitted = false;
             }
         });
         this.sources$ = this._store$.select(selectors.sources);
@@ -71,13 +74,27 @@ export class CashflowComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(form: NgForm): void {
-        if (form.valid) {
-            if (this.modeService.savedMode === Mode.Income) {
+        this.formSubmitted = true;
+        form.control.markAllAsTouched();
+        if (this.modeService.savedMode === Mode.Income) {
+            form.controls.from.markAsDirty();
+            form.controls.to.markAsDirty();
+            if (form.valid) {
                 this._cashflowService.addIncome(form);
-            }
-            if (this.modeService.savedMode === Mode.Outcome) {
-                this._cashflowService.addOutcome(form);
+                this.formSubmitted = false;
             }
         }
+        if (this.modeService.savedMode === Mode.Outcome) {
+            form.controls.date.markAsDirty();
+            if (form.valid) {
+                this._cashflowService.addOutcome(form);
+                this.formSubmitted = false;
+            }
+        }
+    }
+
+    public onClear(form: NgForm): void {
+        form.reset();
+        this.formSubmitted = false;
     }
 }
