@@ -21,16 +21,17 @@ import { ChartService } from "../chart.service";
     templateUrl: "./chart-line.component.html",
 })
 export class ChartLineComponent implements OnInit, OnDestroy, AfterViewInit {
+    private _sub!: Subscription;
+    private _styles!: { [key in ScssVariables]: string | null };
+
+    @ViewChild(BaseChartDirective)
+    private _chart!: BaseChartDirective;
     @Input()
     public selector!: MemoizedSelector<
         object,
         IChartPoint[],
         DefaultProjectorFn<IChartPoint[]>
     >;
-    @ViewChild(BaseChartDirective)
-    private _chart!: BaseChartDirective;
-    private _styles!: { [key in ScssVariables]: string | null };
-    private _dataSub!: Subscription;
 
     public type!: ChartType;
     public data!: ChartConfiguration["data"];
@@ -46,7 +47,7 @@ export class ChartLineComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        this._dataSub = this._store$.select(this.selector).subscribe(data => {
+        this._sub = this._store$.select(this.selector).subscribe(data => {
             const datasets = this._chart?.data?.datasets;
             if (datasets && datasets.length) {
                 datasets[0].data = <any>data;
@@ -56,8 +57,8 @@ export class ChartLineComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     public ngOnDestroy(): void {
-        if (this._dataSub) {
-            this._dataSub.unsubscribe();
+        if (this._sub) {
+            this._sub.unsubscribe();
         }
     }
 

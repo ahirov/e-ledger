@@ -20,6 +20,7 @@ import { selectors } from "../adjustment/store/adjustment.selectors";
 })
 export class CashflowComponent implements OnInit, OnDestroy {
     private _sub!: Subscription;
+
     public formSubmitted!: boolean;
     public sources$!: Observable<ISource[]>;
     public categories$!: Observable<ICategory[]>;

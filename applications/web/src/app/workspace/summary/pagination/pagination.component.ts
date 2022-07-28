@@ -11,8 +11,7 @@ import * as _ from "lodash";
     styleUrls: ["./pagination.component.scss"],
 })
 export class PaginationComponent implements OnInit, OnDestroy {
-    private _activeItemSub!: Subscription;
-    private _itemsCountSub!: Subscription;
+    private _subs: Subscription[] = [];
     private _items: number[] = [];
 
     @Input()
@@ -43,27 +42,26 @@ export class PaginationComponent implements OnInit, OnDestroy {
     constructor(private _store$: Store) {}
 
     public ngOnInit(): void {
-        this._activeItemSub = this._store$
-            .select(this.activeItemSelector)
-            .subscribe(data => {
+        this._subs.push(
+            this._store$.select(this.activeItemSelector).subscribe(data => {
                 this.activeItem = data;
                 this.calculateItems();
-            });
-        this._itemsCountSub = this._store$
-            .select(this.itemsCountSelector)
-            .subscribe(data => {
+            }),
+        );
+        this._subs.push(
+            this._store$.select(this.itemsCountSelector).subscribe(data => {
                 this.itemsCount = data;
                 this.calculateItems();
-            });
+            }),
+        );
     }
 
     public ngOnDestroy(): void {
-        if (this._activeItemSub) {
-            this._activeItemSub.unsubscribe();
-        }
-        if (this._itemsCountSub) {
-            this._itemsCountSub.unsubscribe();
-        }
+        _.forEach(this._subs, sub => {
+            if (sub) {
+                sub.unsubscribe();
+            }
+        });
     }
 
     public onSelect(item: number): void {

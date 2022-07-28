@@ -10,6 +10,7 @@ import {
 import { AdjustmentService } from "../adjustment.service";
 import { ISourceView, Source, SourceView } from "../model/income.model";
 import { Category, CategoryView, ICategoryView } from "../model/outcome.model";
+
 import { environment } from "applications/web/src/environments/environment";
 import { selectors } from "../store/adjustment.selectors";
 import * as fromActions from "../store/adjustment.actions";
@@ -21,8 +22,7 @@ import * as _ from "lodash";
     styleUrls: ["./enumeration.component.scss"],
 })
 export class EnumerationsComponent implements OnInit, OnDestroy {
-    private _sourcesSub!: Subscription;
-    private _categoriesSub!: Subscription;
+    private _subs: Subscription[] = [];
 
     @ViewChild("elSourceItems")
     private _sourceItems!: SortableComponent;
@@ -39,25 +39,24 @@ export class EnumerationsComponent implements OnInit, OnDestroy {
     ) {}
 
     public ngOnInit(): void {
-        this._sourcesSub = this._store$
-            .select(selectors.viewSources)
-            .subscribe(data => {
+        this._subs.push(
+            this._store$.select(selectors.viewSources).subscribe(data => {
                 this.sources = data;
-            });
-        this._categoriesSub = this._store$
-            .select(selectors.viewCategories)
-            .subscribe(data => {
+            }),
+        );
+        this._subs.push(
+            this._store$.select(selectors.viewCategories).subscribe(data => {
                 this.categories = data;
-            });
+            }),
+        );
     }
 
     public ngOnDestroy(): void {
-        if (this._sourcesSub) {
-            this._sourcesSub.unsubscribe();
-        }
-        if (this._categoriesSub) {
-            this._categoriesSub.unsubscribe();
-        }
+        _.forEach(this._subs, sub => {
+            if (sub) {
+                sub.unsubscribe();
+            }
+        });
     }
 
     public onAdd(item: NgModel): void {

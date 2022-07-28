@@ -9,7 +9,7 @@ import { ListDialog } from "./dialog/list.dialog";
 
 @Injectable()
 export class ListService implements OnDestroy {
-    private _dialogSub: Subscription | null = null;
+    private _dialog: Subscription | null = null;
 
     constructor(
         private _modalService: BsModalService,
@@ -37,7 +37,7 @@ export class ListService implements OnDestroy {
         const dialogRef = this._modalService.show(ListDialog, initialState);
         if (dialogRef.content) {
             this.clearDialog();
-            this._dialogSub = dialogRef.content.confirmation$
+            this._dialog = dialogRef.content.confirmation$
                 .pipe(take(1))
                 .subscribe(() => {
                     this._store$.dispatch(action({ payload: id }));
@@ -47,9 +47,9 @@ export class ListService implements OnDestroy {
     }
 
     private clearDialog(): void {
-        if (this._dialogSub) {
-            this._dialogSub.unsubscribe();
-            this._dialogSub = null;
+        if (this._dialog) {
+            this._dialog.unsubscribe();
+            this._dialog = null;
         }
     }
 }

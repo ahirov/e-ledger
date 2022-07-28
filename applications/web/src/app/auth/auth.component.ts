@@ -17,8 +17,8 @@ import * as fromActions from "../auth/store/auth.actions";
     animations: authAnimations,
 })
 export class AuthComponent implements OnInit, OnDestroy {
+    private _sub!: Subscription;
     private _extraError: string | null = null;
-    private _storeSub!: Subscription;
 
     public formSubmitted!: boolean;
     public isSignUpMode = false;
@@ -31,18 +31,16 @@ export class AuthComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.formSubmitted = false;
-        this._storeSub = this._store$
-            .select(selectors.error)
-            .subscribe(error => {
-                if (error) {
-                    this._extraError = error;
-                }
-            });
+        this._sub = this._store$.select(selectors.error).subscribe(error => {
+            if (error) {
+                this._extraError = error;
+            }
+        });
     }
 
     public ngOnDestroy(): void {
-        if (this._storeSub) {
-            this._storeSub.unsubscribe();
+        if (this._sub) {
+            this._sub.unsubscribe();
         }
     }
 

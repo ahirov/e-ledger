@@ -23,16 +23,17 @@ import * as _ from "lodash";
     templateUrl: "./chart-pie.component.html",
 })
 export class ChartPieComponent implements OnInit, OnDestroy, AfterViewInit {
+    private _sub!: Subscription;
+    private _styles!: { [key in ScssVariables]: string | null };
+
+    @ViewChild(BaseChartDirective)
+    private _chart!: BaseChartDirective;
     @Input()
     public selector!: MemoizedSelector<
         object,
         IChartSection[],
         DefaultProjectorFn<IChartSection[]>
     >;
-    @ViewChild(BaseChartDirective)
-    private _chart!: BaseChartDirective;
-    private _styles!: { [key in ScssVariables]: string | null };
-    private _dataSub!: Subscription;
 
     public type!: ChartType;
     public data!: ChartConfiguration["data"];
@@ -50,7 +51,7 @@ export class ChartPieComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        this._dataSub = this._store$.select(this.selector).subscribe(data => {
+        this._sub = this._store$.select(this.selector).subscribe(data => {
             const chartData = this._chart?.data;
             if (chartData && chartData.datasets && chartData.datasets.length) {
                 chartData.datasets[0].data = data.length
@@ -65,8 +66,8 @@ export class ChartPieComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     public ngOnDestroy(): void {
-        if (this._dataSub) {
-            this._dataSub.unsubscribe();
+        if (this._sub) {
+            this._sub.unsubscribe();
         }
     }
 
