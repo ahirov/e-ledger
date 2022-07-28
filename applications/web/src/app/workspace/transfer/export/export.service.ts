@@ -7,7 +7,8 @@ import { writeFile, utils } from "xlsx";
 import { GlobalError } from "../../../shared/error/error.model";
 import { IExportFilter, IExportService } from "../model/export.model";
 import { MessageDialog } from "../../../shared/dialog/message.dialog";
-import { Mode } from "../../workspace-routing.service";
+
+import { ModeService } from "../../workspace-mode.service";
 import { ExportIncomeService } from "../export/export-income.service";
 import { ExportOutcomeService } from "../export/export-outcome.service";
 import { selectors as dataSelectors } from "../../data/store/state.selectors";
@@ -18,16 +19,17 @@ export class ExportService {
         private _incomeService: ExportIncomeService,
         private _outcomeService: ExportOutcomeService,
         private _modalService: BsModalService,
+        private _modeService: ModeService,
         private _store$: Store,
     ) {}
 
-    public download(filter: IExportFilter, mode: Mode): void {
+    public download(filter: IExportFilter): void {
         if (filter.from <= filter.to) {
-            if (mode === Mode.Income) {
+            if (this._modeService.isIncome()) {
                 const incomeSelector = dataSelectors.income.items;
                 this.process(filter, this._incomeService, incomeSelector);
             }
-            if (mode === Mode.Outcome) {
+            if (this._modeService.isOutcome()) {
                 const outcomeSelector = dataSelectors.outcome.items;
                 this.process(filter, this._outcomeService, outcomeSelector);
             }

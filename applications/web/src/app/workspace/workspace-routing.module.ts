@@ -11,9 +11,6 @@ import { AdjustmentComponent } from "./adjustment/adjustment.component";
 import { ExitComponent } from "./exit/exit.component";
 
 import { PanelCashflowComponent } from "./panel/panel-cashflow.component";
-import { PanelSummaryComponent } from "./panel/panel-summary.component";
-import { PanelChartComponent } from "./panel/panel-chart.component";
-import { PanelTransferComponent } from "./panel/panel-transfer.component";
 import { PanelAdjustmentComponent } from "./panel/panel-adjustment.component";
 import { PanelExitComponent } from "./panel/panel-exit.component";
 
@@ -24,7 +21,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         children: [
             {
-                path: "cashflow/:mode",
+                path: "cashflow",
                 children: [
                     {
                         path: "",
@@ -39,7 +36,7 @@ const routes: Routes = [
                 ],
             },
             {
-                path: "summary/:mode",
+                path: "summary",
                 children: [
                     {
                         path: "",
@@ -49,12 +46,12 @@ const routes: Routes = [
                     {
                         path: "",
                         outlet: "panel",
-                        component: PanelSummaryComponent,
+                        component: PanelCashflowComponent,
                     },
                 ],
             },
             {
-                path: "chart/:mode",
+                path: "chart",
                 children: [
                     {
                         path: "",
@@ -64,12 +61,12 @@ const routes: Routes = [
                     {
                         path: "",
                         outlet: "panel",
-                        component: PanelChartComponent,
+                        component: PanelCashflowComponent,
                     },
                 ],
             },
             {
-                path: "transfer/:mode",
+                path: "transfer",
                 children: [
                     {
                         path: "",
@@ -79,12 +76,12 @@ const routes: Routes = [
                     {
                         path: "",
                         outlet: "panel",
-                        component: PanelTransferComponent,
+                        component: PanelCashflowComponent,
                     },
                 ],
             },
             {
-                path: "adjustment/:mode",
+                path: "adjustment",
                 children: [
                     {
                         path: "",
@@ -113,6 +110,7 @@ const routes: Routes = [
                     },
                 ],
             },
+            { path: "**", redirectTo: "cashflow" },
         ],
     },
 ];

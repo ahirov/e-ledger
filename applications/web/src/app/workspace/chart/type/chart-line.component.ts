@@ -13,7 +13,8 @@ import { BaseChartDirective } from "ng2-charts";
 import { Subscription } from "rxjs";
 
 import { IChartPoint } from "../model/chart.model";
-import { ChartService, ScssVariables } from "../chart.service";
+import { ScssVariables } from "../model/scss.model";
+import { ChartService } from "../chart.service";
 
 @Component({
     selector: "el-chart-line",
@@ -35,10 +36,7 @@ export class ChartLineComponent implements OnInit, OnDestroy, AfterViewInit {
     public data!: ChartConfiguration["data"];
     public options!: ChartConfiguration["options"];
 
-    constructor(
-        private _chartService: ChartService,
-        private _store$: Store,
-    ) {}
+    constructor(private _chartService: ChartService, private _store$: Store) {}
 
     public ngOnInit(): void {
         this._styles = this._chartService.styles;

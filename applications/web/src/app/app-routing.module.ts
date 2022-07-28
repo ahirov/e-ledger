@@ -7,7 +7,7 @@ const appRoutes: Routes = [
         loadChildren: () =>
             import("./workspace/workspace.module").then(m => m.WorkspaceModule),
     },
-    { path: "**", redirectTo: "/workspace" },
+    { path: "**", redirectTo: "/workspace/cashflow" },
 ];
 
 @NgModule({

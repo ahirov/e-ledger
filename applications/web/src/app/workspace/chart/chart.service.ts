@@ -1,15 +1,9 @@
 import { Injectable } from "@angular/core";
+import { ScssVariables } from "./model/scss.model";
 import * as _ from "lodash";
 
-export enum ScssVariables {
-    Success = "success",
-    Primary = "primary",
-    Light = "light",
-    Dark = "dark",
-}
-
 @Injectable()
-export class ChartService{
+export class ChartService {
     public styles: { [key in ScssVariables]: string | null } = {
         success: null,
         primary: null,

@@ -1,36 +1,18 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-
-import { Subscription } from "rxjs";
-import { Mode, RoutingService } from "../workspace-routing.service";
+import { Component } from "@angular/core";
+import { ModeService } from "../workspace-mode.service";
 
 @Component({
     templateUrl: "./adjustment.component.html",
     styleUrls: ["./adjustment.component.scss"],
 })
-export class AdjustmentComponent implements OnInit, OnDestroy {
-    private _paramsSub!: Subscription;
+export class AdjustmentComponent {
+    constructor(private _modeService: ModeService) {}
 
-    public MODE = Mode;
-    public mode: Mode | null = null;
-
-    constructor(
-        private _route: ActivatedRoute,
-        private _modeService: RoutingService,
-    ) {}
-
-    public ngOnInit(): void {
-        this._paramsSub = this._route.params.subscribe(params => {
-            const mode = this._modeService.getMode(params);
-            if (mode) {
-                this.mode = mode;
-            }
-        });
+    public isSetting(): boolean {
+        return this._modeService.isSetting();
     }
 
-    public ngOnDestroy(): void {
-        if (this._paramsSub) {
-            this._paramsSub.unsubscribe();
-        }
+    public isEnumeration(): boolean {
+        return this._modeService.isEnumeration();
     }
 }

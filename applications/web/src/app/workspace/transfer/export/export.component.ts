@@ -4,7 +4,6 @@ import { NgForm } from "@angular/forms";
 import { Extension } from "../model/extension.model";
 import { ExportFilter } from "../model/export.model";
 import { ExportService } from "./export.service";
-import { RoutingService } from "../../workspace-routing.service";
 
 @Component({
     selector: "el-export",
@@ -15,10 +14,7 @@ export class ExportComponent implements OnInit {
     public formSubmitted!: boolean;
     public extensions!: Extension[];
 
-    constructor(
-        private _exportService: ExportService,
-        public modeService: RoutingService,
-    ) {}
+    constructor(private _exportService: ExportService) {}
 
     public ngOnInit(): void {
         this.formSubmitted = false;
@@ -39,7 +35,6 @@ export class ExportComponent implements OnInit {
                     new Date(value.to).toDate(),
                     extension,
                 ),
-                this.modeService.savedMode,
             );
             form.reset();
             this.formSubmitted = false;

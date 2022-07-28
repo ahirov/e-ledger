@@ -13,7 +13,8 @@ import { BaseChartDirective } from "ng2-charts";
 import { Subscription } from "rxjs";
 
 import { IChartPoint } from "../model/chart.model";
-import { ChartService, ScssVariables } from "../chart.service";
+import { ScssVariables } from "../model/scss.model";
+import { ChartService } from "../chart.service";
 import DatalabelsPlugin from "chartjs-plugin-datalabels";
 
 @Component({
@@ -37,10 +38,7 @@ export class ChartBarComponent implements OnInit, OnDestroy, AfterViewInit {
     public options!: ChartConfiguration["options"];
     public plugins!: Plugin[];
 
-    constructor(
-        private _chartService: ChartService,
-        private _store$: Store,
-    ) {}
+    constructor(private _chartService: ChartService, private _store$: Store) {}
 
     public ngOnInit(): void {
         this._styles = this._chartService.styles;

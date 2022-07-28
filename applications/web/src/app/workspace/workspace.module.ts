@@ -16,14 +16,11 @@ import { workspaceReducer } from "./data/store/state.reducer";
 import { WorkspaceIncomeEffects } from "./data/store/income.effects";
 import { WorkspaceOutcomeEffects } from "./data/store/outcome.effects";
 
+import { ModeService } from "./workspace-mode.service";
 import { IncomeService } from "./data/store/income.service";
 import { OutcomeService } from "./data/store/outcome.service";
-import { RoutingService } from "./workspace-routing.service";
 import { WorkspaceComponent } from "./workspace.component";
 import { PanelCashflowComponent } from "./panel/panel-cashflow.component";
-import { PanelSummaryComponent } from "./panel/panel-summary.component";
-import { PanelChartComponent } from "./panel/panel-chart.component";
-import { PanelTransferComponent } from "./panel/panel-transfer.component";
 import { PanelAdjustmentComponent } from "./panel/panel-adjustment.component";
 import { PanelExitComponent } from "./panel/panel-exit.component";
 
@@ -31,9 +28,6 @@ import { PanelExitComponent } from "./panel/panel-exit.component";
     declarations: [
         WorkspaceComponent,
         PanelCashflowComponent,
-        PanelSummaryComponent,
-        PanelChartComponent,
-        PanelTransferComponent,
         PanelAdjustmentComponent,
         PanelExitComponent,
     ],
@@ -53,6 +47,6 @@ import { PanelExitComponent } from "./panel/panel-exit.component";
             WorkspaceOutcomeEffects,
         ]),
     ],
-    providers: [RoutingService, IncomeService, OutcomeService],
+    providers: [ModeService, IncomeService, OutcomeService],
 })
 export class WorkspaceModule {}

@@ -39,12 +39,12 @@
                     <label class="form-check-label"
                         >Rewrite data<sup class="text-danger">#</sup><br />
                         <span
-                            *ngIf="modeService.savedMode === MODE.Income"
+                            *ngIf="isIncome()"
                             class="el-text-small text-danger">
                             <sup>#</sup>based on range and source
                         </span>
                         <span
-                            *ngIf="modeService.savedMode === MODE.Outcome"
+                            *ngIf="isOutcome()"
                             class="el-text-small text-danger">
                             <sup>#</sup>based on date and category
                         </span></label

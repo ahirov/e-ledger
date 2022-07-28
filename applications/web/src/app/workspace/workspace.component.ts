@@ -1,19 +1,10 @@
-import {
-    AfterViewInit,
-    Component,
-    ElementRef,
-    OnInit,
-    Renderer2,
-    ViewChild,
-} from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 
 import { IIncomeData } from "./data/model/income.model";
 import { IOutcomeData } from "./data/model/outcome.model";
 import { Source } from "./adjustment/model/income.model";
 import { Category } from "./adjustment/model/outcome.model";
-import { Mode, RoutingPath, RoutingService } from "./workspace-routing.service";
 import { getIncome, getOutcome } from "./workspace.temp";
 
 import "../shared/extensions/number.extensions";
@@ -26,21 +17,8 @@ import * as fromActions from "./adjustment/store/adjustment.actions";
     templateUrl: "./workspace.component.html",
     styleUrls: ["./workspace.component.scss"],
 })
-export class WorkspaceComponent implements OnInit, AfterViewInit {
-    @ViewChild("elWorkspacePanelTabs")
-    private _tabs!: ElementRef<HTMLElement>;
-    private _activeClassName = "el-btn-active";
-
-    public MODE = Mode;
-    public ROUTINGPATH = RoutingPath;
-
-    constructor(
-        private _route: ActivatedRoute,
-        private _router: Router,
-        private _renderer: Renderer2,
-        private _routingService: RoutingService,
-        private _store$: Store,
-    ) {}
+export class WorkspaceComponent implements OnInit {
+    constructor(private _store$: Store) {}
 
     public ngOnInit(): void {
         /*////////////////// TEMP CODE!!! //////////////////*/
@@ -86,43 +64,5 @@ export class WorkspaceComponent implements OnInit, AfterViewInit {
             fromActions.saveEnums({ payload: { sources, categories } }),
         );
         /*//////////////////////////////////////////////////*/
-    }
-
-    public ngAfterViewInit(): void {
-        const buttons = this.getAllButtons();
-        this.activateButton(buttons[0], RoutingPath.Cashflow);
-    }
-
-    public onTabClick(event: Event, path: RoutingPath, mode?: Mode): void {
-        const buttons = this.getAllButtons();
-        buttons.forEach((button: HTMLButtonElement) => {
-            this._renderer.removeClass(button, this._activeClassName);
-        });
-
-        const target = event.currentTarget as HTMLButtonElement | null;
-        if (target) {
-            this.activateButton(target, path, mode);
-        }
-    }
-
-    private getAllButtons(): NodeListOf<HTMLButtonElement> {
-        return this._tabs.nativeElement.querySelectorAll<HTMLButtonElement>(
-            "button",
-        ) as NodeListOf<HTMLButtonElement>;
-    }
-
-    private activateButton(
-        button: HTMLButtonElement,
-        path: RoutingPath,
-        mode?: Mode,
-    ): void {
-        this._renderer.addClass(button, this._activeClassName);
-
-        const commands = this._routingService.hasSavedMode(path)
-            ? [path, this._routingService.savedMode]
-            : mode
-            ? [path, mode]
-            : [path];
-        this._router.navigate(commands, { relativeTo: this._route });
     }
 }

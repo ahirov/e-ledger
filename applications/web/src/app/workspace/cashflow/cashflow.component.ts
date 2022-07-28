@@ -1,6 +1,5 @@
 import { NgForm } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 
@@ -8,8 +7,9 @@ import { IIncome } from "../data/model/income.model";
 import { IOutcome } from "../data/model/outcome.model";
 import { ISource } from "../adjustment/model/income.model";
 import { ICategory } from "../adjustment/model/outcome.model";
+
 import { CashflowService } from "./cashflow.service";
-import { Mode, RoutingService } from "../workspace-routing.service";
+import { ModeService } from "../workspace-mode.service";
 import { environment } from "applications/web/src/environments/environment";
 import { selectors as dataSelectors } from "../data/store/state.selectors";
 import { selectors } from "../adjustment/store/adjustment.selectors";
@@ -19,12 +19,7 @@ import { selectors } from "../adjustment/store/adjustment.selectors";
     styleUrls: ["./cashflow.component.scss"],
 })
 export class CashflowComponent implements OnInit, OnDestroy {
-    private _paramsSub!: Subscription;
-
-    @ViewChild("elCashflowForm")
-    private _form!: NgForm;
-
-    public MODE = Mode;
+    private _sub!: Subscription;
     public formSubmitted!: boolean;
     public sources$!: Observable<ISource[]>;
     public categories$!: Observable<ICategory[]>;
@@ -48,35 +43,30 @@ export class CashflowComponent implements OnInit, OnDestroy {
     }
 
     constructor(
-        private _route: ActivatedRoute,
         private _cashflowService: CashflowService,
+        private _modeService: ModeService,
         private _store$: Store,
-        public modeService: RoutingService,
     ) {}
 
     public ngOnInit(): void {
         this.formSubmitted = false;
-        this._paramsSub = this._route.params.subscribe(params => {
-            this.modeService.saveMode(params);
-            if (this._form) {
-                this._form.reset();
-                this.formSubmitted = false;
-            }
+        this._sub = this._modeService.cashflowModes.subscribe(_mode => {
+            this.formSubmitted = false;
         });
         this.sources$ = this._store$.select(selectors.sources);
         this.categories$ = this._store$.select(selectors.categories);
     }
 
     public ngOnDestroy(): void {
-        if (this._paramsSub) {
-            this._paramsSub.unsubscribe();
+        if (this._sub) {
+            this._sub.unsubscribe();
         }
     }
 
     public onSubmit(form: NgForm): void {
         this.formSubmitted = true;
         form.control.markAllAsTouched();
-        if (this.modeService.savedMode === Mode.Income) {
+        if (this.isIncome()) {
             form.controls.from.markAsDirty();
             form.controls.to.markAsDirty();
             if (form.valid) {
@@ -84,7 +74,7 @@ export class CashflowComponent implements OnInit, OnDestroy {
                 this.formSubmitted = false;
             }
         }
-        if (this.modeService.savedMode === Mode.Outcome) {
+        if (this.isOutcome()) {
             form.controls.date.markAsDirty();
             if (form.valid) {
                 this._cashflowService.addOutcome(form);
@@ -96,5 +86,13 @@ export class CashflowComponent implements OnInit, OnDestroy {
     public onClear(form: NgForm): void {
         form.reset();
         this.formSubmitted = false;
+    }
+
+    public isIncome(): boolean {
+        return this._modeService.isIncome();
+    }
+
+    public isOutcome(): boolean {
+        return this._modeService.isOutcome();
     }
 }

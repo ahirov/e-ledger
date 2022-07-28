@@ -1,11 +1,9 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
 import { DefaultProjectorFn, MemoizedSelector, Store } from "@ngrx/store";
-import { Observable, Subscription } from "rxjs";
+import { Observable } from "rxjs";
 
+import { ModeService } from "../workspace-mode.service";
 import { IChartPoint, IChartSection } from "./model/chart.model";
-import { Mode, RoutingService } from "../workspace-routing.service";
-
 import { selectors as dataSelectors } from "../data/store/state.selectors";
 import { selectors } from "./store/state.selectors";
 import * as fromIncomeActions from "./store/income.actions";
@@ -15,10 +13,7 @@ import * as fromOutcomeActions from "./store/outcome.actions";
     templateUrl: "./chart.component.html",
     styleUrls: ["./chart.component.scss"],
 })
-export class ChartComponent implements OnInit, OnDestroy {
-    private _paramsSub!: Subscription;
-
-    public MODE = Mode;
+export class ChartComponent implements OnInit {
     public chartMode!: "period" | "section";
     public incomeYear$!: Observable<number | null>;
     public incomeYears$!: Observable<number[]>;
@@ -57,27 +52,14 @@ export class ChartComponent implements OnInit, OnDestroy {
         return selectors.outcome.sections;
     }
 
-    constructor(
-        private _route: ActivatedRoute,
-        private _store$: Store,
-        public modeService: RoutingService,
-    ) {}
+    constructor(private _store$: Store, private _modeService: ModeService) {}
 
     public ngOnInit(): void {
-        this._paramsSub = this._route.params.subscribe(params =>
-            this.modeService.saveMode(params),
-        );
         this.incomeYear$ = this._store$.select(selectors.income.year);
         this.incomeYears$ = this._store$.select(dataSelectors.income.years);
         this.outcomeYear$ = this._store$.select(selectors.outcome.year);
         this.outcomeYears$ = this._store$.select(dataSelectors.outcome.years);
         this.chartMode = "period";
-    }
-
-    public ngOnDestroy(): void {
-        if (this._paramsSub) {
-            this._paramsSub.unsubscribe();
-        }
     }
 
     public onIncomeYearSelect(year: number): void {
@@ -86,5 +68,13 @@ export class ChartComponent implements OnInit, OnDestroy {
 
     public onOutcomeYearSelect(year: number): void {
         this._store$.dispatch(fromOutcomeActions.setYear({ payload: year }));
+    }
+
+    public isIncome(): boolean {
+        return this._modeService.isIncome();
+    }
+
+    public isOutcome(): boolean {
+        return this._modeService.isOutcome();
     }
 }

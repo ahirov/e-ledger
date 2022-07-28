@@ -5,7 +5,7 @@
             <div class="input-group input-group-sm my-2">
                 <label class="input-group-text">Year:</label>
                 <ng-select
-                    *ngIf="modeService.savedMode === MODE.Income"
+                    *ngIf="isIncome()"
                     class="form-control"
                     [ngModel]="incomeYear$ | async"
                     (ngModelChange)="onIncomeYearSelect($event)">
@@ -16,7 +16,7 @@
                     </ng-option>
                 </ng-select>
                 <ng-select
-                    *ngIf="modeService.savedMode === MODE.Outcome"
+                    *ngIf="isOutcome()"
                     class="form-control"
                     [ngModel]="outcomeYear$ | async"
                     (ngModelChange)="onOutcomeYearSelect($event)">
@@ -34,29 +34,21 @@
                 class="btn btn-sm btn-outline-primary w-50 me-3 my-2 fw-bold"
                 [class.active]="chartMode === 'period'"
                 (click)="chartMode = 'period'">
-                <span *ngIf="modeService.savedMode === MODE.Income"
-                    >Per day</span
-                >
-                <span *ngIf="modeService.savedMode === MODE.Outcome"
-                    >Per month</span
-                >
+                <span *ngIf="isIncome()">Per day</span>
+                <span *ngIf="isOutcome()">Per month</span>
             </button>
             <button
                 type="button"
                 class="btn btn-sm btn-outline-primary w-50 ms-3 my-2 fw-bold"
                 [class.active]="chartMode === 'section'"
                 (click)="chartMode = 'section'">
-                <span *ngIf="modeService.savedMode === MODE.Income"
-                    >Per source</span
-                >
-                <span *ngIf="modeService.savedMode === MODE.Outcome"
-                    >Per category</span
-                >
+                <span *ngIf="isIncome()">Per source</span>
+                <span *ngIf="isOutcome()">Per category</span>
             </button>
         </div>
     </div>
     <div class="mt-2">
-        <div *ngIf="modeService.savedMode === MODE.Income">
+        <div *ngIf="isIncome()">
             <el-chart-line
                 *ngIf="chartMode === 'period'"
                 [selector]="incomeChartPointsSelector"></el-chart-line>
@@ -64,7 +56,7 @@
                 *ngIf="chartMode === 'section'"
                 [selector]="incomeChartSectionsSelector"></el-chart-pie>
         </div>
-        <div *ngIf="modeService.savedMode === MODE.Outcome">
+        <div *ngIf="isOutcome()">
             <el-chart-bar
                 *ngIf="chartMode === 'period'"
                 [selector]="outcomeChartPointsSelector"></el-chart-bar>

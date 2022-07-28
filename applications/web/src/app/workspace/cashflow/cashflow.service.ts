@@ -15,7 +15,7 @@ export class CashflowService {
         const value = form.value;
         const from = new Date(value.from);
         const to = new Date(value.to);
-        const sum = parseFloat(value.sum);
+        const sum = parseFloat(value.incomeSum);
         const sourceId = parseInt(value.source);
 
         const fromDate = from.toDate();
@@ -34,7 +34,7 @@ export class CashflowService {
     public addOutcome(form: NgForm): void {
         const value = form.value;
         const date = new Date(value.date);
-        const sum = parseFloat(value.sum);
+        const sum = parseFloat(value.outcomeSum);
         const categoryId = parseInt(value.category);
         const description = value.description;
 

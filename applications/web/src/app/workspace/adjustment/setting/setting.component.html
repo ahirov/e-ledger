@@ -42,7 +42,7 @@
                 required
                 elEqualPasswords="passwordConfirm"
                 [minlength]="passwordMinLength"
-                (focus)="credentials.reset()" />
+                (focus)="credentials.clearPassword()" />
         </div>
         <p class="el-text-small text-danger text-end">
             {{ getErrorMessage(elPassword) }}
@@ -58,7 +58,7 @@
                 [(ngModel)]="credentials.passwordConfirm"
                 required
                 elEqualPasswords="password"
-                (focus)="credentials.reset()" />
+                (focus)="credentials.clearPassword()" />
         </div>
         <p class="el-text-small text-danger text-end">
             {{ getErrorMessage(elPasswordConfirm) }}

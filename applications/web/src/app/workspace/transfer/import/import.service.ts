@@ -8,7 +8,8 @@ import { IImportService } from "../model/import.model";
 import { ISource } from "../../adjustment/model/income.model";
 import { ICategory } from "../../adjustment/model/outcome.model";
 import { GlobalError } from "../../../shared/error/error.model";
-import { Mode } from "../../workspace-routing.service";
+
+import { ModeService } from "../../workspace-mode.service";
 import { ImportIncomeService } from "./import-income.service";
 import { ImportOutcomeService } from "./import-outcome.service";
 import { MessageDialog } from "../../../shared/dialog/message.dialog";
@@ -21,10 +22,11 @@ export class ImportService {
         private _incomeService: ImportIncomeService,
         private _outcomeService: ImportOutcomeService,
         private _modalService: BsModalService,
+        private _modeService: ModeService,
         private _store$: Store,
     ) {}
 
-    public upload(file: File, isRewritten: boolean, mode: Mode): void {
+    public upload(file: File, isRewritten: boolean): void {
         var reader = new FileReader();
         reader.onload = event => {
             try {
@@ -32,14 +34,14 @@ export class ImportService {
                 const wsName = wb.SheetNames[0];
                 const ws = wb.Sheets[wsName];
                 const data = utils.sheet_to_json(ws);
-                if (mode === Mode.Income) {
+                if (this._modeService.isIncome()) {
                     this.processData(
                         data,
                         this._incomeService,
                         isRewritten ? selectors.income : enumSelectors.sources,
                     );
                 }
-                if (mode === Mode.Outcome) {
+                if (this._modeService.isOutcome()) {
                     this.processData(
                         data,
                         this._outcomeService,

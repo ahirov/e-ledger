@@ -13,7 +13,8 @@ import { BaseChartDirective } from "ng2-charts";
 import { Subscription } from "rxjs";
 
 import { IChartSection } from "../model/chart.model";
-import { ChartService, ScssVariables } from "../chart.service";
+import { ScssVariables } from "../model/scss.model";
+import { ChartService } from "../chart.service";
 import DatalabelsPlugin from "chartjs-plugin-datalabels";
 import * as _ from "lodash";
 

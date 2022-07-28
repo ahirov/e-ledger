@@ -3,10 +3,13 @@ import { NgForm, NgModel } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 
-import { ControlErrorService } from "../../../shared/control/control-error.service";
 import { SettingService } from "./setting.service";
+import { ControlErrorService } from "../../../shared/control/control-error.service";
 import { DialogMode, SyncMode } from "../model/state.model";
-import { CredentialsView, ICredentialsView } from "../model/credentials.model";
+import {
+    CredentialsView,
+    ICredentialsView,
+} from "../model/credentials-view.model";
 
 import { environment } from "applications/web/src/environments/environment";
 import { selectors as dataSelectors } from "../../../auth/store/auth.selectors";
@@ -45,7 +48,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         this._userSub = this._store$
             .select(dataSelectors.user)
             .subscribe(user => {
-                this.credentials.email = user?.email || "";
+                this.credentials.init(user?.email || "");
             });
         this._modeSub = this._store$.select(selectors.mode).subscribe(value => {
             switch (value) {
@@ -94,7 +97,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
     }
 
     public onCancel(): void {
-        this.ngOnInit();
+        this.credentials.reset();
+        this.formSubmitted = false;
     }
 
     public getErrorMessage(item: NgModel): string {

@@ -1,10 +1,10 @@
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 import { DefaultProjectorFn, MemoizedSelector } from "@ngrx/store";
 import { TypedAction } from "@ngrx/store/src/models";
 
-import { Mode } from "../../workspace-routing.service";
 import { IIncome } from "../../data/model/income.model";
 import { IOutcome } from "../../data/model/outcome.model";
+import { ModeService } from "../../workspace-mode.service";
 
 import { selectors } from "../store/state.selectors";
 import * as fromIncomeActions from "../store/income.actions";
@@ -15,10 +15,6 @@ import * as fromOutcomeActions from "../store/outcome.actions";
     templateUrl: "./content.component.html",
 })
 export class ContentComponent {
-    @Input()
-    public mode!: Mode;
-    public MODE = Mode;
-
     public get incomeAction(): (props: { payload: number }) => {
         payload: number;
     } & TypedAction<any> {
@@ -77,5 +73,15 @@ export class ContentComponent {
         DefaultProjectorFn<number>
     > {
         return selectors.outcome.pagesCount;
+    }
+
+    constructor(private _modeService: ModeService) {}
+
+    public isIncome(): boolean {
+        return this._modeService.isIncome();
+    }
+
+    public isOutcome(): boolean {
+        return this._modeService.isOutcome();
     }
 }

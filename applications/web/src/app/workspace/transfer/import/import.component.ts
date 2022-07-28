@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 
 import { GlobalError } from "../../../shared/error/error.model";
+import { ModeService } from "../../workspace-mode.service";
 import { ImportService } from "./import.service";
-import { Mode, RoutingService } from "../../workspace-routing.service";
 
 @Component({
     selector: "el-import",
@@ -12,13 +12,11 @@ import { Mode, RoutingService } from "../../workspace-routing.service";
 })
 export class ImportComponent implements OnInit {
     private _file: File | null = null;
-
-    public MODE = Mode;
     public formSubmitted!: boolean;
 
     constructor(
         private _importService: ImportService,
-        public modeService: RoutingService,
+        private _modeService: ModeService,
     ) {}
 
     public ngOnInit(): void {
@@ -31,11 +29,7 @@ export class ImportComponent implements OnInit {
         form.controls.file.markAsDirty();
         if (form.valid && this._file) {
             const isRewritten = !!form.value.isRewritten;
-            this._importService.upload(
-                this._file,
-                isRewritten,
-                this.modeService.savedMode,
-            );
+            this._importService.upload(this._file, isRewritten);
             form.reset();
             this.formSubmitted = false;
         }
@@ -51,5 +45,13 @@ export class ImportComponent implements OnInit {
                 throw new GlobalError("Multiple files cannot be used!");
             }
         }
+    }
+
+    public isIncome(): boolean {
+        return this._modeService.isIncome();
+    }
+
+    public isOutcome(): boolean {
+        return this._modeService.isOutcome();
     }
 }
