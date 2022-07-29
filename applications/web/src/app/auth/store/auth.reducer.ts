@@ -26,10 +26,10 @@ export function authReducer(
                 user: null,
                 error: action.payload,
             };
-        case fromActions.LOGOUT:
+        case fromActions.CLEAR:
             return {
-                ...state,
                 user: null,
+                error: null,
             };
         default:
             return state;

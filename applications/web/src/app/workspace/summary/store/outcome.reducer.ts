@@ -19,19 +19,34 @@ export const outcomeReducer = createReducer(
         }
         return { ...state, ids: ids };
     }),
-    on(fromActions.deleteOutcome, (state, { payload }): IOutcomeState => {
-        return {
+    on(
+        fromActions.deleteOutcome,
+        (state, { payload }): IOutcomeState => ({
             ...state,
             ids: _.filter(state.ids, item => item !== payload),
-        };
-    }),
-    on(fromActions.setFilter, (state, { payload }): IOutcomeState => {
-        return { ...state, filter: payload };
-    }),
-    on(fromActions.setPage, (state, { payload }): IOutcomeState => {
-        return { ...state, page: payload };
-    }),
-    on(fromActions.setOutput, (state, { payload }): IOutcomeState => {
-        return { ...state, ids: [...payload] };
-    }),
+        }),
+    ),
+    on(
+        fromActions.setFilter,
+        (state, { payload }): IOutcomeState => ({ ...state, filter: payload }),
+    ),
+    on(
+        fromActions.setPage,
+        (state, { payload }): IOutcomeState => ({ ...state, page: payload }),
+    ),
+    on(
+        fromActions.setOutput,
+        (state, { payload }): IOutcomeState => ({
+            ...state,
+            ids: [...payload],
+        }),
+    ),
+    on(
+        fromActions.clear,
+        (): IOutcomeState => ({
+            filter: new OutcomeFilter(),
+            page: 0,
+            ids: [],
+        }),
+    ),
 );

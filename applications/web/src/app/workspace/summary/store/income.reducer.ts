@@ -19,19 +19,31 @@ export const incomeReducer = createReducer(
         }
         return { ...state, ids: ids };
     }),
-    on(fromActions.deleteIncome, (state, { payload }): IIncomeState => {
-        return {
+    on(
+        fromActions.deleteIncome,
+        (state, { payload }): IIncomeState => ({
             ...state,
             ids: _.filter(state.ids, item => item !== payload),
-        };
-    }),
-    on(fromActions.setFilter, (state, { payload }): IIncomeState => {
-        return { ...state, filter: payload };
-    }),
-    on(fromActions.setPage, (state, { payload }): IIncomeState => {
-        return { ...state, page: payload };
-    }),
-    on(fromActions.setOutput, (state, { payload }): IIncomeState => {
-        return { ...state, ids: [...payload] };
-    }),
+        }),
+    ),
+    on(
+        fromActions.setFilter,
+        (state, { payload }): IIncomeState => ({ ...state, filter: payload }),
+    ),
+    on(
+        fromActions.setPage,
+        (state, { payload }): IIncomeState => ({ ...state, page: payload }),
+    ),
+    on(
+        fromActions.setOutput,
+        (state, { payload }): IIncomeState => ({ ...state, ids: [...payload] }),
+    ),
+    on(
+        fromActions.clear,
+        (): IIncomeState => ({
+            filter: new IncomeFilter(),
+            page: 0,
+            ids: [],
+        }),
+    ),
 );

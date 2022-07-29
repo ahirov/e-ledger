@@ -7,6 +7,7 @@ export const DELETE_OUTCOME  = "[Workspace][Outcome] Delete outcome";
 export const DELETE_OUTCOMES = "[Workspace][Outcome] Delete outcomes";
 export const PROCESS_YEARS   = "[Workspace][Outcome] Process years";
 export const SET_YEARS       = "[Workspace][Outcome] Set years";
+export const CLEAR           = "[Workspace][Outcome] Clear";
 
 export const addOutcome = createAction(
     ADD_OUTCOME,
@@ -29,3 +30,4 @@ export const processYears = createAction(
     props<{ payload: IOutcomeData[] }>(),
 );
 export const setYears = createAction(SET_YEARS, props<{ payload: number[] }>());
+export const clear = createAction(CLEAR);

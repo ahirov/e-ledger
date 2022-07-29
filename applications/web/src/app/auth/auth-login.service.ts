@@ -16,13 +16,13 @@ export class AuthLoginService {
         private _timer: AuthTimerService,
     ) {}
 
-    public processLogin(action: fromActions.LoginEnd): void {
+    public login(action: fromActions.LoginEnd): void {
         if (action.payload.isRedirected) {
             this._router.navigate(["/"]);
         }
     }
 
-    public processAutoLogin(): fromActions.AuthAction {
+    public autoLogin(): fromActions.AuthAction {
         const userData = this._storage.loadData(Vault.User);
         if (userData) {
             const user = new AuthUser(
@@ -42,7 +42,7 @@ export class AuthLoginService {
         return new UndefinedAction();
     }
 
-    public processLogout(): void {
+    public clear(): void {
         this._storage.clearData(Vault.User);
         this._timer.clearTimer();
         this._router.navigate(["/auth"]);

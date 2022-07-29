@@ -10,6 +10,7 @@ export const PROCESS_PAGE   = "[Summary][Outcome] Process page";
 export const SET_PAGE       = "[Summary][Outcome] Set page";
 export const SET_OUTPUT     = "[Summary][Outcome] Set output";
 export const PROCESS_OUTPUT = "[Summary][Outcome] Process output";
+export const CLEAR          = "[Summary][Outcome] Clear";
 
 export const addOutcome = createAction(
     ADD_OUTCOME,
@@ -37,3 +38,4 @@ export const setOutput = createAction(
     props<{ payload: string[] }>(),
 );
 export const processOutput = createAction(PROCESS_OUTPUT);
+export const clear = createAction(CLEAR);

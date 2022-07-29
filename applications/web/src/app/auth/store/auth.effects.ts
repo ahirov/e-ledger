@@ -65,7 +65,7 @@ export class AuthEffects {
         () =>
             this._actions$.pipe(
                 ofType(fromActions.LOGIN_END),
-                tap(action => this._loginService.processLogin(action)),
+                tap(action => this._loginService.login(action)),
             ),
         { dispatch: false },
     );
@@ -73,15 +73,15 @@ export class AuthEffects {
     loginAuto$ = createEffect(() =>
         this._actions$.pipe(
             ofType(fromActions.LOGIN_AUTO),
-            map(() => this._loginService.processAutoLogin()),
+            map(() => this._loginService.autoLogin()),
         ),
     );
 
-    logout$ = createEffect(
+    clear$ = createEffect(
         () =>
             this._actions$.pipe(
-                ofType(fromActions.LOGOUT),
-                tap(() => this._loginService.processLogout()),
+                ofType(fromActions.CLEAR),
+                tap(() => this._loginService.clear()),
             ),
         { dispatch: false },
     );

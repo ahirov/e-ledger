@@ -1,12 +1,13 @@
 import { createAction, props } from "@ngrx/store";
 import { IChartPoint, IChartSection } from "../model/chart.model";
 
-export const SET_YEAR     = "[Chart][Income] Set year";
-export const SET_POINTS   = "[Chart][Income] Set points";
-export const SET_SECTIONS = "[Chart][Income] Set sections";
+export const SET_YEAR         = "[Chart][Income] Set year";
+export const SET_POINTS       = "[Chart][Income] Set points";
+export const SET_SECTIONS     = "[Chart][Income] Set sections";
 export const PROCESS_YEAR     = "[Chart][Income] Process year";
 export const PROCESS_POINTS   = "[Chart][Income] Process points";
 export const PROCESS_SECTIONS = "[Chart][Income] Process sections";
+export const CLEAR            = "[Chart][Income] Clear";
 
 export const setYear = createAction(
     SET_YEAR,
@@ -23,3 +24,4 @@ export const setSections = createAction(
 export const processYear = createAction(PROCESS_YEAR);
 export const processPoints = createAction(PROCESS_POINTS);
 export const processSections = createAction(PROCESS_SECTIONS);
+export const clear = createAction(CLEAR);

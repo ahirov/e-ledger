@@ -9,7 +9,7 @@ export const LOGIN_START  = "[Auth] Login start";
 export const LOGIN_END    = "[Auth] Login end";
 export const LOGIN_FAIL   = "[Auth] Login fail";
 export const LOGIN_AUTO   = "[Auth] Login auto";
-export const LOGOUT       = "[Auth] Logout";
+export const CLEAR        = "[Auth] Clear";
 
 export class SignupStart implements Action {
     readonly type = SIGNUP_START;
@@ -23,13 +23,16 @@ export class LoginStart implements Action {
 
 export class LoginEnd implements Action {
     readonly type = LOGIN_END;
-
-    constructor(public payload: { user: IAuthUser; isRedirected: boolean }) {}
+    constructor(
+        public payload: {
+            user: IAuthUser;
+            isRedirected: boolean;
+        },
+    ) {}
 }
 
 export class LoginFail implements Action {
     readonly type = LOGIN_FAIL;
-
     constructor(public payload: string) {}
 }
 
@@ -37,8 +40,8 @@ export class LoginAuto implements Action {
     readonly type = LOGIN_AUTO;
 }
 
-export class Logout implements Action {
-    readonly type = LOGOUT;
+export class Clear implements Action {
+    readonly type = CLEAR;
 }
 
 export type AuthAction =
@@ -47,5 +50,5 @@ export type AuthAction =
     | LoginEnd
     | LoginFail
     | LoginAuto
-    | Logout
+    | Clear
     | UndefinedAction;

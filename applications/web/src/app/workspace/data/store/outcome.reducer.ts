@@ -16,19 +16,33 @@ const initialState: IOutcomeState = adapter.getInitialState({
 
 export const outcomeReducer = createReducer(
     initialState,
-    on(fromActions.addOutcome, (state, { payload }): IOutcomeState => {
-        return adapter.addOne<IOutcomeState>(payload, state);
-    }),
-    on(fromActions.addOutcomes, (state, { payload }): IOutcomeState => {
-        return adapter.addMany<IOutcomeState>(payload, state);
-    }),
-    on(fromActions.deleteOutcome, (state, { payload }): IOutcomeState => {
-        return adapter.removeOne<IOutcomeState>(payload, state);
-    }),
-    on(fromActions.deleteOutcomes, (state, { payload }): IOutcomeState => {
-        return adapter.removeMany<IOutcomeState>(payload, state);
-    }),
-    on(fromActions.setYears, (state, { payload }): IOutcomeState => {
-        return { ...state, years: [...payload] };
-    }),
+    on(
+        fromActions.addOutcome,
+        (state, { payload }): IOutcomeState => adapter.addOne(payload, state),
+    ),
+    on(
+        fromActions.addOutcomes,
+        (state, { payload }): IOutcomeState => adapter.addMany(payload, state),
+    ),
+    on(
+        fromActions.deleteOutcome,
+        (state, { payload }): IOutcomeState =>
+            adapter.removeOne(payload, state),
+    ),
+    on(
+        fromActions.deleteOutcomes,
+        (state, { payload }): IOutcomeState =>
+            adapter.removeMany(payload, state),
+    ),
+    on(
+        fromActions.setYears,
+        (state, { payload }): IOutcomeState => ({
+            ...state,
+            years: [...payload],
+        }),
+    ),
+    on(
+        fromActions.clear,
+        (): IOutcomeState => ({ ids: [], entities: {}, years: [] }),
+    ),
 );

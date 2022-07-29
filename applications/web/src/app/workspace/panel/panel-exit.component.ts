@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Store } from "@ngrx/store";
-import * as fromActions from "../../auth/store/auth.actions";
+import * as fromActions from "../../shared/store/common.actions";
 
 @Component({
     template: `<div
@@ -17,6 +17,6 @@ export class PanelExitComponent {
     constructor(private _store$: Store) {}
 
     public onLogout(): void {
-        this._store$.dispatch(new fromActions.Logout());
+        this._store$.dispatch(fromActions.clear());
     }
 }

@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from "@angular/core";
 import { Store } from "@ngrx/store";
 
 import { Subscription, timer } from "rxjs";
-import * as fromActions from "../auth/store/auth.actions";
+import * as fromActions from "../shared/store/common.actions";
 
 @Injectable()
 export class AuthTimerService implements OnDestroy {
@@ -23,7 +23,7 @@ export class AuthTimerService implements OnDestroy {
         this.clearTimer();
         this._expiration = expiration;
         this._timer = timer(expiration).subscribe(() => {
-            this._store$.dispatch(new fromActions.Logout());
+            this._store$.dispatch(fromActions.clear());
         });
     }
 

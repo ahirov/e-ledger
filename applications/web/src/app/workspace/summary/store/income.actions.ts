@@ -10,6 +10,7 @@ export const PROCESS_PAGE   = "[Summary][Income] Process page";
 export const SET_PAGE       = "[Summary][Income] Set page";
 export const SET_OUTPUT     = "[Summary][Income] Set output";
 export const PROCESS_OUTPUT = "[Summary][Income] Process output";
+export const CLEAR          = "[Summary][Income] Clear";
 
 export const addIncome = createAction(
     ADD_INCOME,
@@ -37,3 +38,4 @@ export const setOutput = createAction(
     props<{ payload: string[] }>(),
 );
 export const processOutput = createAction(PROCESS_OUTPUT);
+export const clear = createAction(CLEAR);

@@ -11,41 +11,49 @@ const initialState: IAdjustmentState = {
 
 export const adjustmentReducer = createReducer(
     initialState,
-    on(fromActions.saveEnums, (state, { payload }): IAdjustmentState => {
-        return {
+    on(
+        fromActions.saveEnums,
+        (state, { payload }): IAdjustmentState => ({
             ...state,
             sources: [...payload.sources],
             categories: [...payload.categories],
-        };
-    }),
-    on(fromActions.refreshEnums, (state): IAdjustmentState => {
-        return {
+        }),
+    ),
+    on(
+        fromActions.refreshEnums,
+        (state): IAdjustmentState => ({
             ...state,
             sources: [...state.sources],
             categories: [...state.categories],
-        };
-    }),
+        }),
+    ),
     on(
         fromActions.saveSettings,
         fromActions.loginSettings,
-        (state): IAdjustmentState => {
-            return {
-                ...state,
-                error: null,
-                mode: DialogMode.None,
-            };
-        },
+        (state): IAdjustmentState => ({
+            ...state,
+            error: null,
+            mode: DialogMode.None,
+        }),
     ),
-    on(fromActions.setError, (state, { payload }): IAdjustmentState => {
-        return {
+    on(
+        fromActions.setError,
+        (state, { payload }): IAdjustmentState => ({
             ...state,
             error: payload,
-        };
-    }),
-    on(fromActions.setMode, (state, { payload }): IAdjustmentState => {
-        return {
-            ...state,
-            mode: payload,
-        };
-    }),
+        }),
+    ),
+    on(
+        fromActions.setMode,
+        (state, { payload }): IAdjustmentState => ({ ...state, mode: payload }),
+    ),
+    on(
+        fromActions.clear,
+        (): IAdjustmentState => ({
+            sources: [],
+            categories: [],
+            error: null,
+            mode: DialogMode.None,
+        }),
+    ),
 );

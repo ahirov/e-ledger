@@ -7,6 +7,7 @@ export const DELETE_INCOME  = "[Workspace][Income] Delete income";
 export const DELETE_INCOMES = "[Workspace][Income] Delete incomes";
 export const PROCESS_YEARS  = "[Workspace][Income] Process years";
 export const SET_YEARS      = "[Workspace][Income] Set years";
+export const CLEAR          = "[Workspace][Income] Clear";
 
 export const addIncome = createAction(
     ADD_INCOME,
@@ -29,3 +30,4 @@ export const processYears = createAction(
     props<{ payload: IIncomeData[] }>(),
 );
 export const setYears = createAction(SET_YEARS, props<{ payload: number[] }>());
+export const clear = createAction(CLEAR);
