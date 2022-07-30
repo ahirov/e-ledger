@@ -18,7 +18,11 @@ import * as fromActions from "./adjustment/store/adjustment.actions";
 
 @Component({
     templateUrl: "./workspace.component.html",
-    styleUrls: ["./workspace.component.scss"],
+    styleUrls: [
+        "./scss/workspace.component.scss",
+        "./scss/workspace-panel.component.scss",
+        "./scss/workspace-container.component.scss",
+    ],
 })
 export class WorkspaceComponent implements OnInit, OnDestroy {
     private _sub!: Subscription;
