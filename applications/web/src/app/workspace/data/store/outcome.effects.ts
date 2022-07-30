@@ -3,12 +3,13 @@ import { Store } from "@ngrx/store";
 import { TypedAction } from "@ngrx/store/src/models";
 import { Actions, concatLatestFrom, createEffect, ofType } from "@ngrx/effects";
 
-import { switchMap } from "rxjs/operators";
+import { map, switchMap } from "rxjs/operators";
 import { IOutcomeData } from "../model/outcome.model";
 import { OutcomeService } from "./outcome.service";
 import { selectors } from "./state.selectors";
 import * as fromSummaryActions from "../../summary/store/outcome.actions";
 import * as fromChartActions from "../../chart/store/outcome.actions";
+import * as fromCommonActions from "./common.actions";
 import * as fromActions from "./outcome.actions";
 
 @Injectable()
@@ -27,6 +28,7 @@ export class WorkspaceOutcomeEffects {
             switchMap(action => [
                 fromActions.processYears({ payload: [action.payload] }),
                 fromSummaryActions.addOutcome(action),
+                fromCommonActions.setUnsaved(),
             ]),
         ),
     );
@@ -39,6 +41,7 @@ export class WorkspaceOutcomeEffects {
             switchMap(action => [
                 fromActions.processYears({ payload: action.payload }),
                 fromSummaryActions.processOutput(),
+                fromCommonActions.setUnsaved(),
             ]),
         ),
     );
@@ -52,7 +55,15 @@ export class WorkspaceOutcomeEffects {
                 fromActions.processYears({ payload: [] }),
                 fromSummaryActions.deleteOutcome(action),
                 fromSummaryActions.processPage(),
+                fromCommonActions.setUnsaved(),
             ]),
+        ),
+    );
+
+    deleteOutcomes$ = createEffect(() =>
+        this._actions$.pipe(
+            ofType(fromActions.DELETE_OUTCOMES),
+            map(() => fromCommonActions.setUnsaved()),
         ),
     );
 

@@ -45,6 +45,18 @@
                     padding: 0.75rem 0;
                 }
             }
+            .el-circle {
+                background-color: $danger;
+                border-radius: 50%;
+                width: 0.5rem;
+                height: 0.5rem;
+                top: 0.25rem;
+                right: 0.25rem;
+                @include media-breakpoint-up(lg) {
+                    top: 0.125rem;
+                    right: 0.125rem;
+                }
+            }
         }
         > div:last-child {
             border: {

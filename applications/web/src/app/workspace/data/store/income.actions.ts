@@ -1,13 +1,13 @@
 import { createAction, props } from "@ngrx/store";
 import { IIncomeData } from "../model/income.model";
 
-export const ADD_INCOME     = "[Workspace][Income] Add income";
-export const ADD_INCOMES    = "[Workspace][Income] Add incomes";
-export const DELETE_INCOME  = "[Workspace][Income] Delete income";
-export const DELETE_INCOMES = "[Workspace][Income] Delete incomes";
-export const PROCESS_YEARS  = "[Workspace][Income] Process years";
-export const SET_YEARS      = "[Workspace][Income] Set years";
-export const CLEAR          = "[Workspace][Income] Clear";
+export const ADD_INCOME     = "[Data][Income] Add income";
+export const ADD_INCOMES    = "[Data][Income] Add incomes";
+export const DELETE_INCOME  = "[Data][Income] Delete income";
+export const DELETE_INCOMES = "[Data][Income] Delete incomes";
+export const PROCESS_YEARS  = "[Data][Income] Process years";
+export const SET_YEARS      = "[Data][Income] Set years";
+export const CLEAR          = "[Data][Income] Clear";
 
 export const addIncome = createAction(
     ADD_INCOME,

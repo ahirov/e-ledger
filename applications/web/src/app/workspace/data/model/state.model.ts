@@ -6,10 +6,14 @@ interface IPartState<T> extends EntityState<T> {
     readonly years: number[];
 }
 
+export interface ICommonState {
+    isUnsaved: boolean;
+}
 export interface IIncomeState extends IPartState<IIncomeData> {}
 export interface IOutcomeState extends IPartState<IOutcomeData> {}
 
 export interface IDataState {
+    readonly common: ICommonState;
     readonly income: IIncomeState;
     readonly outcome: IOutcomeState;
 }

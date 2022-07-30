@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
+import { Subscription } from "rxjs";
 
 import { IIncomeData } from "./data/model/income.model";
 import { IOutcomeData } from "./data/model/outcome.model";
@@ -9,6 +10,8 @@ import { getIncome, getOutcome } from "./workspace.temp";
 
 import "../shared/extensions/number.extensions";
 import "../shared/extensions/date.extensions";
+import { selectors } from "./data/store/state.selectors";
+import * as fromCommonActions from "./data/store/common.actions";
 import * as fromIncomeActions from "./data/store/income.actions";
 import * as fromOutcomeActions from "./data/store/outcome.actions";
 import * as fromActions from "./adjustment/store/adjustment.actions";
@@ -17,10 +20,19 @@ import * as fromActions from "./adjustment/store/adjustment.actions";
     templateUrl: "./workspace.component.html",
     styleUrls: ["./workspace.component.scss"],
 })
-export class WorkspaceComponent implements OnInit {
+export class WorkspaceComponent implements OnInit, OnDestroy {
+    private _sub!: Subscription;
+    public isUnsaved = false;
+
     constructor(private _store$: Store) {}
 
     public ngOnInit(): void {
+        this._sub = this._store$
+            .select(selectors.isUnsaved)
+            .subscribe(isUnsaved => {
+                this.isUnsaved = isUnsaved;
+            });
+
         /*////////////////// TEMP CODE!!! //////////////////*/
         let item = 0;
         let date = Date.now();
@@ -46,6 +58,7 @@ export class WorkspaceComponent implements OnInit {
                 this._store$.dispatch(
                     fromOutcomeActions.addOutcomes({ payload: outcomes }),
                 );
+                this._store$.dispatch(fromCommonActions.setSaved());
             }
         }, 1);
         const sources = [
@@ -64,5 +77,11 @@ export class WorkspaceComponent implements OnInit {
             fromActions.saveEnums({ payload: { sources, categories } }),
         );
         /*//////////////////////////////////////////////////*/
+    }
+
+    public ngOnDestroy(): void {
+        if (this._sub) {
+            this._sub.unsubscribe();
+        }
     }
 }

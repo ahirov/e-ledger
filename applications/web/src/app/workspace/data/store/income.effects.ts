@@ -3,12 +3,13 @@ import { Store } from "@ngrx/store";
 import { TypedAction } from "@ngrx/store/src/models";
 import { Actions, concatLatestFrom, createEffect, ofType } from "@ngrx/effects";
 
-import { switchMap } from "rxjs/operators";
+import { map, switchMap } from "rxjs/operators";
 import { IIncomeData } from "../model/income.model";
 import { IncomeService } from "./income.service";
 import { selectors } from "./state.selectors";
 import * as fromSummaryActions from "../../summary/store/income.actions";
 import * as fromChartActions from "../../chart/store/income.actions";
+import * as fromCommonActions from "./common.actions";
 import * as fromActions from "./income.actions";
 
 @Injectable()
@@ -27,6 +28,7 @@ export class WorkspaceIncomeEffects {
             switchMap(action => [
                 fromActions.processYears({ payload: [action.payload] }),
                 fromSummaryActions.addIncome(action),
+                fromCommonActions.setUnsaved(),
             ]),
         ),
     );
@@ -39,6 +41,7 @@ export class WorkspaceIncomeEffects {
             switchMap(action => [
                 fromActions.processYears({ payload: action.payload }),
                 fromSummaryActions.processOutput(),
+                fromCommonActions.setUnsaved(),
             ]),
         ),
     );
@@ -52,7 +55,15 @@ export class WorkspaceIncomeEffects {
                 fromActions.processYears({ payload: [] }),
                 fromSummaryActions.deleteIncome(action),
                 fromSummaryActions.processPage(),
+                fromCommonActions.setUnsaved(),
             ]),
+        ),
+    );
+
+    deleteIncomes$ = createEffect(() =>
+        this._actions$.pipe(
+            ofType(fromActions.DELETE_INCOMES),
+            map(() => fromCommonActions.setUnsaved()),
         ),
     );
 

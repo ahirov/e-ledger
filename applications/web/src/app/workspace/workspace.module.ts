@@ -12,7 +12,7 @@ import { ExitModule } from "./exit/exit.module";
 import { WorkspaceRoutingModule } from "./workspace-routing.module";
 
 import { Feature } from "../shared/store/app.model";
-import { workspaceReducer } from "./data/store/state.reducer";
+import { dataReducer as dataReducer } from "./data/store/state.reducer";
 import { WorkspaceIncomeEffects } from "./data/store/income.effects";
 import { WorkspaceOutcomeEffects } from "./data/store/outcome.effects";
 
@@ -41,7 +41,7 @@ import { PanelExitComponent } from "./panel/panel-exit.component";
         ExitModule,
         WorkspaceRoutingModule,
 
-        StoreModule.forFeature(Feature.Data, workspaceReducer),
+        StoreModule.forFeature(Feature.Data, dataReducer),
         EffectsModule.forFeature([
             WorkspaceIncomeEffects,
             WorkspaceOutcomeEffects,

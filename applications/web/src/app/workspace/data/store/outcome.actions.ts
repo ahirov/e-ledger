@@ -1,13 +1,13 @@
 import { createAction, props } from "@ngrx/store";
 import { IOutcomeData } from "../model/outcome.model";
 
-export const ADD_OUTCOME     = "[Workspace][Outcome] Add outcome";
-export const ADD_OUTCOMES    = "[Workspace][Outcome] Add outcomes";
-export const DELETE_OUTCOME  = "[Workspace][Outcome] Delete outcome";
-export const DELETE_OUTCOMES = "[Workspace][Outcome] Delete outcomes";
-export const PROCESS_YEARS   = "[Workspace][Outcome] Process years";
-export const SET_YEARS       = "[Workspace][Outcome] Set years";
-export const CLEAR           = "[Workspace][Outcome] Clear";
+export const ADD_OUTCOME     = "[Data][Outcome] Add outcome";
+export const ADD_OUTCOMES    = "[Data][Outcome] Add outcomes";
+export const DELETE_OUTCOME  = "[Data][Outcome] Delete outcome";
+export const DELETE_OUTCOMES = "[Data][Outcome] Delete outcomes";
+export const PROCESS_YEARS   = "[Data][Outcome] Process years";
+export const SET_YEARS       = "[Data][Outcome] Set years";
+export const CLEAR           = "[Data][Outcome] Clear";
 
 export const addOutcome = createAction(
     ADD_OUTCOME,

@@ -9,14 +9,14 @@ import { ModeService } from "../workspace-mode.service";
             type="button"
             class="btn btn-outline-primary w-50 mx-4 my-3 my-lg-0 fw-bold"
             [class.active]="isSetting()"
-            (click)="setSetting()">
+            (click)="onSetSetting()">
             Settings
         </button>
         <button
             type="button"
             class="btn btn-outline-primary w-50 mx-4 my-3 my-lg-0 fw-bold"
             [class.active]="isEnumeration()"
-            (click)="setEnumeration()">
+            (click)="onSetEnumeration()">
             Enumerations
         </button>
     </div>`,
@@ -32,11 +32,11 @@ export class PanelAdjustmentComponent {
         return this._modeService.isEnumeration();
     }
 
-    public setSetting(): void {
+    public onSetSetting(): void {
         this._modeService.setAdjustmentMode(AdjustmentMode.Setting);
     }
 
-    public setEnumeration(): void {
+    public onSetEnumeration(): void {
         this._modeService.setAdjustmentMode(AdjustmentMode.Enumeration);
     }
 }

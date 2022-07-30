@@ -10,6 +10,7 @@ import * as _ from "lodash";
 const data = createFeatureSelector<IDataState>(Feature.Data);
 const adjustment = createFeatureSelector<IAdjustmentState>(Feature.Adjustment);
 export const selectors = {
+    isUnsaved: createSelector(data, state => state.common.isUnsaved),
     income: {
         years: createSelector(data, state => state.income.years),
         items: createSelector(data, adjustment, (state, adjustmentState) =>

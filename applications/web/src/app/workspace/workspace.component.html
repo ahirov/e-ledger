@@ -38,10 +38,13 @@
             </button>
             <button
                 type="button"
-                class="btn flex-fill"
+                class="btn flex-fill position-relative"
                 routerLink="exit"
                 routerLinkActive="el-btn-active">
                 <img src="../../assets/ExitButton.svg" />
+                <span
+                    *ngIf="isUnsaved"
+                    class="el-circle position-absolute"></span>
             </button>
         </div>
         <div>

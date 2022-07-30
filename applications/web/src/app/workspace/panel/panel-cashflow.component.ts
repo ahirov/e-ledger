@@ -9,14 +9,14 @@ import { ModeService } from "../workspace-mode.service";
             type="button"
             class="btn btn-outline-primary w-50 mx-4 my-3 my-lg-0 fw-bold"
             [class.active]="isIncome()"
-            (click)="setIncome()">
+            (click)="onSetIncome()">
             Income
         </button>
         <button
             type="button"
             class="btn btn-outline-primary w-50 mx-4 my-3 my-lg-0 fw-bold"
             [class.active]="isOutcome()"
-            (click)="setOutcome()">
+            (click)="onSetOutcome()">
             Outcome
         </button>
     </div>`,
@@ -32,11 +32,11 @@ export class PanelCashflowComponent {
         return this._modeService.isOutcome();
     }
 
-    public setIncome(): void {
+    public onSetIncome(): void {
         this._modeService.setCashflowMode(CashflowMode.Income);
     }
 
-    public setOutcome(): void {
+    public onSetOutcome(): void {
         this._modeService.setCashflowMode(CashflowMode.Outcome);
     }
 }

@@ -1,20 +1,28 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
 import { differenceInSeconds } from "date-fns";
 import { interval, Subscription } from "rxjs";
+
 import { AuthTimerService } from "../../auth/auth-timer.service";
+import { selectors } from "../data/store/state.selectors";
 
 @Component({
     templateUrl: "./exit.component.html",
     styleUrls: ["./exit.component.scss"],
 })
 export class ExitComponent implements OnInit, OnDestroy {
+    private _sub!: Subscription;
     private _interval: Subscription | null = null;
+
     private _time = 0;
     public minutes = 0;
     public seconds = 0;
-    public status!: "saved" | "unsaved";
+    public status: "saved" | "unsaved" = "saved";
 
-    constructor(private _timerService: AuthTimerService) {}
+    constructor(
+        private _timerService: AuthTimerService,
+        private _store$: Store,
+    ) {}
 
     public ngOnInit(): void {
         const expiration = this._timerService.expiration;
@@ -33,11 +41,18 @@ export class ExitComponent implements OnInit, OnDestroy {
                 });
             }
         }
-        this.status = "saved";
+        this._sub = this._store$
+            .select(selectors.isUnsaved)
+            .subscribe(isUnsaved => {
+                this.status = isUnsaved ? "unsaved" : "saved";
+            });
     }
 
     public ngOnDestroy(): void {
         this.clearInterval();
+        if (this._sub) {
+            this._sub.unsubscribe();
+        }
     }
 
     private processTime(): void {
